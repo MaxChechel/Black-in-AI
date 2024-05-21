@@ -4,7 +4,6 @@ import ScrollTrigger from "gsap/ScrollTrigger";
 
 import gradientText from "../utils/gradientText";
 gsap.registerPlugin(ScrollTrigger, SplitText);
-gsap.registerPlugin(SplitText);
 
 //Testimonial slider
 const swiperPagination = document.querySelector(".swiper-pagination");
