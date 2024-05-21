@@ -2,6 +2,7 @@
   "name": "Black in AI",
   "version": "1.0.0",
   "description": "",
+  "source": "src/index.html",
   "scripts": {
     "dev": "parcel serve 'src/**/*.js' 'src/index.html' --host 127.0.0.1",
     "build": "parcel build"
