@@ -272,3 +272,25 @@ ScrollTrigger.create({
       );
   },
 });
+
+//Sponsors
+
+const sponsorsSections = document.querySelectorAll(".sponsors_component");
+
+sponsorsSections.forEach((section) => {
+  const logos = section.querySelectorAll(".sponsors_wrapper");
+  ScrollTrigger.create({
+    trigger: section,
+    start: "top 60%",
+    end: "top 50%",
+    invalidateOnRefresh: true,
+    onEnter: () => {
+      gsap.to(logos, {
+        opacity: 1,
+        duration: 0.6,
+        ease: "circ.out",
+        stagger: { each: 0.05, from: "random" },
+      });
+    },
+  });
+});
