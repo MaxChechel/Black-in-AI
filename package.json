@@ -1,16 +1,18 @@
 {
-  "name": "template",
+  "name": "Black in AI",
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "build": "parcel build 'src/**/*.js' 'src/index.html' --public-url ./",
-    "dev": "parcel 'src/**/*.js' 'src/index.html' --open"
+    "dev": "parcel serve 'src/**/*.js' 'src/index.html' --host 127.0.0.1",
+    "build": "NODE_ENV=production parcel build 'src/**/*.js' 'src/index.html' -d 'dist/'"
   },
   "keywords": [],
   "author": "Maksym Chechel",
   "license": "ISC",
   "dependencies": {
     "gsap": "npm:@gsap/shockingly@^3.12.5",
-    "parcel": "latest"
+    "imagesloaded": "^5.0.0",
+    "parcel": "^2.11.0",
+    "swiper": "^11.0.7"
   }
 }
