@@ -2,7 +2,6 @@
   "name": "Black in AI",
   "version": "1.0.0",
   "description": "",
-  "source": "src/index.html",
   "scripts": {
     "dev": "parcel serve 'src/**/*.js' 'src/index.html' --host 127.0.0.1",
     "build": "NODE_ENV=production parcel build 'src/**/*.js' 'src/index.html' -d 'dist/'"
@@ -14,6 +13,7 @@
     "gsap": "npm:@gsap/shockingly@^3.12.5",
     "imagesloaded": "^5.0.0",
     "parcel-bundler": "^1.12.5",
+    "split-type": "^0.3.4",
     "swiper": "^11.0.7"
   }
 }
