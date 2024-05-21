@@ -4,7 +4,7 @@
   "description": "",
   "scripts": {
     "dev": "parcel serve 'src/**/*.js' 'src/index.html' --host 127.0.0.1",
-    "build": "NODE_ENV=production parcel build 'src/**/*.js' 'src/index.html' -d 'dist/'"
+    "build": "parcel build"
   },
   "keywords": [],
   "author": "Maksym Chechel",
@@ -12,7 +12,7 @@
   "dependencies": {
     "gsap": "npm:@gsap/shockingly@^3.12.5",
     "imagesloaded": "^5.0.0",
-    "parcel-bundler": "^1.12.5",
+    "parcel-bundler": "latest",
     "swiper": "^11.0.7"
   }
 }
