@@ -4,10 +4,11 @@ import ScrollTrigger from "gsap/ScrollTrigger";
 
 import gradientText from "../utils/gradientText";
 import imagesParallax from "../utils/imagesParallax";
+import dotsPattern from "../utils/dotsPattern";
 gsap.registerPlugin(ScrollTrigger, SplitText);
 
 imagesParallax();
-
+dotsPattern();
 //Testimonial slider
 const swiperPagination = document.querySelector(".swiper-pagination");
 const swiperParent = document.querySelector(".swiper");
