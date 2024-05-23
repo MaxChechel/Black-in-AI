@@ -17,7 +17,7 @@ export default function dotsPattern() {
       onEnter: () => {
         gsap.to(circles, {
           opacity: 1,
-          stagger: { each: 0.0015, from: "random" },
+          stagger: { amount: 0.0025, from: "random" },
         });
       },
     });

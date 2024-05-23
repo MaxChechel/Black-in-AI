@@ -5492,636 +5492,1324 @@ var _CSSPlugin = require("./CSSPlugin.js");
 var gsapWithCSS = exports.default = exports.gsap = _gsapCore.gsap.registerPlugin(_CSSPlugin.CSSPlugin) || _gsapCore.gsap,
   // to protect from tree shaking
   TweenMaxWithCSS = exports.TweenMax = gsapWithCSS.core.Tween;
-},{"./gsap-core.js":"../node_modules/gsap/gsap-core.js","./CSSPlugin.js":"../node_modules/gsap/CSSPlugin.js"}],"../node_modules/gsap/utils/strings.js":[function(require,module,exports) {
+},{"./gsap-core.js":"../node_modules/gsap/gsap-core.js","./CSSPlugin.js":"../node_modules/gsap/CSSPlugin.js"}],"../node_modules/split-type/dist/index.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.emojiExp = void 0;
-exports.emojiSafeSplit = emojiSafeSplit;
-exports.getText = getText;
-exports.splitInnerHTML = splitInnerHTML;
-/*!
- * strings: 3.12.5
- * https://gsap.com
- *
- * Copyright 2008-2024, GreenSock. All rights reserved.
- * Subject to the terms at https://gsap.com/standard-license or for
- * Club GSAP members, the agreement issued with that membership.
- * @author: Jack Doyle, jack@greensock.com
-*/
-
-/* eslint-disable */
-var _trimExp = /(?:^\s+|\s+$)/g;
-var emojiExp = exports.emojiExp = /([\uD800-\uDBFF][\uDC00-\uDFFF](?:[\u200D\uFE0F][\uD800-\uDBFF][\uDC00-\uDFFF]){2,}|\uD83D\uDC69(?:\u200D(?:(?:\uD83D\uDC69\u200D)?\uD83D\uDC67|(?:\uD83D\uDC69\u200D)?\uD83D\uDC66)|\uD83C[\uDFFB-\uDFFF])|\uD83D\uDC69\u200D(?:\uD83D\uDC69\u200D)?\uD83D\uDC66\u200D\uD83D\uDC66|\uD83D\uDC69\u200D(?:\uD83D\uDC69\u200D)?\uD83D\uDC67\u200D(?:\uD83D[\uDC66\uDC67])|\uD83C\uDFF3\uFE0F\u200D\uD83C\uDF08|(?:\uD83C[\uDFC3\uDFC4\uDFCA]|\uD83D[\uDC6E\uDC71\uDC73\uDC77\uDC81\uDC82\uDC86\uDC87\uDE45-\uDE47\uDE4B\uDE4D\uDE4E\uDEA3\uDEB4-\uDEB6]|\uD83E[\uDD26\uDD37-\uDD39\uDD3D\uDD3E\uDDD6-\uDDDD])(?:\uD83C[\uDFFB-\uDFFF])\u200D[\u2640\u2642]\uFE0F|\uD83D\uDC69(?:\uD83C[\uDFFB-\uDFFF])\u200D(?:\uD83C[\uDF3E\uDF73\uDF93\uDFA4\uDFA8\uDFEB\uDFED]|\uD83D[\uDCBB\uDCBC\uDD27\uDD2C\uDE80\uDE92])|(?:\uD83C[\uDFC3\uDFC4\uDFCA]|\uD83D[\uDC6E\uDC6F\uDC71\uDC73\uDC77\uDC81\uDC82\uDC86\uDC87\uDE45-\uDE47\uDE4B\uDE4D\uDE4E\uDEA3\uDEB4-\uDEB6]|\uD83E[\uDD26\uDD37-\uDD39\uDD3C-\uDD3E\uDDD6-\uDDDF])\u200D[\u2640\u2642]\uFE0F|\uD83C\uDDFD\uD83C\uDDF0|\uD83C\uDDF6\uD83C\uDDE6|\uD83C\uDDF4\uD83C\uDDF2|\uD83C\uDDE9(?:\uD83C[\uDDEA\uDDEC\uDDEF\uDDF0\uDDF2\uDDF4\uDDFF])|\uD83C\uDDF7(?:\uD83C[\uDDEA\uDDF4\uDDF8\uDDFA\uDDFC])|\uD83C\uDDE8(?:\uD83C[\uDDE6\uDDE8\uDDE9\uDDEB-\uDDEE\uDDF0-\uDDF5\uDDF7\uDDFA-\uDDFF])|(?:\u26F9|\uD83C[\uDFCB\uDFCC]|\uD83D\uDD75)(?:\uFE0F\u200D[\u2640\u2642]|(?:\uD83C[\uDFFB-\uDFFF])\u200D[\u2640\u2642])\uFE0F|(?:\uD83D\uDC41\uFE0F\u200D\uD83D\uDDE8|\uD83D\uDC69(?:\uD83C[\uDFFB-\uDFFF])\u200D[\u2695\u2696\u2708]|\uD83D\uDC69\u200D[\u2695\u2696\u2708]|\uD83D\uDC68(?:(?:\uD83C[\uDFFB-\uDFFF])\u200D[\u2695\u2696\u2708]|\u200D[\u2695\u2696\u2708]))\uFE0F|\uD83C\uDDF2(?:\uD83C[\uDDE6\uDDE8-\uDDED\uDDF0-\uDDFF])|\uD83D\uDC69\u200D(?:\uD83C[\uDF3E\uDF73\uDF93\uDFA4\uDFA8\uDFEB\uDFED]|\uD83D[\uDCBB\uDCBC\uDD27\uDD2C\uDE80\uDE92]|\u2764\uFE0F\u200D(?:\uD83D\uDC8B\u200D(?:\uD83D[\uDC68\uDC69])|\uD83D[\uDC68\uDC69]))|\uD83C\uDDF1(?:\uD83C[\uDDE6-\uDDE8\uDDEE\uDDF0\uDDF7-\uDDFB\uDDFE])|\uD83C\uDDEF(?:\uD83C[\uDDEA\uDDF2\uDDF4\uDDF5])|\uD83C\uDDED(?:\uD83C[\uDDF0\uDDF2\uDDF3\uDDF7\uDDF9\uDDFA])|\uD83C\uDDEB(?:\uD83C[\uDDEE-\uDDF0\uDDF2\uDDF4\uDDF7])|[#\*0-9]\uFE0F\u20E3|\uD83C\uDDE7(?:\uD83C[\uDDE6\uDDE7\uDDE9-\uDDEF\uDDF1-\uDDF4\uDDF6-\uDDF9\uDDFB\uDDFC\uDDFE\uDDFF])|\uD83C\uDDE6(?:\uD83C[\uDDE8-\uDDEC\uDDEE\uDDF1\uDDF2\uDDF4\uDDF6-\uDDFA\uDDFC\uDDFD\uDDFF])|\uD83C\uDDFF(?:\uD83C[\uDDE6\uDDF2\uDDFC])|\uD83C\uDDF5(?:\uD83C[\uDDE6\uDDEA-\uDDED\uDDF0-\uDDF3\uDDF7-\uDDF9\uDDFC\uDDFE])|\uD83C\uDDFB(?:\uD83C[\uDDE6\uDDE8\uDDEA\uDDEC\uDDEE\uDDF3\uDDFA])|\uD83C\uDDF3(?:\uD83C[\uDDE6\uDDE8\uDDEA-\uDDEC\uDDEE\uDDF1\uDDF4\uDDF5\uDDF7\uDDFA\uDDFF])|\uD83C\uDFF4\uDB40\uDC67\uDB40\uDC62(?:\uDB40\uDC77\uDB40\uDC6C\uDB40\uDC73|\uDB40\uDC73\uDB40\uDC63\uDB40\uDC74|\uDB40\uDC65\uDB40\uDC6E\uDB40\uDC67)\uDB40\uDC7F|\uD83D\uDC68(?:\u200D(?:\u2764\uFE0F\u200D(?:\uD83D\uDC8B\u200D)?\uD83D\uDC68|(?:(?:\uD83D[\uDC68\uDC69])\u200D)?\uD83D\uDC66\u200D\uD83D\uDC66|(?:(?:\uD83D[\uDC68\uDC69])\u200D)?\uD83D\uDC67\u200D(?:\uD83D[\uDC66\uDC67])|\uD83C[\uDF3E\uDF73\uDF93\uDFA4\uDFA8\uDFEB\uDFED]|\uD83D[\uDCBB\uDCBC\uDD27\uDD2C\uDE80\uDE92])|(?:\uD83C[\uDFFB-\uDFFF])\u200D(?:\uD83C[\uDF3E\uDF73\uDF93\uDFA4\uDFA8\uDFEB\uDFED]|\uD83D[\uDCBB\uDCBC\uDD27\uDD2C\uDE80\uDE92]))|\uD83C\uDDF8(?:\uD83C[\uDDE6-\uDDEA\uDDEC-\uDDF4\uDDF7-\uDDF9\uDDFB\uDDFD-\uDDFF])|\uD83C\uDDF0(?:\uD83C[\uDDEA\uDDEC-\uDDEE\uDDF2\uDDF3\uDDF5\uDDF7\uDDFC\uDDFE\uDDFF])|\uD83C\uDDFE(?:\uD83C[\uDDEA\uDDF9])|\uD83C\uDDEE(?:\uD83C[\uDDE8-\uDDEA\uDDF1-\uDDF4\uDDF6-\uDDF9])|\uD83C\uDDF9(?:\uD83C[\uDDE6\uDDE8\uDDE9\uDDEB-\uDDED\uDDEF-\uDDF4\uDDF7\uDDF9\uDDFB\uDDFC\uDDFF])|\uD83C\uDDEC(?:\uD83C[\uDDE6\uDDE7\uDDE9-\uDDEE\uDDF1-\uDDF3\uDDF5-\uDDFA\uDDFC\uDDFE])|\uD83C\uDDFA(?:\uD83C[\uDDE6\uDDEC\uDDF2\uDDF3\uDDF8\uDDFE\uDDFF])|\uD83C\uDDEA(?:\uD83C[\uDDE6\uDDE8\uDDEA\uDDEC\uDDED\uDDF7-\uDDFA])|\uD83C\uDDFC(?:\uD83C[\uDDEB\uDDF8])|(?:\u26F9|\uD83C[\uDFCB\uDFCC]|\uD83D\uDD75)(?:\uD83C[\uDFFB-\uDFFF])|(?:\uD83C[\uDFC3\uDFC4\uDFCA]|\uD83D[\uDC6E\uDC71\uDC73\uDC77\uDC81\uDC82\uDC86\uDC87\uDE45-\uDE47\uDE4B\uDE4D\uDE4E\uDEA3\uDEB4-\uDEB6]|\uD83E[\uDD26\uDD37-\uDD39\uDD3D\uDD3E\uDDD6-\uDDDD])(?:\uD83C[\uDFFB-\uDFFF])|(?:[\u261D\u270A-\u270D]|\uD83C[\uDF85\uDFC2\uDFC7]|\uD83D[\uDC42\uDC43\uDC46-\uDC50\uDC66\uDC67\uDC70\uDC72\uDC74-\uDC76\uDC78\uDC7C\uDC83\uDC85\uDCAA\uDD74\uDD7A\uDD90\uDD95\uDD96\uDE4C\uDE4F\uDEC0\uDECC]|\uD83E[\uDD18-\uDD1C\uDD1E\uDD1F\uDD30-\uDD36\uDDD1-\uDDD5])(?:\uD83C[\uDFFB-\uDFFF])|\uD83D\uDC68(?:\u200D(?:(?:(?:\uD83D[\uDC68\uDC69])\u200D)?\uD83D\uDC67|(?:(?:\uD83D[\uDC68\uDC69])\u200D)?\uD83D\uDC66)|\uD83C[\uDFFB-\uDFFF])|(?:[\u261D\u26F9\u270A-\u270D]|\uD83C[\uDF85\uDFC2-\uDFC4\uDFC7\uDFCA-\uDFCC]|\uD83D[\uDC42\uDC43\uDC46-\uDC50\uDC66-\uDC69\uDC6E\uDC70-\uDC78\uDC7C\uDC81-\uDC83\uDC85-\uDC87\uDCAA\uDD74\uDD75\uDD7A\uDD90\uDD95\uDD96\uDE45-\uDE47\uDE4B-\uDE4F\uDEA3\uDEB4-\uDEB6\uDEC0\uDECC]|\uD83E[\uDD18-\uDD1C\uDD1E\uDD1F\uDD26\uDD30-\uDD39\uDD3D\uDD3E\uDDD1-\uDDDD])(?:\uD83C[\uDFFB-\uDFFF])?|(?:[\u231A\u231B\u23E9-\u23EC\u23F0\u23F3\u25FD\u25FE\u2614\u2615\u2648-\u2653\u267F\u2693\u26A1\u26AA\u26AB\u26BD\u26BE\u26C4\u26C5\u26CE\u26D4\u26EA\u26F2\u26F3\u26F5\u26FA\u26FD\u2705\u270A\u270B\u2728\u274C\u274E\u2753-\u2755\u2757\u2795-\u2797\u27B0\u27BF\u2B1B\u2B1C\u2B50\u2B55]|\uD83C[\uDC04\uDCCF\uDD8E\uDD91-\uDD9A\uDDE6-\uDDFF\uDE01\uDE1A\uDE2F\uDE32-\uDE36\uDE38-\uDE3A\uDE50\uDE51\uDF00-\uDF20\uDF2D-\uDF35\uDF37-\uDF7C\uDF7E-\uDF93\uDFA0-\uDFCA\uDFCF-\uDFD3\uDFE0-\uDFF0\uDFF4\uDFF8-\uDFFF]|\uD83D[\uDC00-\uDC3E\uDC40\uDC42-\uDCFC\uDCFF-\uDD3D\uDD4B-\uDD4E\uDD50-\uDD67\uDD7A\uDD95\uDD96\uDDA4\uDDFB-\uDE4F\uDE80-\uDEC5\uDECC\uDED0-\uDED2\uDEEB\uDEEC\uDEF4-\uDEF8]|\uD83E[\uDD10-\uDD3A\uDD3C-\uDD3E\uDD40-\uDD45\uDD47-\uDD4C\uDD50-\uDD6B\uDD80-\uDD97\uDDC0\uDDD0-\uDDE6])|(?:[#\*0-9\xA9\xAE\u203C\u2049\u2122\u2139\u2194-\u2199\u21A9\u21AA\u231A\u231B\u2328\u23CF\u23E9-\u23F3\u23F8-\u23FA\u24C2\u25AA\u25AB\u25B6\u25C0\u25FB-\u25FE\u2600-\u2604\u260E\u2611\u2614\u2615\u2618\u261D\u2620\u2622\u2623\u2626\u262A\u262E\u262F\u2638-\u263A\u2640\u2642\u2648-\u2653\u2660\u2663\u2665\u2666\u2668\u267B\u267F\u2692-\u2697\u2699\u269B\u269C\u26A0\u26A1\u26AA\u26AB\u26B0\u26B1\u26BD\u26BE\u26C4\u26C5\u26C8\u26CE\u26CF\u26D1\u26D3\u26D4\u26E9\u26EA\u26F0-\u26F5\u26F7-\u26FA\u26FD\u2702\u2705\u2708-\u270D\u270F\u2712\u2714\u2716\u271D\u2721\u2728\u2733\u2734\u2744\u2747\u274C\u274E\u2753-\u2755\u2757\u2763\u2764\u2795-\u2797\u27A1\u27B0\u27BF\u2934\u2935\u2B05-\u2B07\u2B1B\u2B1C\u2B50\u2B55\u3030\u303D\u3297\u3299]|\uD83C[\uDC04\uDCCF\uDD70\uDD71\uDD7E\uDD7F\uDD8E\uDD91-\uDD9A\uDDE6-\uDDFF\uDE01\uDE02\uDE1A\uDE2F\uDE32-\uDE3A\uDE50\uDE51\uDF00-\uDF21\uDF24-\uDF93\uDF96\uDF97\uDF99-\uDF9B\uDF9E-\uDFF0\uDFF3-\uDFF5\uDFF7-\uDFFF]|\uD83D[\uDC00-\uDCFD\uDCFF-\uDD3D\uDD49-\uDD4E\uDD50-\uDD67\uDD6F\uDD70\uDD73-\uDD7A\uDD87\uDD8A-\uDD8D\uDD90\uDD95\uDD96\uDDA4\uDDA5\uDDA8\uDDB1\uDDB2\uDDBC\uDDC2-\uDDC4\uDDD1-\uDDD3\uDDDC-\uDDDE\uDDE1\uDDE3\uDDE8\uDDEF\uDDF3\uDDFA-\uDE4F\uDE80-\uDEC5\uDECB-\uDED2\uDEE0-\uDEE5\uDEE9\uDEEB\uDEEC\uDEF0\uDEF3-\uDEF8]|\uD83E[\uDD10-\uDD3A\uDD3C-\uDD3E\uDD40-\uDD45\uDD47-\uDD4C\uDD50-\uDD6B\uDD80-\uDD97\uDDC0\uDDD0-\uDDE6])\uFE0F)/;
-function getText(e) {
-  var type = e.nodeType,
-    result = "";
-  if (type === 1 || type === 9 || type === 11) {
-    if (typeof e.textContent === "string") {
-      return e.textContent;
-    } else {
-      for (e = e.firstChild; e; e = e.nextSibling) {
-        result += getText(e);
-      }
-    }
-  } else if (type === 3 || type === 4) {
-    return e.nodeValue;
-  }
-  return result;
-}
-function splitInnerHTML(element, delimiter, trim, preserveSpaces) {
-  var node = element.firstChild,
-    result = [],
-    s;
-  while (node) {
-    if (node.nodeType === 3) {
-      s = (node.nodeValue + "").replace(/^\n+/g, "");
-      if (!preserveSpaces) {
-        s = s.replace(/\s+/g, " ");
-      }
-      result.push.apply(result, emojiSafeSplit(s, delimiter, trim, preserveSpaces));
-    } else if ((node.nodeName + "").toLowerCase() === "br") {
-      result[result.length - 1] += "<br>";
-    } else {
-      result.push(node.outerHTML);
-    }
-    node = node.nextSibling;
-  }
-  s = result.length;
-  while (s--) {
-    result[s] === "&" && result.splice(s, 1, "&amp;");
-  }
-  return result;
-}
-/*
-//smaller kb version that only handles the simpler emoji's, which is often perfectly adequate.
-
-let _emoji = "[\uE000-\uF8FF]|\uD83C[\uDC00-\uDFFF]|\uD83D[\uDC00-\uDFFF]|[\u2694-\u2697]|\uD83E[\uDD10-\uDD5D]|[\uD800-\uDBFF][\uDC00-\uDFFF]",
-	_emojiExp = new RegExp(_emoji),
-	_emojiAndCharsExp = new RegExp(_emoji + "|.", "g"),
-	_emojiSafeSplit = (text, delimiter, trim) => {
-		if (trim) {
-			text = text.replace(_trimExp, "");
-		}
-		return ((delimiter === "" || !delimiter) && _emojiExp.test(text)) ? text.match(_emojiAndCharsExp) : text.split(delimiter || "");
-	};
+exports.default = void 0;
+function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+/**
+ * SplitType
+ * https://github.com/lukePeavey/SplitType
+ * @version 0.3.4
+ * @author Luke Peavey <lwpeavey@gmail.com>
  */
 
-function emojiSafeSplit(text, delimiter, trim, preserveSpaces) {
-  text += ""; // make sure it's cast as a string. Someone may pass in a number.
+// Polyfill the following DOM methods that are not supported in IE 11.
 
-  trim && (text = text.trim ? text.trim() : text.replace(_trimExp, "")); // IE9 and earlier compatibility
-
-  if (delimiter && delimiter !== "") {
-    return text.replace(/>/g, "&gt;").replace(/</g, "&lt;").split(delimiter);
-  }
-  var result = [],
-    l = text.length,
-    i = 0,
-    j,
-    character;
-  for (; i < l; i++) {
-    character = text.charAt(i);
-    if (character.charCodeAt(0) >= 0xD800 && character.charCodeAt(0) <= 0xDBFF || text.charCodeAt(i + 1) >= 0xFE00 && text.charCodeAt(i + 1) <= 0xFE0F) {
-      //special emoji characters use 2 or 4 unicode characters that we must keep together.
-      j = ((text.substr(i, 12).split(emojiExp) || [])[1] || "").length || 2;
-      character = text.substr(i, j);
-      result.emoji = 1;
-      i += j - 1;
+(function () {
+  function append() {
+    var length = arguments.length;
+    for (var i = 0; i < length; i++) {
+      var node = i < 0 || arguments.length <= i ? undefined : arguments[i];
+      if (node.nodeType === 1 || node.nodeType === 11) this.appendChild(node);else this.appendChild(document.createTextNode(String(node)));
     }
-    result.push(character === ">" ? "&gt;" : character === "<" ? "&lt;" : preserveSpaces && character === " " && (text.charAt(i - 1) === " " || text.charAt(i + 1) === " ") ? "&nbsp;" : character);
   }
-  return result;
+  function replaceChildren() {
+    while (this.lastChild) {
+      this.removeChild(this.lastChild);
+    }
+    if (arguments.length) this.append.apply(this, arguments);
+  }
+  function replaceWith() {
+    var parent = this.parentNode;
+    for (var _len = arguments.length, nodes = new Array(_len), _key = 0; _key < _len; _key++) {
+      nodes[_key] = arguments[_key];
+    }
+    var i = nodes.length;
+    if (!parent) return;
+    if (!i) parent.removeChild(this);
+    while (i--) {
+      var node = nodes[i];
+      if (_typeof(node) !== 'object') {
+        node = this.ownerDocument.createTextNode(node);
+      } else if (node.parentNode) {
+        node.parentNode.removeChild(node);
+      }
+      if (!i) {
+        parent.replaceChild(node, this);
+      } else {
+        parent.insertBefore(this.previousSibling, node);
+      }
+    }
+  }
+  if (typeof Element !== 'undefined') {
+    if (!Element.prototype.append) {
+      Element.prototype.append = append;
+      DocumentFragment.prototype.append = append;
+    }
+    if (!Element.prototype.replaceChildren) {
+      Element.prototype.replaceChildren = replaceChildren;
+      DocumentFragment.prototype.replaceChildren = replaceChildren;
+    }
+    if (!Element.prototype.replaceWith) {
+      Element.prototype.replaceWith = replaceWith;
+      DocumentFragment.prototype.replaceWith = replaceWith;
+    }
+  }
+})();
+function _classCallCheck(instance, Constructor) {
+  if (!(instance instanceof Constructor)) {
+    throw new TypeError("Cannot call a class as a function");
+  }
 }
-},{}],"../node_modules/gsap/SplitText.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = exports.SplitText = void 0;
-var _strings = require("./utils/strings.js");
-/*!
- * SplitText: 3.12.5
- * https://gsap.com
- *
- * @license Copyright 2008-2024, GreenSock. All rights reserved.
- * Subject to the terms at https://gsap.com/standard-license or for
- * Club GSAP members, the agreement issued with that membership.
- * @author: Jack Doyle, jack@greensock.com
-*/
-
-/* eslint-disable */
-
-var _doc,
-  _win,
-  _coreInitted,
-  gsap,
-  _context,
-  _toArray,
-  _stripExp = /(?:\r|\n|\t\t)/g,
-  //find carriage returns, new line feeds and double-tabs.
-  _multipleSpacesExp = /(?:\s\s+)/g,
-  _nonBreakingSpace = String.fromCharCode(160),
-  _initCore = function _initCore(core) {
-    _doc = document;
-    _win = window;
-    gsap = gsap || core || _win.gsap || console.warn("Please gsap.registerPlugin(SplitText)");
-    if (gsap) {
-      _toArray = gsap.utils.toArray;
-      _context = gsap.core.context || function () {};
-      _coreInitted = 1;
-    }
-  },
-  _bonusValidated = 1,
-  //<name>SplitText</name>
-  _getComputedStyle = function _getComputedStyle(element) {
-    return _win.getComputedStyle(element);
-  },
-  _isAbsolute = function _isAbsolute(vars) {
-    return vars.position === "absolute" || vars.absolute === true;
-  },
-  //some characters are combining marks (think diacritics/accents in European languages) which involve 2 or 4 characters that combine in the browser to form a single character. Pass in the remaining text and an array of the special characters to search for and if the text starts with one of those special characters, it'll spit back the number of characters to retain (often 2 or 4). Used in the specialChars features that was introduced in 0.6.0.
-  _findSpecialChars = function _findSpecialChars(text, chars) {
-    var i = chars.length,
-      s;
-    while (--i > -1) {
-      s = chars[i];
-      if (text.substr(0, s.length) === s) {
-        return s.length;
-      }
-    }
-  },
-  _divStart = " style='position:relative;display:inline-block;'",
-  _cssClassFunc = function _cssClassFunc(cssClass, tag) {
-    if (cssClass === void 0) {
-      cssClass = "";
-    }
-    var iterate = ~cssClass.indexOf("++"),
-      num = 1;
-    if (iterate) {
-      cssClass = cssClass.split("++").join("");
-    }
-    return function () {
-      return "<" + tag + _divStart + (cssClass ? " class='" + cssClass + (iterate ? num++ : "") + "'>" : ">");
-    };
-  },
-  _swapText = function _swapText(element, oldText, newText) {
-    var type = element.nodeType;
-    if (type === 1 || type === 9 || type === 11) {
-      for (element = element.firstChild; element; element = element.nextSibling) {
-        _swapText(element, oldText, newText);
-      }
-    } else if (type === 3 || type === 4) {
-      element.nodeValue = element.nodeValue.split(oldText).join(newText);
-    }
-  },
-  _pushReversed = function _pushReversed(a, merge) {
-    var i = merge.length;
-    while (--i > -1) {
-      a.push(merge[i]);
-    }
-  },
-  _isBeforeWordDelimiter = function _isBeforeWordDelimiter(e, root, wordDelimiter) {
-    var next;
-    while (e && e !== root) {
-      next = e._next || e.nextSibling;
-      if (next) {
-        return next.textContent.charAt(0) === wordDelimiter;
-      }
-      e = e.parentNode || e._parent;
-    }
-  },
-  _deWordify = function _deWordify(e) {
-    var children = _toArray(e.childNodes),
-      l = children.length,
-      i,
-      child;
-    for (i = 0; i < l; i++) {
-      child = children[i];
-      if (child._isSplit) {
-        _deWordify(child);
-      } else {
-        if (i && child.previousSibling && child.previousSibling.nodeType === 3) {
-          child.previousSibling.nodeValue += child.nodeType === 3 ? child.nodeValue : child.firstChild.nodeValue;
-          e.removeChild(child);
-        } else if (child.nodeType !== 3) {
-          e.insertBefore(child.firstChild, child);
-          e.removeChild(child);
-        }
-      }
-    }
-  },
-  _getStyleAsNumber = function _getStyleAsNumber(name, computedStyle) {
-    return parseFloat(computedStyle[name]) || 0;
-  },
-  _setPositionsAfterSplit = function _setPositionsAfterSplit(element, vars, allChars, allWords, allLines, origWidth, origHeight) {
-    var cs = _getComputedStyle(element),
-      paddingLeft = _getStyleAsNumber("paddingLeft", cs),
-      lineOffsetY = -999,
-      borderTopAndBottom = _getStyleAsNumber("borderBottomWidth", cs) + _getStyleAsNumber("borderTopWidth", cs),
-      borderLeftAndRight = _getStyleAsNumber("borderLeftWidth", cs) + _getStyleAsNumber("borderRightWidth", cs),
-      padTopAndBottom = _getStyleAsNumber("paddingTop", cs) + _getStyleAsNumber("paddingBottom", cs),
-      padLeftAndRight = _getStyleAsNumber("paddingLeft", cs) + _getStyleAsNumber("paddingRight", cs),
-      lineThreshold = _getStyleAsNumber("fontSize", cs) * (vars.lineThreshold || 0.2),
-      textAlign = cs.textAlign,
-      charArray = [],
-      wordArray = [],
-      lineArray = [],
-      wordDelimiter = vars.wordDelimiter || " ",
-      tag = vars.tag ? vars.tag : vars.span ? "span" : "div",
-      types = vars.type || vars.split || "chars,words,lines",
-      lines = allLines && ~types.indexOf("lines") ? [] : null,
-      words = ~types.indexOf("words"),
-      chars = ~types.indexOf("chars"),
-      absolute = _isAbsolute(vars),
-      linesClass = vars.linesClass,
-      iterateLine = ~(linesClass || "").indexOf("++"),
-      spaceNodesToRemove = [],
-      isFlex = cs.display === "flex",
-      prevInlineDisplay = element.style.display,
-      i,
-      j,
-      l,
-      node,
-      nodes,
-      isChild,
-      curLine,
-      addWordSpaces,
-      style,
-      lineNode,
-      lineWidth,
-      offset;
-    iterateLine && (linesClass = linesClass.split("++").join(""));
-    isFlex && (element.style.display = "block"); //copy all the descendant nodes into an array (we can't use a regular nodeList because it's live and we may need to renest things)
-
-    j = element.getElementsByTagName("*");
-    l = j.length;
-    nodes = [];
-    for (i = 0; i < l; i++) {
-      nodes[i] = j[i];
-    } //for absolute positioning, we need to record the x/y offsets and width/height for every <div>. And even if we're not positioning things absolutely, in order to accommodate lines, we must figure out where the y offset changes so that we can sense where the lines break, and we populate the lines array.
-
-    if (lines || absolute) {
-      for (i = 0; i < l; i++) {
-        node = nodes[i];
-        isChild = node.parentNode === element;
-        if (isChild || absolute || chars && !words) {
-          offset = node.offsetTop;
-          if (lines && isChild && Math.abs(offset - lineOffsetY) > lineThreshold && (node.nodeName !== "BR" || i === 0)) {
-            //we found some rare occasions where a certain character like &#8209; could cause the offsetTop to be off by 1 pixel, so we build in a threshold.
-            curLine = [];
-            lines.push(curLine);
-            lineOffsetY = offset;
-          }
-          if (absolute) {
-            //record offset x and y, as well as width and height so that we can access them later for positioning. Grabbing them at once ensures we don't trigger a browser paint & we maximize performance.
-            node._x = node.offsetLeft;
-            node._y = offset;
-            node._w = node.offsetWidth;
-            node._h = node.offsetHeight;
-          }
-          if (lines) {
-            if (node._isSplit && isChild || !chars && isChild || words && isChild || !words && node.parentNode.parentNode === element && !node.parentNode._isSplit) {
-              curLine.push(node);
-              node._x -= paddingLeft;
-              if (_isBeforeWordDelimiter(node, element, wordDelimiter)) {
-                node._wordEnd = true;
-              }
-            }
-            if (node.nodeName === "BR" && (node.nextSibling && node.nextSibling.nodeName === "BR" || i === 0)) {
-              //two consecutive <br> tags signify a new [empty] line. Also, if the entire block of content STARTS with a <br>, add a line.
-              lines.push([]);
-            }
-          }
-        }
-      }
-    }
-    for (i = 0; i < l; i++) {
-      node = nodes[i];
-      isChild = node.parentNode === element;
-      if (node.nodeName === "BR") {
-        if (lines || absolute) {
-          node.parentNode && node.parentNode.removeChild(node);
-          nodes.splice(i--, 1);
-          l--;
-        } else if (!words) {
-          element.appendChild(node);
-        }
-        continue;
-      }
-      if (absolute) {
-        style = node.style;
-        if (!words && !isChild) {
-          node._x += node.parentNode._x;
-          node._y += node.parentNode._y;
-        }
-        style.left = node._x + "px";
-        style.top = node._y + "px";
-        style.position = "absolute";
-        style.display = "block"; //if we don't set the width/height, things collapse in older versions of IE and the origin for transforms is thrown off in all browsers.
-
-        style.width = node._w + 1 + "px"; //IE is 1px short sometimes. Avoid wrapping
-
-        style.height = node._h + "px";
-      }
-      if (!words && chars) {
-        //we always start out wrapping words in their own <div> so that line breaks happen correctly, but here we'll remove those <div> tags if necessary and re-nest the characters directly into the element rather than inside the word <div>
-        if (node._isSplit) {
-          node._next = j = node.nextSibling;
-          node.parentNode.appendChild(node); //put it at the end to keep the order correct.
-
-          while (j && j.nodeType === 3 && j.textContent === " ") {
-            // if there are nodes that are just a space right afterward, go ahead and append them to the end so they're not out of order.
-            node._next = j.nextSibling;
-            node.parentNode.appendChild(j);
-            j = j.nextSibling;
-          }
-        } else if (node.parentNode._isSplit) {
-          node._parent = node.parentNode;
-          if (!node.previousSibling && node.firstChild) {
-            node.firstChild._isFirst = true;
-          }
-          if (node.nextSibling && node.nextSibling.textContent === " " && !node.nextSibling.nextSibling) {
-            //if the last node inside a nested element is just a space (like T<span>nested </span>), remove it otherwise it'll get placed in the wrong order. Don't remove it right away, though, because we need to sense when words/characters are before a space like _isBeforeWordDelimiter(). Removing it now would make that a false negative.
-            spaceNodesToRemove.push(node.nextSibling);
-          }
-          node._next = node.nextSibling && node.nextSibling._isFirst ? null : node.nextSibling;
-          node.parentNode.removeChild(node);
-          nodes.splice(i--, 1);
-          l--;
-        } else if (!isChild) {
-          offset = !node.nextSibling && _isBeforeWordDelimiter(node.parentNode, element, wordDelimiter); //if this is the last letter in the word (and we're not breaking by lines and not positioning things absolutely), we need to add a space afterwards so that the characters don't just mash together
-
-          node.parentNode._parent && node.parentNode._parent.appendChild(node);
-          offset && node.parentNode.appendChild(_doc.createTextNode(" "));
-          if (tag === "span") {
-            node.style.display = "inline"; //so that word breaks are honored properly.
-          }
-          charArray.push(node);
-        }
-      } else if (node.parentNode._isSplit && !node._isSplit && node.innerHTML !== "") {
-        wordArray.push(node);
-      } else if (chars && !node._isSplit) {
-        if (tag === "span") {
-          node.style.display = "inline";
-        }
-        charArray.push(node);
-      }
-    }
-    i = spaceNodesToRemove.length;
-    while (--i > -1) {
-      spaceNodesToRemove[i].parentNode.removeChild(spaceNodesToRemove[i]);
-    }
-    if (lines) {
-      //the next 7 lines just give us the line width in the most reliable way and figure out the left offset (if position isn't relative or absolute). We must set the width along with text-align to ensure everything works properly for various alignments.
-      if (absolute) {
-        lineNode = _doc.createElement(tag);
-        element.appendChild(lineNode);
-        lineWidth = lineNode.offsetWidth + "px";
-        offset = lineNode.offsetParent === element ? 0 : element.offsetLeft;
-        element.removeChild(lineNode);
-      }
-      style = element.style.cssText;
-      element.style.cssText = "display:none;"; //to improve performance, set display:none on the element so that the browser doesn't have to worry about reflowing or rendering while we're renesting things. We'll revert the cssText later.
-      //we can't use element.innerHTML = "" because that causes IE to literally delete all the nodes and their content even though we've stored them in an array! So we must loop through the children and remove them.
-
-      while (element.firstChild) {
-        element.removeChild(element.firstChild);
-      }
-      addWordSpaces = wordDelimiter === " " && (!absolute || !words && !chars);
-      for (i = 0; i < lines.length; i++) {
-        curLine = lines[i];
-        lineNode = _doc.createElement(tag);
-        lineNode.style.cssText = "display:block;text-align:" + textAlign + ";position:" + (absolute ? "absolute;" : "relative;");
-        if (linesClass) {
-          lineNode.className = linesClass + (iterateLine ? i + 1 : "");
-        }
-        lineArray.push(lineNode);
-        l = curLine.length;
-        for (j = 0; j < l; j++) {
-          if (curLine[j].nodeName !== "BR") {
-            node = curLine[j];
-            lineNode.appendChild(node);
-            addWordSpaces && node._wordEnd && lineNode.appendChild(_doc.createTextNode(" "));
-            if (absolute) {
-              if (j === 0) {
-                lineNode.style.top = node._y + "px";
-                lineNode.style.left = paddingLeft + offset + "px";
-              }
-              node.style.top = "0px";
-              if (offset) {
-                node.style.left = node._x - offset + "px";
-              }
-            }
-          }
-        }
-        if (l === 0) {
-          //if there are no nodes in the line (typically meaning there were two consecutive <br> tags, just add a non-breaking space so that things display properly.
-          lineNode.innerHTML = "&nbsp;";
-        } else if (!words && !chars) {
-          _deWordify(lineNode);
-          _swapText(lineNode, String.fromCharCode(160), " ");
-        }
-        if (absolute) {
-          lineNode.style.width = lineWidth;
-          lineNode.style.height = node._h + "px";
-        }
-        element.appendChild(lineNode);
-      }
-      element.style.cssText = style;
-    } //if everything shifts to being position:absolute, the container can collapse in terms of height or width, so fix that here.
-
-    if (absolute) {
-      if (origHeight > element.clientHeight) {
-        element.style.height = origHeight - padTopAndBottom + "px";
-        if (element.clientHeight < origHeight) {
-          //IE8 and earlier use a different box model - we must include padding and borders
-          element.style.height = origHeight + borderTopAndBottom + "px";
-        }
-      }
-      if (origWidth > element.clientWidth) {
-        element.style.width = origWidth - padLeftAndRight + "px";
-        if (element.clientWidth < origWidth) {
-          //IE8 and earlier use a different box model - we must include padding and borders
-          element.style.width = origWidth + borderLeftAndRight + "px";
-        }
-      }
-    }
-    isFlex && (prevInlineDisplay ? element.style.display = prevInlineDisplay : element.style.removeProperty("display"));
-    _pushReversed(allChars, charArray);
-    words && _pushReversed(allWords, wordArray);
-    _pushReversed(allLines, lineArray);
-  },
-  _splitRawText = function _splitRawText(element, vars, wordStart, charStart) {
-    var tag = vars.tag ? vars.tag : vars.span ? "span" : "div",
-      types = vars.type || vars.split || "chars,words,lines",
-      //words = (types.indexOf("words") !== -1),
-      chars = ~types.indexOf("chars"),
-      absolute = _isAbsolute(vars),
-      wordDelimiter = vars.wordDelimiter || " ",
-      isWordDelimiter = function isWordDelimiter(_char) {
-        return _char === wordDelimiter || _char === _nonBreakingSpace && wordDelimiter === " ";
-      },
-      space = wordDelimiter !== " " ? "" : absolute ? "&#173; " : " ",
-      wordEnd = "</" + tag + ">",
-      wordIsOpen = 1,
-      specialChars = vars.specialChars ? typeof vars.specialChars === "function" ? vars.specialChars : _findSpecialChars : null,
-      //specialChars can be an array or a function. For performance reasons, we always set this local "specialChars" to a function to which we pass the remaining text and whatever the original vars.specialChars was so that if it's an array, it works with the _findSpecialChars() function.
-      text,
-      splitText,
-      i,
-      j,
-      l,
-      character,
-      hasTagStart,
-      testResult,
-      container = _doc.createElement("div"),
-      parent = element.parentNode;
-    parent.insertBefore(container, element);
-    container.textContent = element.nodeValue;
-    parent.removeChild(element);
-    element = container;
-    text = (0, _strings.getText)(element);
-    hasTagStart = text.indexOf("<") !== -1;
-    if (vars.reduceWhiteSpace !== false) {
-      text = text.replace(_multipleSpacesExp, " ").replace(_stripExp, "");
-    }
-    if (hasTagStart) {
-      text = text.split("<").join("{{LT}}"); //we can't leave "<" in the string, or when we set the innerHTML, it can be interpreted as a node
-    }
-    l = text.length;
-    splitText = (text.charAt(0) === " " ? space : "") + wordStart();
-    for (i = 0; i < l; i++) {
-      character = text.charAt(i);
-      if (specialChars && (testResult = specialChars(text.substr(i), vars.specialChars))) {
-        // look for any specialChars that were declared. Remember, they can be passed in like {specialChars:["मी", "पा", "है"]} or a function could be defined instead. Either way, the function should return the number of characters that should be grouped together for this "character".
-        character = text.substr(i, testResult || 1);
-        splitText += chars && character !== " " ? charStart() + character + "</" + tag + ">" : character;
-        i += testResult - 1;
-      } else if (isWordDelimiter(character) && !isWordDelimiter(text.charAt(i - 1)) && i) {
-        splitText += wordIsOpen ? wordEnd : "";
-        wordIsOpen = 0;
-        while (isWordDelimiter(text.charAt(i + 1))) {
-          //skip over empty spaces (to avoid making them words)
-          splitText += space;
-          i++;
-        }
-        if (i === l - 1) {
-          splitText += space;
-        } else if (text.charAt(i + 1) !== ")") {
-          splitText += space + wordStart();
-          wordIsOpen = 1;
-        }
-      } else if (character === "{" && text.substr(i, 6) === "{{LT}}") {
-        splitText += chars ? charStart() + "{{LT}}" + "</" + tag + ">" : "{{LT}}";
-        i += 5;
-      } else if (character.charCodeAt(0) >= 0xD800 && character.charCodeAt(0) <= 0xDBFF || text.charCodeAt(i + 1) >= 0xFE00 && text.charCodeAt(i + 1) <= 0xFE0F) {
-        //special emoji characters use 2 or 4 unicode characters that we must keep together.
-        j = ((text.substr(i, 12).split(_strings.emojiExp) || [])[1] || "").length || 2;
-        splitText += chars && character !== " " ? charStart() + text.substr(i, j) + "</" + tag + ">" : text.substr(i, j);
-        i += j - 1;
-      } else {
-        splitText += chars && character !== " " ? charStart() + character + "</" + tag + ">" : character;
-      }
-    }
-    element.outerHTML = splitText + (wordIsOpen ? wordEnd : "");
-    hasTagStart && _swapText(parent, "{{LT}}", "<"); //note: don't perform this on "element" because that gets replaced with all new elements when we set element.outerHTML.
-  },
-  _split = function _split(element, vars, wordStart, charStart) {
-    var children = _toArray(element.childNodes),
-      l = children.length,
-      absolute = _isAbsolute(vars),
-      i,
-      child;
-    if (element.nodeType !== 3 || l > 1) {
-      vars.absolute = false;
-      for (i = 0; i < l; i++) {
-        child = children[i];
-        child._next = child._isFirst = child._parent = child._wordEnd = null;
-        if (child.nodeType !== 3 || /\S+/.test(child.nodeValue)) {
-          if (absolute && child.nodeType !== 3 && _getComputedStyle(child).display === "inline") {
-            //if there's a child node that's display:inline, switch it to inline-block so that absolute positioning works properly (most browsers don't report offsetTop/offsetLeft properly inside a <span> for example)
-            child.style.display = "inline-block";
-            child.style.position = "relative";
-          }
-          child._isSplit = true;
-          _split(child, vars, wordStart, charStart); //don't split lines on child elements
-        }
-      }
-      vars.absolute = absolute;
-      element._isSplit = true;
-      return;
-    }
-    _splitRawText(element, vars, wordStart, charStart);
-  };
-var SplitText = exports.default = exports.SplitText = /*#__PURE__*/function () {
-  function SplitText(element, vars) {
-    _coreInitted || _initCore();
-    this.elements = _toArray(element);
-    this.chars = [];
-    this.words = [];
-    this.lines = [];
-    this._originals = [];
-    this.vars = vars || {};
-    _context(this);
-    _bonusValidated && this.split(vars);
+function _defineProperties(target, props) {
+  for (var i = 0; i < props.length; i++) {
+    var descriptor = props[i];
+    descriptor.enumerable = descriptor.enumerable || false;
+    descriptor.configurable = true;
+    if ("value" in descriptor) descriptor.writable = true;
+    Object.defineProperty(target, descriptor.key, descriptor);
   }
-  var _proto = SplitText.prototype;
-  _proto.split = function split(vars) {
-    this.isSplit && this.revert();
-    this.vars = vars = vars || this.vars;
-    this._originals.length = this.chars.length = this.words.length = this.lines.length = 0;
-    var i = this.elements.length,
-      tag = vars.tag ? vars.tag : vars.span ? "span" : "div",
-      wordStart = _cssClassFunc(vars.wordsClass, tag),
-      charStart = _cssClassFunc(vars.charsClass, tag),
-      origHeight,
-      origWidth,
-      e; //we split in reversed order so that if/when we position:absolute elements, they don't affect the position of the ones after them in the document flow (shifting them up as they're taken out of the document flow).
-
-    while (--i > -1) {
-      e = this.elements[i];
-      this._originals[i] = {
-        html: e.innerHTML,
-        style: e.getAttribute("style")
-      };
-      origHeight = e.clientHeight;
-      origWidth = e.clientWidth;
-      _split(e, vars, wordStart, charStart);
-      _setPositionsAfterSplit(e, vars, this.chars, this.words, this.lines, origWidth, origHeight);
-    }
-    this.chars.reverse();
-    this.words.reverse();
-    this.lines.reverse();
-    this.isSplit = true;
-    return this;
-  };
-  _proto.revert = function revert() {
-    var originals = this._originals;
-    if (!originals) {
-      throw "revert() call wasn't scoped properly.";
-    }
-    this.elements.forEach(function (e, i) {
-      e.innerHTML = originals[i].html;
-      e.setAttribute("style", originals[i].style);
+}
+function _createClass(Constructor, protoProps, staticProps) {
+  if (protoProps) _defineProperties(Constructor.prototype, protoProps);
+  if (staticProps) _defineProperties(Constructor, staticProps);
+  return Constructor;
+}
+function _defineProperty(obj, key, value) {
+  if (key in obj) {
+    Object.defineProperty(obj, key, {
+      value: value,
+      enumerable: true,
+      configurable: true,
+      writable: true
     });
-    this.chars = [];
-    this.words = [];
-    this.lines = [];
+  } else {
+    obj[key] = value;
+  }
+  return obj;
+}
+function ownKeys(object, enumerableOnly) {
+  var keys = Object.keys(object);
+  if (Object.getOwnPropertySymbols) {
+    var symbols = Object.getOwnPropertySymbols(object);
+    if (enumerableOnly) symbols = symbols.filter(function (sym) {
+      return Object.getOwnPropertyDescriptor(object, sym).enumerable;
+    });
+    keys.push.apply(keys, symbols);
+  }
+  return keys;
+}
+function _objectSpread2(target) {
+  for (var i = 1; i < arguments.length; i++) {
+    var source = arguments[i] != null ? arguments[i] : {};
+    if (i % 2) {
+      ownKeys(Object(source), true).forEach(function (key) {
+        _defineProperty(target, key, source[key]);
+      });
+    } else if (Object.getOwnPropertyDescriptors) {
+      Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));
+    } else {
+      ownKeys(Object(source)).forEach(function (key) {
+        Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
+      });
+    }
+  }
+  return target;
+}
+function _slicedToArray(arr, i) {
+  return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest();
+}
+function _toConsumableArray(arr) {
+  return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread();
+}
+function _arrayWithoutHoles(arr) {
+  if (Array.isArray(arr)) return _arrayLikeToArray(arr);
+}
+function _arrayWithHoles(arr) {
+  if (Array.isArray(arr)) return arr;
+}
+function _iterableToArray(iter) {
+  if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter);
+}
+function _iterableToArrayLimit(arr, i) {
+  if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return;
+  var _arr = [];
+  var _n = true;
+  var _d = false;
+  var _e = undefined;
+  try {
+    for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {
+      _arr.push(_s.value);
+      if (i && _arr.length === i) break;
+    }
+  } catch (err) {
+    _d = true;
+    _e = err;
+  } finally {
+    try {
+      if (!_n && _i["return"] != null) _i["return"]();
+    } finally {
+      if (_d) throw _e;
+    }
+  }
+  return _arr;
+}
+function _unsupportedIterableToArray(o, minLen) {
+  if (!o) return;
+  if (typeof o === "string") return _arrayLikeToArray(o, minLen);
+  var n = Object.prototype.toString.call(o).slice(8, -1);
+  if (n === "Object" && o.constructor) n = o.constructor.name;
+  if (n === "Map" || n === "Set") return Array.from(o);
+  if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);
+}
+function _arrayLikeToArray(arr, len) {
+  if (len == null || len > arr.length) len = arr.length;
+  for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i];
+  return arr2;
+}
+function _nonIterableSpread() {
+  throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+}
+function _nonIterableRest() {
+  throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+}
+
+/**
+ * Shallow merges the properties of an object with the target object. Only
+ * includes properties that exist on the target object. Non-writable properties
+ * on the target object will not be over-written.
+ *
+ * @param {Object} target
+ * @param {Object} object
+ */
+function extend(target, object) {
+  return Object.getOwnPropertyNames(Object(target)).reduce(function (extended, key) {
+    var currentValue = Object.getOwnPropertyDescriptor(Object(target), key);
+    var newValue = Object.getOwnPropertyDescriptor(Object(object), key);
+    return Object.defineProperty(extended, key, newValue || currentValue);
+  }, {});
+}
+
+/**
+ * Checks if given value is a string
+ *
+ * @param {any} value
+ * @return {boolean} `true` if `value` is a string, else `false`
+ */
+function isString(value) {
+  return typeof value === 'string';
+}
+function isArray(value) {
+  return Array.isArray(value);
+}
+
+/**
+ * Parses user supplied settings objects.
+ */
+
+function parseSettings() {
+  var settings = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  var object = extend(settings); // `split` may be used as an alias for the `types` option
+  // Parse the `types` settings into an array of valid split types.
+  // If `types` is explicitly set to an empty string or array, text will not be
+  // split at all.
+
+  var types;
+  if (object.types !== undefined) {
+    types = object.types;
+  } else if (object.split !== undefined) {
+    types = object.split;
+  }
+  if (types !== undefined) {
+    object.types = (isString(types) || isArray(types) ? String(types) : '').split(',').map(function (type) {
+      return String(type).trim();
+    }).filter(function (type) {
+      return /((line)|(word)|(char))/i.test(type);
+    });
+  } // Support `position: absolute` as an alias for `absolute: true`
+
+  if (object.absolute || object.position) {
+    object.absolute = object.absolute || /absolute/.test(settings.position);
+  }
+  return object;
+}
+
+/**
+ * Takes a list of `types` and returns an object
+ *
+ * @param {string | string[]} value a comma separated list of split types
+ * @return {{lines: boolean, words: boolean, chars: boolean}}
+ */
+
+function parseTypes(value) {
+  var types = isString(value) || isArray(value) ? String(value) : '';
+  return {
+    none: !types,
+    lines: /line/i.test(types),
+    words: /word/i.test(types),
+    chars: /char/i.test(types)
+  };
+}
+
+/**
+ * Returns true if `value` is a non-null object.
+ * @param {any} value
+ * @return {boolean}
+ */
+function isObject(value) {
+  return value !== null && _typeof(value) === 'object';
+}
+
+/**
+ * Returns true if `input` is one of the following:
+ * - `Element`
+ * - `Text`
+ * - `DocumentFragment`
+ */
+
+function isNode(input) {
+  return isObject(input) && /^(1|3|11)$/.test(input.nodeType);
+}
+
+/**
+ * Checks if `value` is a valid array-like length.
+ * Original source: Lodash
+ *
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is a valid length, else `false`.
+ * @example
+ *
+ * _.isLength(3)
+ * // => true
+ *
+ * _.isLength(Number.MIN_VALUE)
+ * // => false
+ *
+ * _.isLength(Infinity)
+ * // => false
+ *
+ * _.isLength('3')
+ * // => false
+ */
+
+function isLength(value) {
+  return typeof value === 'number' && value > -1 && value % 1 === 0;
+}
+/**
+ * Checks if `value` is an array-like object
+ * @param {any} value
+ * @return {boolean} true if `value` is array-like`, else `false`
+ * @example
+ * isArrayLike(new Array())
+ * // => true
+ *
+ * isArrayLike(document.querySelectorAll('div'))
+ * // => true
+ *
+ * isArrayLike(document.getElementsByTagName('div'))
+ * // => true
+ *
+ * isArrayLike(() => {})
+ * // => false
+ *
+ * isArrayLike({foo: 'bar'})
+ * // => false
+ *
+ * * isArrayLike(null)
+ * // => false
+ */
+
+function isArrayLike(value) {
+  return isObject(value) && isLength(value.length);
+}
+
+/**
+ * Coerces `value` to an `Array`.
+ *
+ * @param {any} value
+ * @return {any[]}
+ * @example
+ * // If `value` is any `Array`, returns original `Array`
+ * let arr = [1, 2]
+ * toArray(arr)
+ * // => arr
+ *
+ * // If `value` is an `ArrayLike`, its equivalent to `Array.from(value)`
+ * let nodeList = document.querySelectorAll('div')
+ * toArray(nodeList)
+ * // => HTMLElement[] s
+ *
+ * // If value is falsy, returns empty array
+ * toArray(null)
+ * // => []
+ *
+ * // For any other type of value, its equivalent to `Array.of(value)`
+ * let element = document.createElement('div')
+ * toArray(element)
+ * // => [element]
+ *
+ */
+
+function toArray(value) {
+  if (isArray(value)) return value;
+  if (value == null) return [];
+  return isArrayLike(value) ? Array.prototype.slice.call(value) : [value];
+}
+
+/**
+ * Processes target elements for the splitType function.
+ *
+ * @param {any} target Can be one of the following:
+ * 1. `string` - A css selector
+ * 2. `HTMLElement` - A single element
+ * 3. `NodeList` - A nodeList
+ * 4. `Element[]` - An array of elements
+ * 5. `Array<NodeList|Element[]>` - An nested array of elements
+ * @returns {Element[]} A flat array HTML elements
+ * @return A flat array of elements or empty array if no elements are found
+ */
+
+function getTargetElements(target) {
+  var elements = target; // If `target` is a selector string...
+
+  if (isString(target)) {
+    if (/^(#[a-z]\w+)$/.test(target.trim())) {
+      // If `target` is an ID, use `getElementById`
+      elements = document.getElementById(target.trim().slice(1));
+    } else {
+      // Else use `querySelectorAll`
+      elements = document.querySelectorAll(target);
+    }
+  } // Return a flattened array of elements
+
+  return toArray(elements).reduce(function (result, element) {
+    return [].concat(_toConsumableArray(result), _toConsumableArray(toArray(element).filter(isNode)));
+  }, []);
+}
+var entries = Object.entries;
+var expando = "_splittype";
+var cache = {};
+var uid = 0;
+/**
+ * Stores data associated with DOM elements or other objects. This is a
+ * simplified version of jQuery's data method.
+ *
+ * @signature Data(owner)
+ * @description Get the data store object for the given owner.
+ * @param {Object} owner the object that data will be associated with.
+ * @return {Object} the data object for given `owner`. If no data exists
+ *     for the given object, creates a new data store and returns it.
+ *
+ * @signature Data(owner, key)
+ * @description Get the value
+ * @param {Object} owner
+ * @param {string} key
+ * @return {any} the value of the provided key. If key does not exist, returns
+ *     undefined.
+ *
+ * @signature Data(owner, key, value)
+ * @description Sets the given key/value pair in data store
+ * @param {Object} owner
+ * @param {string} key
+ * @param {any} value
+ */
+
+function set(owner, key, value) {
+  if (!isObject(owner)) {
+    console.warn('[data.set] owner is not an object');
+    return null;
+  }
+  var id = owner[expando] || (owner[expando] = ++uid);
+  var data = cache[id] || (cache[id] = {});
+  if (value === undefined) {
+    if (!!key && Object.getPrototypeOf(key) === Object.prototype) {
+      cache[id] = _objectSpread2(_objectSpread2({}, data), key);
+    }
+  } else if (key !== undefined) {
+    data[key] = value;
+  }
+  return value;
+}
+function get(owner, key) {
+  var id = isObject(owner) ? owner[expando] : null;
+  var data = id && cache[id] || {};
+  if (key === undefined) {
+    return data;
+  }
+  return data[key];
+}
+/**
+ * Remove all data associated with the given element
+ */
+
+function remove(element) {
+  var id = element && element[expando];
+  if (id) {
+    delete element[id];
+    delete cache[id];
+  }
+}
+/**
+ * Clear all cached data
+ */
+
+function clear() {
+  Object.keys(cache).forEach(function (key) {
+    delete cache[key];
+  });
+}
+/**
+ * Remove all temporary data from the store.
+ */
+
+function cleanup() {
+  entries(cache).forEach(function (_ref) {
+    var _ref2 = _slicedToArray(_ref, 2),
+      id = _ref2[0],
+      _ref2$ = _ref2[1],
+      isRoot = _ref2$.isRoot,
+      isSplit = _ref2$.isSplit;
+    if (!isRoot || !isSplit) {
+      cache[id] = null;
+      delete cache[id];
+    }
+  });
+}
+
+/**
+ * Splits a string into an array of words.
+ *
+ * @param {string} string
+ * @param {string | RegExp} [separator = ' ']
+ * @return {string[]} Array of words
+ */
+function toWords(value) {
+  var separator = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : ' ';
+  var string = value ? String(value) : '';
+  return string.trim().replace(/\s+/g, ' ').split(separator);
+}
+
+/**
+ * Based on lodash#split <https://lodash.com/license>
+ * Copyright jQuery Foundation and other contributors <https://jquery.org/>
+ * Copyright Jeremy Ashkenas, DocumentCloud and Investigative Reporters &
+ * Editors
+ */
+var rsAstralRange = "\\ud800-\\udfff";
+var rsComboMarksRange = "\\u0300-\\u036f\\ufe20-\\ufe23";
+var rsComboSymbolsRange = "\\u20d0-\\u20f0";
+var rsVarRange = "\\ufe0e\\ufe0f";
+/** Used to compose unicode capture groups. */
+
+var rsAstral = "[".concat(rsAstralRange, "]");
+var rsCombo = "[".concat(rsComboMarksRange).concat(rsComboSymbolsRange, "]");
+var rsFitz = "\\ud83c[\\udffb-\\udfff]";
+var rsModifier = "(?:".concat(rsCombo, "|").concat(rsFitz, ")");
+var rsNonAstral = "[^".concat(rsAstralRange, "]");
+var rsRegional = "(?:\\ud83c[\\udde6-\\uddff]){2}";
+var rsSurrPair = "[\\ud800-\\udbff][\\udc00-\\udfff]";
+var rsZWJ = "\\u200d";
+/** Used to compose unicode regexes. */
+
+var reOptMod = "".concat(rsModifier, "?");
+var rsOptVar = "[".concat(rsVarRange, "]?");
+var rsOptJoin = '(?:' + rsZWJ + '(?:' + [rsNonAstral, rsRegional, rsSurrPair].join('|') + ')' + rsOptVar + reOptMod + ')*';
+var rsSeq = rsOptVar + reOptMod + rsOptJoin;
+var rsSymbol = "(?:".concat(["".concat(rsNonAstral).concat(rsCombo, "?"), rsCombo, rsRegional, rsSurrPair, rsAstral].join('|'), "\n)");
+/** Used to match [string symbols](https://mathiasbynens.be/notes/javascript-unicode). */
+
+var reUnicode = RegExp("".concat(rsFitz, "(?=").concat(rsFitz, ")|").concat(rsSymbol).concat(rsSeq), 'g');
+/** Used to detect strings with [zero-width joiners or code points from the astral planes](http://eev.ee/blog/2015/09/12/dark-corners-of-unicode/). */
+
+var unicodeRange = [rsZWJ, rsAstralRange, rsComboMarksRange, rsComboSymbolsRange, rsVarRange];
+var reHasUnicode = RegExp("[".concat(unicodeRange.join(''), "]"));
+/**
+ * Converts an ASCII `string` to an array.
+ *
+ * @private
+ * @param {string} string The string to convert.
+ * @returns {Array} Returns the converted array.
+ */
+
+function asciiToArray(string) {
+  return string.split('');
+}
+/**
+ * Checks if `string` contains Unicode symbols.
+ *
+ * @private
+ * @param {string} string The string to inspect.
+ * @returns {boolean} Returns `true` if a symbol is found, else `false`.
+ */
+
+function hasUnicode(string) {
+  return reHasUnicode.test(string);
+}
+/**
+ * Converts a Unicode `string` to an array.
+ *
+ * @private
+ * @param {string} string The string to convert.
+ * @returns {Array} Returns the converted array.
+ */
+
+function unicodeToArray(string) {
+  return string.match(reUnicode) || [];
+}
+/**
+ * Converts `string` to an array.
+ *
+ * @private
+ * @param {string} string The string to convert.
+ * @returns {Array} Returns the converted array.
+ */
+
+function stringToArray(string) {
+  return hasUnicode(string) ? unicodeToArray(string) : asciiToArray(string);
+}
+/**
+ * Converts `value` to a string. An empty string is returned for `null`
+ * and `undefined` values.
+ *
+ * @param {*} value The value to process.
+ * @returns {string} Returns the string.
+ * @example
+ *
+ * _.toString(null);
+ * // => ''
+ *
+ * _.toString([1, 2, 3]);
+ * // => '1,2,3'
+ */
+
+function toString(value) {
+  return value == null ? '' : String(value);
+}
+/**
+ * Splits `string` into an array of characters. If `separator` is omitted,
+ * it behaves likes split.split('').
+ *
+ * Unlike native string.split(''), it can split strings that contain unicode
+ * characters like emojis and symbols.
+ *
+ * @param {string} [string=''] The string to split.
+ * @param {RegExp|string} [separator=''] The separator pattern to split by.
+ * @returns {Array} Returns the string segments.
+ * @example
+ * toChars('foo');
+ * // => ['f', 'o', 'o']
+ *
+ * toChars('foo bar');
+ * // => ["f", "o", "o", " ", "b", "a", "r"]
+ *
+ * toChars('f😀o');
+ * // => ['f', '😀', 'o']
+ *
+ * toChars('f-😀-o', /-/);
+ * // => ['f', '😀', 'o']
+ *
+ */
+
+function toChars(string) {
+  var separator = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
+  string = toString(string);
+  if (string && isString(string)) {
+    if (!separator && hasUnicode(string)) {
+      return stringToArray(string);
+    }
+  }
+  return string.split(separator);
+}
+
+/**
+ * Create an HTML element with the the given attributes
+ *
+ * attributes can include standard HTML attribute, as well as the following
+ * "special" properties:
+ *   - children: HTMLElement | ArrayLike<HTMLElement>
+ *   - textContent: string
+ *   - innerHTML: string
+ *
+ * @param {string} name
+ * @param  {Object} [attributes]
+ * @returns {HTMLElement}
+ */
+
+function createElement(name, attributes) {
+  var element = document.createElement(name);
+  if (!attributes) {
+    // When called without the second argument, its just return the result
+    // of `document.createElement`
+    return element;
+  }
+  Object.keys(attributes).forEach(function (attribute) {
+    var rawValue = attributes[attribute];
+    var value = isString(rawValue) ? rawValue.trim() : rawValue; // Ignore attribute if the value is `null` or an empty string
+
+    if (value === null || value === '') return;
+    if (attribute === 'children') {
+      // Children can be one or more Elements or DOM strings
+      element.append.apply(element, _toConsumableArray(toArray(value)));
+    } else {
+      // Handle standard HTML attributes
+      element.setAttribute(attribute, value);
+    }
+  });
+  return element;
+}
+var defaults = {
+  splitClass: '',
+  lineClass: 'line',
+  wordClass: 'word',
+  charClass: 'char',
+  types: ['lines', 'words', 'chars'],
+  absolute: false,
+  tagName: 'div'
+};
+
+/**
+ * Splits the text content of a single TextNode into words and/or characters.
+ *
+ * This functions gets called for every text node inside the target element. It
+ * replaces the text node with a document fragment containing the split text.
+ * Returns an array of the split word and character elements from this node.
+ *
+ * @param {TextNode} textNode
+ * @param {Object} settings
+ * @return {{words: Element[], chars: Element[]}}
+ */
+
+function splitWordsAndChars(textNode, settings) {
+  settings = extend(defaults, settings); // The split types
+
+  var types = parseTypes(settings.types); // the tag name for split text nodes
+
+  var TAG_NAME = settings.tagName; // value of the text node
+
+  var VALUE = textNode.nodeValue; // `splitText` is a wrapper to hold the HTML structure
+
+  var splitText = document.createDocumentFragment(); // Arrays of split word and character elements
+
+  var words = [];
+  var chars = [];
+  if (/^\s/.test(VALUE)) {
+    splitText.append(' ');
+  } // Create an array of wrapped word elements.
+
+  words = toWords(VALUE).reduce(function (result, WORD, idx, arr) {
+    // Let `wordElement` be the wrapped element for the current word
+    var wordElement;
+    var characterElementsForCurrentWord; // -> If splitting text into characters...
+
+    if (types.chars) {
+      // Iterate through the characters in the current word
+      characterElementsForCurrentWord = toChars(WORD).map(function (CHAR) {
+        var characterElement = createElement(TAG_NAME, {
+          "class": "".concat(settings.splitClass, " ").concat(settings.charClass),
+          style: 'display: inline-block;',
+          children: CHAR
+        });
+        set(characterElement, 'isChar', true);
+        chars = [].concat(_toConsumableArray(chars), [characterElement]);
+        return characterElement;
+      });
+    } // END IF;
+
+    if (types.words || types.lines) {
+      // -> If Splitting Text Into Words...
+      //    Create an element to wrap the current word. If we are also
+      //    splitting text into characters, the word element will contain the
+      //    wrapped character nodes for this word. If not, it will contain the
+      //    plain text content (WORD)
+      wordElement = createElement(TAG_NAME, {
+        "class": "".concat(settings.wordClass, " ").concat(settings.splitClass),
+        style: "display: inline-block; ".concat(types.words && settings.absolute ? "position: relative;" : ''),
+        children: types.chars ? characterElementsForCurrentWord : WORD
+      });
+      set(wordElement, {
+        isWord: true,
+        isWordStart: true,
+        isWordEnd: true
+      });
+      splitText.appendChild(wordElement);
+    } else {
+      // -> If NOT splitting into words OR lines...
+      //    Append the characters elements directly to splitText.
+      characterElementsForCurrentWord.forEach(function (characterElement) {
+        splitText.appendChild(characterElement);
+      });
+    }
+    if (idx < arr.length - 1) {
+      // Add a space after the word.
+      splitText.append(' ');
+    } // If not splitting text into words, we return an empty array
+
+    return types.words ? result.concat(wordElement) : result;
+  }, []); // END LOOP;
+  // Add a trailing white space to maintain word spacing
+
+  if (/\s$/.test(VALUE)) {
+    splitText.append(' ');
+  }
+  textNode.replaceWith(splitText);
+  return {
+    words: words,
+    chars: chars
+  };
+}
+
+/**
+ * Splits the text content of a target element into words and/or characters.
+ * The function is recursive, it will also split the text content of any child
+ * elements into words/characters, while preserving the nested elements.
+ *
+ * @param {Node} node an HTML Element or Text Node
+ * @param {Object} setting splitType settings
+ */
+
+function split(node, settings) {
+  var type = node.nodeType; // Arrays of split words and characters
+
+  var wordsAndChars = {
+    words: [],
+    chars: []
+  }; // Only proceed if `node` is an `Element`, `Fragment`, or `Text`
+
+  if (!/(1|3|11)/.test(type)) {
+    return wordsAndChars;
+  } // A) IF `node` is TextNode that contains characters other than white space...
+  //    Split the text content of the node into words and/or characters
+  //    return an object containing the split word and character elements
+
+  if (type === 3 && /\S/.test(node.nodeValue)) {
+    return splitWordsAndChars(node, settings);
+  } // B) ELSE `node` is an 'Element'
+  //    Iterate through its child nodes, calling the `split` function
+  //    recursively for each child node.
+
+  var childNodes = toArray(node.childNodes);
+  if (childNodes.length) {
+    set(node, 'isSplit', true); // we need to set a few styles on nested html elements
+
+    if (!get(node).isRoot) {
+      node.style.display = 'inline-block';
+      node.style.position = 'relative'; // To maintain original spacing around nested elements when we are
+      // splitting text into lines, we need to check if the element should
+      // have a space before and after, and store that value for later.
+      // Note: this was necessary to maintain the correct spacing when nested
+      // elements do not align with word boundaries. For example, a nested
+      // element only wraps part of a word.
+
+      var nextSibling = node.nextSibling;
+      var prevSibling = node.previousSibling;
+      var text = node.textContent || '';
+      var textAfter = nextSibling ? nextSibling.textContent : ' ';
+      var textBefore = prevSibling ? prevSibling.textContent : ' ';
+      set(node, {
+        isWordEnd: /\s$/.test(text) || /^\s/.test(textAfter),
+        isWordStart: /^\s/.test(text) || /\s$/.test(textBefore)
+      });
+    }
+  } // Iterate through child nodes, calling `split` recursively
+  // Returns an object containing all split words and chars
+
+  return childNodes.reduce(function (result, child) {
+    var _split = split(child, settings),
+      words = _split.words,
+      chars = _split.chars;
+    return {
+      words: [].concat(_toConsumableArray(result.words), _toConsumableArray(words)),
+      chars: [].concat(_toConsumableArray(result.chars), _toConsumableArray(chars))
+    };
+  }, wordsAndChars);
+}
+
+/**
+ * Gets the height and position of an element relative to offset parent.
+ * Should be equivalent to offsetTop and offsetHeight, but with sub-pixel
+ * precision.
+ *
+ * TODO needs work
+ */
+function getPosition(node, isWord, settings, scrollPos) {
+  if (!settings.absolute) {
+    return {
+      top: isWord ? node.offsetTop : null
+    };
+  }
+  var parent = node.offsetParent;
+  var _scrollPos = _slicedToArray(scrollPos, 2),
+    scrollX = _scrollPos[0],
+    scrollY = _scrollPos[1];
+  var parentX = 0;
+  var parentY = 0;
+  if (parent && parent !== document.body) {
+    var parentRect = parent.getBoundingClientRect();
+    parentX = parentRect.x + scrollX;
+    parentY = parentRect.y + scrollY;
+  }
+  var _node$getBoundingClie = node.getBoundingClientRect(),
+    width = _node$getBoundingClie.width,
+    height = _node$getBoundingClie.height,
+    x = _node$getBoundingClie.x,
+    y = _node$getBoundingClie.y;
+  var top = y + scrollY - parentY;
+  var left = x + scrollX - parentX;
+  return {
+    width: width,
+    height: height,
+    top: top,
+    left: left
+  };
+}
+
+/**
+ * Recursively "un-splits" text into words.
+ * This is used when splitting text into lines but not words.
+ * We initially split the text into words so we can maintain the correct line
+ * breaks. Once text has been split into lines, we "un-split" the words...
+ * @param {Element}
+ * @return {void}
+ */
+
+function unSplitWords(element) {
+  if (!get(element).isWord) {
+    toArray(element.children).forEach(function (child) {
+      return unSplitWords(child);
+    });
+  } else {
+    remove(element);
+    element.replaceWith.apply(element, _toConsumableArray(element.childNodes));
+  }
+}
+var createFragment = function createFragment() {
+  return document.createDocumentFragment();
+};
+function repositionAfterSplit(element, settings, scrollPos) {
+  var types = parseTypes(settings.types);
+  var TAG_NAME = settings.tagName;
+  var nodes = element.getElementsByTagName('*');
+  var wordsInEachLine = [];
+  var wordsInCurrentLine = [];
+  var lineOffsetY = null;
+  var elementHeight;
+  var elementWidth;
+  var contentBox;
+  var lines = [];
+  /**------------------------------------------------
+   ** GET STYLES AND POSITIONS
+   **-----------------------------------------------*/
+  // There is no built-in way to detect natural line breaks in text (when a
+  // block of text wraps to fit its container). To split text into lines, we
+  // have to detect line breaks by checking the top offset of words. This is
+  // why text was split into words first. To apply absolute
+  // positioning, its also necessary to record the size and position of every
+  // split node (lines, words, characters).
+  // To consolidate DOM getting/settings, this is all done at the same time,
+  // before actually splitting text into lines, which involves restructuring
+  // the DOM again.
+  // Cache the element's parent and next sibling (for DOM removal).
+
+  var parent = element.parentElement;
+  var nextSibling = element.nextElementSibling; // a wrapper for the new HTML structure
+
+  var splitText = createFragment(); // get the computed style object for the element
+
+  var cs = window.getComputedStyle(element);
+  var align = cs.textAlign;
+  var fontSize = parseFloat(cs.fontSize);
+  var lineThreshold = fontSize * 0.2; // IF using absolute position...
+
+  if (settings.absolute) {
+    // Let contentBox be an object containing the width and offset position of
+    // the element's content box (the area inside padding box). This is needed
+    // (for absolute positioning) to set the width and position of line
+    // elements, which have not been created yet.
+    contentBox = {
+      left: element.offsetLeft,
+      top: element.offsetTop,
+      width: element.offsetWidth
+    }; // Let elementWidth and elementHeight be the actual width/height of the
+    // element. Also check if the element has inline height or width styles
+    // already set. If it does, cache those values for later.
+
+    elementWidth = element.offsetWidth;
+    elementHeight = element.offsetHeight; // Store the original inline height and width of the element
+
+    set(element, {
+      cssWidth: element.style.width,
+      cssHeight: element.style.height
+    });
+  } // Iterate over every node in the target element
+
+  toArray(nodes).forEach(function (node) {
+    // node is a word element or custom html element
+    var isWordLike = node.parentElement === element; // TODO needs work
+    // Get te size and position of split text nodes
+
+    var _getPosition = getPosition(node, isWordLike, settings, scrollPos),
+      width = _getPosition.width,
+      height = _getPosition.height,
+      top = _getPosition.top,
+      left = _getPosition.left; // If element is a `<br>` tag return here
+
+    if (/^br$/i.test(node.nodeName)) return;
+    if (types.lines && isWordLike) {
+      // We compare the top offset of the current word to the top offset of
+      // previous words on the current line. If the difference is greater than
+      // our defined threshold (20%), we assume this word is on a new line.
+      if (lineOffsetY === null || top - lineOffsetY >= lineThreshold) {
+        lineOffsetY = top;
+        wordsInEachLine.push(wordsInCurrentLine = []);
+      } // Add the current word node to the line array
+
+      wordsInCurrentLine.push(node);
+    } // END IF
+
+    if (settings.absolute) {
+      // Store the size and position split text nodes
+      set(node, {
+        top: top,
+        left: left,
+        width: width,
+        height: height
+      });
+    }
+  }); // END LOOP
+  // Remove the element from the DOM
+
+  if (parent) {
+    parent.removeChild(element);
+  }
+  /**------------------------------------------------
+   ** SPLIT LINES
+   **-----------------------------------------------*/
+
+  if (types.lines) {
+    // Iterate over lines of text (see 11 b)
+    // Let `line` be the array of words in the current line.
+    // Return an array of the wrapped line elements (lineElements)
+    lines = wordsInEachLine.map(function (wordsInThisLine) {
+      // Create an element to wrap the current line.
+      var lineElement = createElement(TAG_NAME, {
+        "class": "".concat(settings.splitClass, " ").concat(settings.lineClass),
+        style: "display: block; text-align: ".concat(align, "; width: 100%;")
+      });
+      set(lineElement, 'isLine', true);
+      var lineDimensions = {
+        height: 0,
+        top: 1e4
+      }; // Append the `lineElement` to `container`
+
+      splitText.appendChild(lineElement); // Iterate over the word-level elements in the current line.
+      // Note: wordOrElement can either be a word node or nested element
+
+      wordsInThisLine.forEach(function (wordOrElement, idx, arr) {
+        var _data$get = get(wordOrElement),
+          isWordEnd = _data$get.isWordEnd,
+          top = _data$get.top,
+          height = _data$get.height;
+        var next = arr[idx + 1]; // Determine line height / y-position
+        // we use the height and offsetTop of the words which we already
+        // recorded. Because custom nested elements could have their own
+        // styles, the words on a line may not all be the same height or
+        // y position. So we take the greatest height / y - offset of the
+        // words on this line.
+
+        lineDimensions.height = Math.max(lineDimensions.height, height);
+        lineDimensions.top = Math.min(lineDimensions.top, top); // append the current word/element
+
+        lineElement.appendChild(wordOrElement); // Determine if there should space after the current element...
+        // If this is not the last word on the current line.
+        // TODO - logic for handing spacing can be improved
+
+        if (isWordEnd && get(next).isWordStart) {
+          lineElement.append(' ');
+        }
+      }); // END LOOP
+
+      if (settings.absolute) {
+        set(lineElement, {
+          height: lineDimensions.height,
+          top: lineDimensions.top
+        });
+      }
+      return lineElement;
+    }); // END LOOP
+
+    if (!types.words) {
+      unSplitWords(splitText);
+    } // 10. Insert the new container
+
+    element.replaceChildren(splitText);
+  }
+  /**------------------------------------------------
+   **  SET ABSOLUTE POSITION
+   **-----------------------------------------------*/
+  // Apply absolute positioning to all child elements of the target element.
+  // This includes split lines, words, chars, and custom HTML elements that were
+  // included by the user. The size and position of child elements has already
+  // been recorded before splitting text into lines.
+
+  if (settings.absolute) {
+    // Set the width/height of the parent element so it does not collapse
+    // when its children are set to absolute position.
+    element.style.width = "".concat(element.style.width || elementWidth, "px");
+    element.style.height = "".concat(elementHeight, "px"); // Iterate over all child elements
+
+    toArray(nodes).forEach(function (node) {
+      var _data$get2 = get(node),
+        isLine = _data$get2.isLine,
+        top = _data$get2.top,
+        left = _data$get2.left,
+        width = _data$get2.width,
+        height = _data$get2.height;
+      var parentData = get(node.parentElement);
+      var isChildOfLineNode = !isLine && parentData.isLine; // Set the top position of the current node.
+      // -> If `node` a line element, we use the top offset of its first child
+      // -> If `node` the child of line element, then its top offset is zero
+
+      node.style.top = "".concat(isChildOfLineNode ? top - parentData.top : top, "px"); // Set the left position of the current node.
+      // -> IF `node` is a line element, this is equal to the position left of
+      //    the content box of the parent element
+      // -> IF `node` is the child of a line element, the value has to adjusted
+      //    so its relative to the line element
+
+      node.style.left = isLine ? "".concat(contentBox.left, "px") : "".concat(left - (isChildOfLineNode ? contentBox.left : 0), "px"); // Set the height of the current node to the cached value.
+
+      node.style.height = "".concat(height, "px"); //  Set the width of the current node.
+      //  If its a line element, width is equal to the width of the contentBox.
+
+      node.style.width = isLine ? "".concat(contentBox.width, "px") : "".concat(width, "px"); // Finally, set the node's position to absolute.
+
+      node.style.position = 'absolute';
+    });
+  } // end if;
+  // 14. Re-attach the element to the DOM
+
+  if (parent) {
+    if (nextSibling) parent.insertBefore(element, nextSibling);else parent.appendChild(element);
+  }
+  return lines;
+}
+var _defaults = extend(defaults, {});
+var SplitType = exports.default = /*#__PURE__*/function () {
+  _createClass(SplitType, null, [{
+    key: "clearData",
+    /**
+     * CLears all data
+     */
+    value: function clearData() {
+      clear();
+    }
+    /**
+     * The default settings for all splitType instances
+     * @static
+     */
+  }, {
+    key: "setDefaults",
+    /**
+     * Sets the default settings for all SplitType instances.
+     * The provided object will be merged with the existing defaults objects.
+     *
+     * @param {Object} settings an object containing the settings to override
+     * @returns {Object} the new default settings
+     * @public
+     * @static
+     * @example
+     * SplitType.setDefaults({ "position": "absolute" })
+     */
+    value: function setDefaults(options) {
+      _defaults = extend(_defaults, parseSettings(options));
+      return defaults;
+    }
+    /**
+     * Revert target elements to their original html content
+     * Has no effect on that
+     *
+     * @param {any} elements The target elements to revert. One of:
+     *  - {string} A css selector
+     *  - {HTMLElement} A single element
+     * -  {NodeList} A NodeList or collection
+     *  - {HTMLElement[]} An array of Elements
+     * -  {Array<HTMLElement|NodeList|HTMLElement[]>} A nested array of elements
+     * @static
+     */
+  }, {
+    key: "revert",
+    value: function revert(elements) {
+      getTargetElements(elements).forEach(function (element) {
+        var _data$get = get(element),
+          isSplit = _data$get.isSplit,
+          html = _data$get.html,
+          cssWidth = _data$get.cssWidth,
+          cssHeight = _data$get.cssHeight;
+        if (isSplit) {
+          element.innerHTML = html;
+          element.style.width = cssWidth || '';
+          element.style.height = cssHeight || '';
+          remove(element);
+        }
+      });
+    }
+    /**
+     * Creates a new SplitType instance
+     * This static method provides a way to create a `SplitType` instance without
+     * using the `new` keyword.
+     *
+     * @param {any} target The target elements to split. One of:
+     *  - {string} A css selector
+     *  - {HTMLElement} A single element
+     * -  {NodeList} A NodeList or collection
+     *  - {HTMLElement[]} An array of Elements
+     * -  {Array<HTMLElement|NodeList|HTMLElement[]>} A nested array of elements
+     * @param {Object} [options] Settings for the SplitType instance
+     * @return {SplitType} the SplitType instance
+     * @static
+     */
+  }, {
+    key: "create",
+    value: function create(target, options) {
+      return new SplitType(target, options);
+    }
+    /**
+     * Creates a new `SplitType` instance
+     *
+     * @param {any} elements The target elements to split. One of:
+     *  - {string} A css selector
+     *  - {HTMLElement} A single element
+     * -  {NodeList} A NodeList or collection
+     *  - {HTMLElement[]} An array of Elements
+     * -  {Array<HTMLElement|NodeList|HTMLElement[]>} A nested array of elements
+     * @param {Object} [options] Settings for the SplitType instance
+     */
+  }, {
+    key: "data",
+    /**
+     * The internal data store
+     */
+    get: function get() {
+      return cache;
+    }
+  }, {
+    key: "defaults",
+    get: function get() {
+      return _defaults;
+    }
+    /**
+     * Sets the default settings for all SplitType instances.
+     *
+     * Setting `SplitType.defaults` to an object will merge that object with the
+     * existing defaults.
+     *
+     * @param {Object} settings an object containing the settings to override
+     * @deprecated
+     * @static
+     * @example
+     * SplitType.defaults = { "position": "absolute" }
+     */,
+
+    set: function set(options) {
+      _defaults = extend(_defaults, parseSettings(options));
+    }
+  }]);
+  function SplitType(elements, options) {
+    _classCallCheck(this, SplitType);
     this.isSplit = false;
-    return this;
-  };
-  SplitText.create = function create(element, vars) {
-    return new SplitText(element, vars);
-  };
-  return SplitText;
+    this.settings = extend(_defaults, parseSettings(options));
+    this.elements = getTargetElements(elements); // Start the split process
+
+    this.split();
+  }
+  /**
+   * Splits the text in all target elements. This method is called
+   * automatically when a new SplitType instance is created. It can also be
+   * called manually to re-split text with new options.
+   * @param {Object} options
+   * @public
+   */
+
+  _createClass(SplitType, [{
+    key: "split",
+    value: function split$1(options) {
+      var _this = this;
+
+      // Revert target elements (if they are already split)
+      // Note: revert was already called once in the constructor. However, we
+      // need to call it again here so text is reverted when the user manually
+      // calls the `split` method to re-split text.
+      this.revert(); // Store the original html content of each target element
+
+      this.elements.forEach(function (element) {
+        set(element, 'html', element.innerHTML);
+      }); // Create arrays to hold the split lines, words, and characters
+
+      this.lines = [];
+      this.words = [];
+      this.chars = []; // cache vertical scroll position before splitting
+
+      var scrollPos = [window.pageXOffset, window.pageYOffset]; // If new options were passed into the `split()` method, update settings
+
+      if (options !== undefined) {
+        this.settings = extend(this.settings, parseSettings(options));
+      }
+      var types = parseTypes(this.settings.types); // If the `types` option is set to an empty array, text will not be split.
+      // @example new SplitType('#target', { types: [] })
+
+      if (types.none) {
+        return;
+      } // Split text in each target element
+
+      this.elements.forEach(function (element) {
+        // Add the split text nodes from this element to the arrays of all split
+        // text nodes for this instance.
+        set(element, 'isRoot', true);
+        var _split2 = split(element, _this.settings),
+          words = _split2.words,
+          chars = _split2.chars;
+        _this.words = [].concat(_toConsumableArray(_this.words), _toConsumableArray(words));
+        _this.chars = [].concat(_toConsumableArray(_this.chars), _toConsumableArray(chars));
+      });
+      this.elements.forEach(function (element) {
+        if (types.lines || _this.settings.absolute) {
+          var lines = repositionAfterSplit(element, _this.settings, scrollPos);
+          _this.lines = [].concat(_toConsumableArray(_this.lines), _toConsumableArray(lines));
+        }
+      }); // Set isSplit to true for the SplitType instance
+
+      this.isSplit = true; // Set scroll position to cached value.
+
+      window.scrollTo(scrollPos[0], scrollPos[1]); // Clean up stored data
+
+      cleanup();
+    }
+    /**
+     * Reverts target element(s) back to their original html content
+     * Deletes all stored data associated with the target elements
+     * Resets the properties on the splitType instance
+     *
+     * @public
+     */
+  }, {
+    key: "revert",
+    value: function revert() {
+      if (this.isSplit) {
+        // Reset instance properties if necessary
+        this.lines = null;
+        this.words = null;
+        this.chars = null;
+        this.isSplit = false;
+      }
+      SplitType.revert(this.elements);
+    }
+  }]);
+  return SplitType;
 }();
-SplitText.version = "3.12.5";
-SplitText.register = _initCore;
-},{"./utils/strings.js":"../node_modules/gsap/utils/strings.js"}],"../node_modules/gsap/Observer.js":[function(require,module,exports) {
+},{}],"../node_modules/gsap/Observer.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -9029,14 +9717,13 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = gradientText;
 var _gsap = _interopRequireDefault(require("gsap"));
-var _SplitText = _interopRequireDefault(require("gsap/SplitText"));
+var _splitType = _interopRequireDefault(require("split-type"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-_gsap.default.registerPlugin(_SplitText.default);
 function gradientText(selector) {
-  var childSplit = new _SplitText.default(selector, {
-    type: "chars",
-    wordsClass: "word",
-    charsClass: "char"
+  var childSplit = new _splitType.default(selector, {
+    types: "chars",
+    wordClass: "word",
+    charClass: "char"
   });
   var gradientChars = document.querySelectorAll(".stats-mission_number.gradient-text .char");
   var offset = 0;
@@ -9047,7 +9734,7 @@ function gradientText(selector) {
     char.style.backgroundPosition = char.parentElement.offsetWidth - offset + "px 0%";
   });
 }
-},{"gsap":"../node_modules/gsap/index.js","gsap/SplitText":"../node_modules/gsap/SplitText.js"}],"utils/imagesParallax.js":[function(require,module,exports) {
+},{"gsap":"../node_modules/gsap/index.js","split-type":"../node_modules/split-type/dist/index.js"}],"utils/imagesParallax.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -9101,7 +9788,7 @@ function dotsPattern() {
         _gsap.default.to(circles, {
           opacity: 1,
           stagger: {
-            each: 0.0015,
+            amount: 0.0025,
             from: "random"
           }
         });
@@ -9109,134 +9796,135 @@ function dotsPattern() {
     });
   });
 }
-},{"gsap":"../node_modules/gsap/index.js","gsap/ScrollTrigger":"../node_modules/gsap/ScrollTrigger.js"}],"home/index.js":[function(require,module,exports) {
+},{"gsap":"../node_modules/gsap/index.js","gsap/ScrollTrigger":"../node_modules/gsap/ScrollTrigger.js"}],"utils/gradientButton.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = gradientButton;
+var _gsap = _interopRequireDefault(require("gsap"));
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function gradientButton() {
+  var gradientBtns = document.querySelectorAll(".button.is-gradient");
+  var mm = _gsap.default.matchMedia();
+  gradientBtns.forEach(function (btn) {
+    var circles = btn.querySelectorAll(".btn_circle");
+    mm.add("(hover:hover)", function () {
+      _gsap.default.set(btn, {
+        "--btn-grad-angle": "135deg",
+        "--btn-grad-color-1": "#CDF7FD",
+        "--btn-grad-color-2": "#63ECFE",
+        "--btn-grad-color-3": "#4285D0",
+        "--btn-grad-color-4": "#4240BB"
+      });
+      circles.forEach(function (circle) {
+        _gsap.default.to(circle, {
+          duration: 10,
+          repeat: -1,
+          yoyo: true,
+          scale: 1,
+          y: "random(-40,40)",
+          x: "random(-40, 40)"
+        });
+      });
+      btn.addEventListener("mouseenter", function () {
+        _gsap.default.to(btn, {
+          duration: 1,
+          ease: "expo.out",
+          "--btn-grad-angle": "130deg",
+          "--btn-grad-color-1": "#E4E8FB",
+          "--btn-grad-color-2": "#69C0FF",
+          "--btn-grad-color-3": "#92CBF4",
+          "--btn-grad-color-4": "#EAF1F9"
+        });
+        _gsap.default.to(circles, {
+          opacity: 0,
+          duration: 1
+        });
+      });
+      btn.addEventListener("mouseleave", function () {
+        _gsap.default.to(btn, {
+          duration: 1.6,
+          ease: "circ.out",
+          "--btn-grad-angle": "135deg",
+          "--btn-grad-color-1": "#CDF7FD",
+          "--btn-grad-color-2": "#63ECFE",
+          "--btn-grad-color-3": "#4285D0",
+          "--btn-grad-color-4": "#4240BB"
+        });
+        _gsap.default.to(circles, {
+          opacity: 1,
+          duration: 1.6
+        });
+      });
+    });
+  });
+}
+},{"gsap":"../node_modules/gsap/index.js"}],"utils/gradientBg.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = gradientBg;
+var _gsap = _interopRequireDefault(require("gsap"));
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function gradientBg() {
+  var bgGradientTl = _gsap.default.timeline({
+    repeat: -1
+  });
+  var bgColorChangeTime = 5;
+  bgGradientTl.to(".section-bg-gradient", {
+    "--bg-gradient-angle": "0deg",
+    duration: 0
+  }).to(".section-bg-gradient", {
+    "--bg-gradient-angle": "90deg",
+    "--bg-gradient-color-1": "#4A247A",
+    "--bg-gradient-color-2": "#2F9ECE",
+    duration: bgColorChangeTime
+  }).to(".section-bg-gradient", {
+    "--bg-gradient-angle": "180deg",
+    duration: bgColorChangeTime
+  }).to(".section-bg-gradient", {
+    "--bg-gradient-angle": "270deg",
+    "--bg-gradient-color-1": "#48379C",
+    "--bg-gradient-color-2": "#2FBBCE",
+    duration: bgColorChangeTime
+  }).to(".section-bg-gradient", {
+    "--bg-gradient-angle": "360deg",
+    duration: bgColorChangeTime
+  }).to(".section-bg-gradient", {
+    "--bg-gradient-angle": "0deg",
+    duration: 0
+  });
+}
+},{"gsap":"../node_modules/gsap/index.js"}],"home/index.js":[function(require,module,exports) {
 "use strict";
 
 var _gsap = _interopRequireDefault(require("gsap"));
-var _SplitText = _interopRequireDefault(require("gsap/SplitText"));
+var _splitType = _interopRequireDefault(require("split-type"));
 var _ScrollTrigger = _interopRequireDefault(require("gsap/ScrollTrigger"));
 var _gradientText = _interopRequireDefault(require("../utils/gradientText"));
 var _imagesParallax = _interopRequireDefault(require("../utils/imagesParallax"));
 var _dotsPattern = _interopRequireDefault(require("../utils/dotsPattern"));
+var _gradientButton = _interopRequireDefault(require("../utils/gradientButton"));
+var _gradientBg = _interopRequireDefault(require("../utils/gradientBg"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-_gsap.default.registerPlugin(_ScrollTrigger.default, _SplitText.default);
+_gsap.default.registerPlugin(_ScrollTrigger.default);
 (0, _imagesParallax.default)();
 (0, _dotsPattern.default)();
-//Testimonial slider
-var swiperPagination = document.querySelector(".swiper-pagination");
-var swiperParent = document.querySelector(".swiper");
-swiperParent.appendChild(swiperPagination);
-var swiper = new Swiper(".swiper", {
-  spaceBetween: 30,
-  slidesPerView: 1,
-  loop: true,
-  speed: 1000,
-  draggable: true,
-  autoplay: {
-    delay: 4500,
-    disableOnInteraction: false
-  },
-  pagination: {
-    el: ".swiper-pagination",
-    clickable: true
-  }
-});
-swiper.autoplay.stop();
-_ScrollTrigger.default.create({
-  trigger: ".section_testimonial",
-  start: "top 50%",
-  end: "top 40%",
-  invalidateOnRefresh: true,
-  onEnter: function onEnter() {
-    _gsap.default.to(".testimonial_bg-headshot-small, .testimonial_bg-headshot-medium", {
-      opacity: 1,
-      scale: 1,
-      duration: 0.6,
-      ease: "circ.out",
-      stagger: {
-        each: 0.1,
-        from: "random"
-      }
-    });
-    swiper.autoplay.start();
-  }
-});
-
-//Stats
-//Create gradient text
-(0, _gradientText.default)(".stats-mission_number.gradient-text");
-var split = new _SplitText.default(".stats-mission_number:not(.gradient-text)", {
-  type: "chars",
-  charsClass: "char"
-});
-var statsContainers = document.querySelectorAll(".stats-mission_component > div");
-statsContainers.forEach(function (item, i) {
-  var num = item.querySelectorAll(".stats-mission_number .char");
-  var descr = item.querySelector(".stats-mission_item .bg-gradient-text-clip") || item.querySelector(".stats-mission_item p");
-  var tl = _gsap.default.timeline({
-    delay: i * 0.1,
-    ease: "circ.out",
-    scrollTrigger: {
-      trigger: ".stats-mission_component",
-      start: "top 50%",
-      end: "top 40%",
-      invalidateOnRefresh: true
-    }
-  });
-  tl.to(item, {
-    autoAlpha: 1,
-    y: "0%",
-    stagger: {
-      each: 0.035
-    }
-  }).to(num, {
-    y: "0%",
-    autoAlpha: 1,
-    stagger: {
-      each: 0.03
-    }
-  }, "<25%").to(descr, {
-    y: "0%",
-    autoAlpha: 1
-  }, "<20%");
-});
-
-//Section bg gradient
-var bgGradientTl = _gsap.default.timeline({
-  repeat: -1
-});
-var bgColorChangeTime = 5;
-bgGradientTl.to(".section-bg-gradient", {
-  "--bg-gradient-angle": "0deg",
-  duration: 0
-}).to(".section-bg-gradient", {
-  "--bg-gradient-angle": "90deg",
-  "--bg-gradient-color-1": "#4A247A",
-  "--bg-gradient-color-2": "#2F9ECE",
-  duration: bgColorChangeTime
-}).to(".section-bg-gradient", {
-  "--bg-gradient-angle": "180deg",
-  duration: bgColorChangeTime
-}).to(".section-bg-gradient", {
-  "--bg-gradient-angle": "270deg",
-  "--bg-gradient-color-1": "#48379C",
-  "--bg-gradient-color-2": "#2FBBCE",
-  duration: bgColorChangeTime
-}).to(".section-bg-gradient", {
-  "--bg-gradient-angle": "360deg",
-  duration: bgColorChangeTime
-}).to(".section-bg-gradient", {
-  "--bg-gradient-angle": "0deg",
-  duration: 0
-});
+(0, _gradientButton.default)();
+(0, _gradientBg.default)();
 
 //Hero
 var navLinks = _gsap.default.utils.toArray(".navbar_link:not(.is-dropdown), .navbar_dd-wrap");
-var splitHeroHeading = new _SplitText.default("h1", {
-  linesClass: "split-line"
+var splitHeroHeading = new _splitType.default("h1", {
+  types: "lines",
+  lineClass: "split-line"
 });
-var splitHeroParagraph = new _SplitText.default(".home-header_content-wrap p", {
-  linesClass: "split-line"
+var splitHeroParagraph = new _splitType.default(".home-header_content-wrap p", {
+  lineClass: "split-line"
 });
 var heroBtns = document.querySelectorAll(".home-header_content-wrap .button-group a");
 _gsap.default.set("h1, .home-header_content-wrap p", {
@@ -9287,11 +9975,124 @@ heroTl.to(splitHeroHeading.lines, {
   duration: 0.55,
   ease: "circ.out"
 }, "<35%");
-
-//2col section
-var split2 = new _SplitText.default("[data-animate='section-h'],[data-animate='section-p']", {
-  type: "lines",
-  linesClass: "split-line"
+//Section Highlights
+var highlights1 = _gsap.default.utils.toArray(".highlights-cms-item:first-child div, .highlights-cms-item:first-child h3, .highlights-cms-item:first-child a");
+var highlights2 = _gsap.default.utils.toArray(".highlights-cms-item:last-child div, .highlights-cms-item:last-child h3, .highlights-cms-item:last-child a");
+_ScrollTrigger.default.create({
+  trigger: ".section_highlights-dark",
+  start: "top 70%",
+  end: "top 50%",
+  invalidateOnRefresh: true,
+  onEnter: function onEnter() {
+    var tl = _gsap.default.timeline();
+    tl.to(".section_highlights-dark h2", {
+      y: "0%",
+      autoAlpha: 1,
+      duration: 0.6,
+      ease: "circ.out"
+    }).to(".highlights_divider", {
+      height: "100%",
+      duration: 0.6,
+      ease: "circ.out"
+    }, "<10%").to(highlights1, {
+      y: "0%",
+      autoAlpha: 1,
+      duration: 0.6,
+      ease: "circ.out",
+      stagger: {
+        each: 0.055
+      }
+    }, "<30%").to(highlights2, {
+      y: "0%",
+      autoAlpha: 1,
+      duration: 0.6,
+      ease: "circ.out",
+      stagger: {
+        each: 0.055
+      }
+    }, "<10%");
+  }
+});
+///////Testimonial slider
+var swiperPagination = document.querySelector(".swiper-pagination");
+var swiperParent = document.querySelector(".swiper");
+swiperParent.appendChild(swiperPagination);
+var swiper = new Swiper(".swiper", {
+  spaceBetween: 30,
+  slidesPerView: 1,
+  loop: true,
+  speed: 1000,
+  draggable: true,
+  autoplay: {
+    delay: 4500,
+    disableOnInteraction: false
+  },
+  pagination: {
+    el: ".swiper-pagination",
+    clickable: true
+  }
+});
+swiper.autoplay.stop();
+_ScrollTrigger.default.create({
+  trigger: ".section_testimonial",
+  start: "top 50%",
+  end: "top 40%",
+  invalidateOnRefresh: true,
+  onEnter: function onEnter() {
+    _gsap.default.to(".testimonial_bg-headshot-small, .testimonial_bg-headshot-medium", {
+      opacity: 1,
+      scale: 1,
+      duration: 0.6,
+      ease: "circ.out",
+      stagger: {
+        each: 0.1,
+        from: "random"
+      }
+    });
+    swiper.autoplay.start();
+  }
+});
+///////Stats
+(0, _gradientText.default)(".stats-mission_number.gradient-text");
+var split = new _splitType.default(".stats-mission_number:not(.gradient-text)", {
+  types: "chars",
+  charClass: "char"
+});
+var statsContainers = document.querySelectorAll(".stats-mission_component > div");
+statsContainers.forEach(function (item, i) {
+  var num = item.querySelectorAll(".stats-mission_number .char");
+  var descr = item.querySelector(".stats-mission_item .bg-gradient-text-clip") || item.querySelector(".stats-mission_item p");
+  var tl = _gsap.default.timeline({
+    delay: i * 0.05,
+    ease: "circ.out",
+    scrollTrigger: {
+      trigger: ".stats-mission_component",
+      start: "top 50%",
+      end: "top 40%",
+      invalidateOnRefresh: true
+    }
+  });
+  tl.to(item, {
+    autoAlpha: 1,
+    y: "0%",
+    stagger: {
+      each: 0.015
+    }
+  }).to(num, {
+    y: "0%",
+    autoAlpha: 1,
+    stagger: {
+      each: 0.03
+    }
+  }, "<25%").to(descr, {
+    y: "0%",
+    autoAlpha: 1
+  }, "<20%");
+});
+/////////2col section
+var split2 = new _splitType.default("[data-animate='section-h'],[data-animate='section-p']", {
+  types: "lines",
+  lineClass: "split-line"
 });
 _ScrollTrigger.default.create({
   trigger: ".section_layout-2-col",
@@ -9333,46 +10134,7 @@ _ScrollTrigger.default.create({
   }
 });
 
-//Section Highlights
-var highlights1 = _gsap.default.utils.toArray(".highlights-cms-item:first-child div, .highlights-cms-item:first-child h3, .highlights-cms-item:first-child a");
-var highlights2 = _gsap.default.utils.toArray(".highlights-cms-item:last-child div, .highlights-cms-item:last-child h3, .highlights-cms-item:last-child a");
-_ScrollTrigger.default.create({
-  trigger: ".section_highlights-dark",
-  start: "top 70%",
-  end: "top 50%",
-  invalidateOnRefresh: true,
-  onEnter: function onEnter() {
-    var tl = _gsap.default.timeline();
-    tl.to(".section_highlights-dark h2", {
-      y: "0%",
-      autoAlpha: 1,
-      duration: 0.6,
-      ease: "circ.out"
-    }).to(".highlights_divider", {
-      height: "100%",
-      duration: 0.6,
-      ease: "circ.out"
-    }, "<10%").to(highlights1, {
-      y: "0%",
-      autoAlpha: 1,
-      duration: 0.6,
-      ease: "circ.out",
-      stagger: {
-        each: 0.055
-      }
-    }, "<30%").to(highlights2, {
-      y: "0%",
-      autoAlpha: 1,
-      duration: 0.6,
-      ease: "circ.out",
-      stagger: {
-        each: 0.055
-      }
-    }, "<10%");
-  }
-});
-
-//News
+//////////News
 _ScrollTrigger.default.create({
   trigger: ".section_news",
   start: "top 60%",
@@ -9390,7 +10152,7 @@ _ScrollTrigger.default.create({
       autoAlpha: 1,
       duration: 0.55,
       ease: "circ.out"
-    }, "<50%").to(".news_item", {
+    }, "<60%").to(".news_item", {
       y: "0%",
       autoAlpha: 1,
       duration: 0.6,
@@ -9398,11 +10160,67 @@ _ScrollTrigger.default.create({
       stagger: {
         each: 0.055
       }
-    }, "<50%");
+    }, "<20%");
   }
 });
 
-//Pre footer CTA section
+/////Sponsors
+var sponsorsSections = document.querySelectorAll(".sponsors_component");
+sponsorsSections.forEach(function (section) {
+  var heading = section.querySelector("h2");
+  var paragraph = section.querySelector("p");
+  var buttonWrap = section.querySelector(".button-group");
+  var logos = section.querySelectorAll(".sponsors_wrapper");
+  var splitH = new _splitType.default(heading, {
+    types: "lines",
+    lineClass: "split-line"
+  });
+  var splitP = new _splitType.default(paragraph, {
+    type: "lines",
+    lineClass: "split-line"
+  });
+  _ScrollTrigger.default.create({
+    trigger: section,
+    start: "top 60%",
+    end: "top 50%",
+    invalidateOnRefresh: true,
+    onEnter: function onEnter() {
+      var tl = _gsap.default.timeline();
+      tl.to(splitH.lines, {
+        y: "0%",
+        autoAlpha: 1,
+        duration: 0.6,
+        ease: "circ.out",
+        stagger: {
+          each: 0.055
+        }
+      }).to(splitP.lines, {
+        y: "0%",
+        autoAlpha: 1,
+        duration: 0.55,
+        ease: "circ.out",
+        stagger: {
+          each: 0.02
+        }
+      }, "<55%").to(buttonWrap, {
+        y: "0%",
+        autoAlpha: 1,
+        duration: 0.55,
+        ease: "circ.out"
+      }, "<25%").to(logos, {
+        autoAlpha: 1,
+        duration: 0.8,
+        ease: "circ.out",
+        stagger: {
+          each: 0.05,
+          from: "start"
+        }
+      }, "<20%");
+    }
+  });
+});
+
+///////Pre footer CTA section
 _ScrollTrigger.default.create({
   trigger: ".section_cta",
   start: "top 60%",
@@ -9438,64 +10256,7 @@ _ScrollTrigger.default.create({
     }, "<15%");
   }
 });
-
-//Sponsors
-
-var sponsorsSections = document.querySelectorAll(".sponsors_component");
-sponsorsSections.forEach(function (section) {
-  var heading = section.querySelector("h2");
-  var paragraph = section.querySelector("p");
-  var buttonWrap = section.querySelector(".button-group");
-  var logos = section.querySelectorAll(".sponsors_wrapper");
-  var splitH = new _SplitText.default(heading, {
-    type: "lines",
-    linesClass: "split-line"
-  });
-  var splitP = new _SplitText.default(paragraph, {
-    type: "lines",
-    linesClass: "split-line"
-  });
-  _ScrollTrigger.default.create({
-    trigger: section,
-    start: "top 60%",
-    end: "top 50%",
-    invalidateOnRefresh: true,
-    onEnter: function onEnter() {
-      var tl = _gsap.default.timeline();
-      tl.to(splitH.lines, {
-        y: "0%",
-        autoAlpha: 1,
-        duration: 0.6,
-        ease: "circ.out",
-        stagger: {
-          each: 0.055
-        }
-      }).to(splitP.lines, {
-        y: "0%",
-        autoAlpha: 1,
-        duration: 0.55,
-        ease: "circ.out",
-        stagger: {
-          each: 0.02
-        }
-      }, "<15%").to(buttonWrap, {
-        y: "0%",
-        autoAlpha: 1,
-        duration: 0.55,
-        ease: "circ.out"
-      }, "<15%").to(logos, {
-        autoAlpha: 1,
-        duration: 0.8,
-        ease: "circ.out",
-        stagger: {
-          each: 0.05,
-          from: "start"
-        }
-      }, "<50%");
-    }
-  });
-});
-},{"gsap":"../node_modules/gsap/index.js","gsap/SplitText":"../node_modules/gsap/SplitText.js","gsap/ScrollTrigger":"../node_modules/gsap/ScrollTrigger.js","../utils/gradientText":"utils/gradientText.js","../utils/imagesParallax":"utils/imagesParallax.js","../utils/dotsPattern":"utils/dotsPattern.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"gsap":"../node_modules/gsap/index.js","split-type":"../node_modules/split-type/dist/index.js","gsap/ScrollTrigger":"../node_modules/gsap/ScrollTrigger.js","../utils/gradientText":"utils/gradientText.js","../utils/imagesParallax":"utils/imagesParallax.js","../utils/dotsPattern":"utils/dotsPattern.js","../utils/gradientButton":"utils/gradientButton.js","../utils/gradientBg":"utils/gradientBg.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -9520,7 +10281,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "127.0.0.1" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52191" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51728" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];

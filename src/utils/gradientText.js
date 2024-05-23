@@ -1,13 +1,11 @@
 import gsap from "gsap";
-import SplitText from "gsap/SplitText";
-
-gsap.registerPlugin(SplitText);
+import SplitType from "split-type";
 
 export default function gradientText(selector) {
-  const childSplit = new SplitText(selector, {
-    type: "chars",
-    wordsClass: "word",
-    charsClass: "char",
+  const childSplit = new SplitType(selector, {
+    types: "chars",
+    wordClass: "word",
+    charClass: "char",
   });
 
   const gradientChars = document.querySelectorAll(
