@@ -192,14 +192,15 @@ document.fonts
 
     // Set initial state for all slides except the first one
     swiper.slides.forEach((slide, index) => {
-      if (index !== swiper.activeIndex) {
+      if (index !== 0) {
         gsap.set(slide, { scale: 0.8, opacity: 0.3 });
       }
     });
     swiper.on("slideChange", function () {
       let currentSlide = swiper.slides[swiper.activeIndex];
       let prevSlide = swiper.slides[swiper.previousIndex];
-
+      console.log(currentSlide);
+      console.log(prevSlide);
       // Scale up and increase opacity of current slide
       gsap.to(currentSlide, { scale: 1, opacity: 1 });
 
