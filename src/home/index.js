@@ -188,6 +188,8 @@ document.fonts
       },
     });
     swiper.autoplay.stop();
+    console.log(swiper.slides[swiper.previousIndex]);
+    console.log(swiper.slides[swiper.activeIndex]);
     swiper.on("slideChange", function () {
       let currentSlide = swiper.activeIndex;
       //scale the slide up
