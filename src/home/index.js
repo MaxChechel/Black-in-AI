@@ -199,10 +199,9 @@ document.fonts
     swiper.on("slideChange", function () {
       let currentSlide = swiper.slides[swiper.activeIndex];
       let prevSlide = swiper.slides[swiper.previousIndex];
-      console.log(currentSlide);
-      console.log(prevSlide);
+
       // Scale up and increase opacity of current slide
-      gsap.to(currentSlide, { scale: 1, opacity: 1 });
+      gsap.to(currentSlide, { scale: 1, opacity: 1, duration: 1 });
 
       // Apply animation to the specific element in the current slide (example)
       gsap.to(currentSlide.querySelector(".text-is-quote"), {
@@ -211,7 +210,7 @@ document.fonts
 
       // Scale down and decrease opacity of previous slide
       if (swiperChanged) {
-        gsap.to(prevSlide, { opacity: 0.3, scale: 0.8 });
+        gsap.to(prevSlide, { opacity: 0.3, scale: 0.8, duration: 1 });
       }
     });
     ScrollTrigger.create({
