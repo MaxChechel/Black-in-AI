@@ -19,7 +19,7 @@ document.fonts
 
     //Split lines
     const splitLines = new SplitType(
-      "h1, .home-header_content-wrap p, [data-animate='section-h'],[data-animate='section-p'],.sponsors_component h2, .sponsors_component p, .section_bai-programs .bai-programs_head-wrap p",
+      "h1, .home-header_content-wrap p, [data-animate='section-h'],[data-animate='section-p'],.sponsors_component h2, .sponsors_component p, .section_bai-programs .bai-programs_head-wrap p, .stats-mission_content-right p",
       {
         types: "lines",
         lineClass: "split-line",
@@ -255,12 +255,65 @@ document.fonts
           invalidateOnRefresh: true,
         },
       });
+
+      // Add animation for 'item'
       tl.to(item, {
         autoAlpha: 1,
         y: "0%",
         stagger: { each: 0.015 },
-      })
-        .to(
+      });
+
+      // Conditionally add animation for '.stats-mission_partner-image'
+      if (item.querySelector(".stats-mission_partner-image")) {
+        tl.to(
+          ".stats-mission_partner-image",
+          {
+            scale: 1.04,
+            duration: 1,
+          },
+          "<25%"
+        );
+      }
+      // Conditionally add animation for 'descr'
+      if (item.querySelector("h2")) {
+        tl.to(
+          item.querySelector("h2"),
+          {
+            delay: 0.3,
+            y: "0%",
+            autoAlpha: 1,
+            duration: 0.6,
+            ease: "circ.out",
+            stagger: { each: 0.055 },
+          },
+          0
+        )
+          .to(
+            item.querySelectorAll("p .split-line"),
+            {
+              y: "0%",
+              autoAlpha: 1,
+              duration: 0.55,
+              ease: "circ.out",
+              stagger: { each: 0.02 },
+            },
+            "<50%"
+          )
+          .to(
+            item.querySelector("a"),
+            {
+              y: "0%",
+              autoAlpha: 1,
+              duration: 0.55,
+              ease: "circ.out",
+            },
+            "<15%"
+          );
+      }
+
+      // Conditionally add animation for 'num'
+      if (num) {
+        tl.to(
           num,
           {
             y: "0%",
@@ -268,8 +321,12 @@ document.fonts
             stagger: { each: 0.03 },
           },
           "<25%"
-        )
-        .to(
+        );
+      }
+
+      // Conditionally add animation for 'descr'
+      if (descr) {
+        tl.to(
           descr,
           {
             y: "0%",
@@ -277,6 +334,7 @@ document.fonts
           },
           "<20%"
         );
+      }
     });
     /////////2col section
 

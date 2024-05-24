@@ -9788,7 +9788,7 @@ function dotsPattern() {
         _gsap.default.to(circles, {
           opacity: 1,
           stagger: {
-            each: 0.0015,
+            each: 0.0025,
             from: "random"
           }
         });
@@ -9919,7 +9919,7 @@ document.fonts.load('1em "Tt Hoves Pro Trial Variable"').then(function () {
   (0, _gradientBg.default)();
 
   //Split lines
-  var splitLines = new _splitType.default("h1, .home-header_content-wrap p, [data-animate='section-h'],[data-animate='section-p'],.sponsors_component h2, .sponsors_component p, .section_bai-programs .bai-programs_head-wrap p", {
+  var splitLines = new _splitType.default("h1, .home-header_content-wrap p, [data-animate='section-h'],[data-animate='section-p'],.sponsors_component h2, .sponsors_component p, .section_bai-programs .bai-programs_head-wrap p, .stats-mission_content-right p", {
     types: "lines",
     lineClass: "split-line"
   });
@@ -10018,6 +10018,7 @@ document.fonts.load('1em "Tt Hoves Pro Trial Variable"').then(function () {
       }, "<10%");
     }
   });
+
   ///////Testimonial slider
   var swiperPagination = document.querySelector(".swiper-pagination");
   var swiperParent = document.querySelector(".swiper");
@@ -10038,6 +10039,42 @@ document.fonts.load('1em "Tt Hoves Pro Trial Variable"').then(function () {
     }
   });
   swiper.autoplay.stop();
+  var swiperChanged = false;
+
+  // Set initial state for all slides except the first one
+  swiper.slides.forEach(function (slide, index) {
+    if (index !== 0) {
+      _gsap.default.set(slide, {
+        scale: 0.8,
+        opacity: 0.3
+      });
+    }
+  });
+  swiper.on("slideChange", function () {
+    var currentSlide = swiper.slides[swiper.activeIndex];
+    var prevSlide = swiper.slides[swiper.previousIndex];
+
+    // Scale up and increase opacity of current slide
+    _gsap.default.to(currentSlide, {
+      scale: 1,
+      opacity: 1,
+      duration: 1
+    });
+
+    // Apply animation to the specific element in the current slide (example)
+    _gsap.default.to(currentSlide.querySelector(".text-is-quote"), {
+      // Add your animation properties here
+    });
+
+    // Scale down and decrease opacity of previous slide
+    if (swiperChanged) {
+      _gsap.default.to(prevSlide, {
+        opacity: 0.3,
+        scale: 0.8,
+        duration: 1
+      });
+    }
+  });
   _ScrollTrigger.default.create({
     trigger: ".section_testimonial",
     start: "top 50%",
@@ -10073,22 +10110,68 @@ document.fonts.load('1em "Tt Hoves Pro Trial Variable"').then(function () {
         invalidateOnRefresh: true
       }
     });
+
+    // Add animation for 'item'
     tl.to(item, {
       autoAlpha: 1,
       y: "0%",
       stagger: {
         each: 0.015
       }
-    }).to(num, {
-      y: "0%",
-      autoAlpha: 1,
-      stagger: {
-        each: 0.03
-      }
-    }, "<25%").to(descr, {
-      y: "0%",
-      autoAlpha: 1
-    }, "<20%");
+    });
+
+    // Conditionally add animation for '.stats-mission_partner-image'
+    if (item.querySelector(".stats-mission_partner-image")) {
+      tl.to(".stats-mission_partner-image", {
+        scale: 1.04,
+        duration: 1
+      }, "<25%");
+    }
+    // Conditionally add animation for 'descr'
+    if (item.querySelector("h2")) {
+      tl.to(item.querySelector("h2"), {
+        delay: 0.3,
+        y: "0%",
+        autoAlpha: 1,
+        duration: 0.6,
+        ease: "circ.out",
+        stagger: {
+          each: 0.055
+        }
+      }, 0).to(item.querySelectorAll("p .split-line"), {
+        y: "0%",
+        autoAlpha: 1,
+        duration: 0.55,
+        ease: "circ.out",
+        stagger: {
+          each: 0.02
+        }
+      }, "<50%").to(item.querySelector("a"), {
+        y: "0%",
+        autoAlpha: 1,
+        duration: 0.55,
+        ease: "circ.out"
+      }, "<15%");
+    }
+
+    // Conditionally add animation for 'num'
+    if (num) {
+      tl.to(num, {
+        y: "0%",
+        autoAlpha: 1,
+        stagger: {
+          each: 0.03
+        }
+      }, "<25%");
+    }
+
+    // Conditionally add animation for 'descr'
+    if (descr) {
+      tl.to(descr, {
+        y: "0%",
+        autoAlpha: 1
+      }, "<20%");
+    }
   });
   /////////2col section
 
@@ -10126,7 +10209,7 @@ document.fonts.load('1em "Tt Hoves Pro Trial Variable"').then(function () {
         ease: "circ.out"
       }, "<15%").to(".layout-2-col_image", {
         height: "100%",
-        duration: 0.8,
+        duration: 1.4,
         ease: "circ.out"
       }, 0);
     }
@@ -10347,7 +10430,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "127.0.0.1" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51728" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56486" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];
