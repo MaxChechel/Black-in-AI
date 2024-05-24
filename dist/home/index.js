@@ -9912,281 +9912,90 @@ var _gradientButton = _interopRequireDefault(require("../utils/gradientButton"))
 var _gradientBg = _interopRequireDefault(require("../utils/gradientBg"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 _gsap.default.registerPlugin(_ScrollTrigger.default);
-(0, _imagesParallax.default)();
-(0, _dotsPattern.default)();
-(0, _gradientButton.default)();
-(0, _gradientBg.default)();
+document.fonts.load('1em "Tt Hoves Pro Trial Variable"').then(function () {
+  (0, _imagesParallax.default)();
+  (0, _dotsPattern.default)();
+  (0, _gradientButton.default)();
+  (0, _gradientBg.default)();
 
-//Hero
-var navLinks = _gsap.default.utils.toArray(".navbar_link:not(.is-dropdown), .navbar_dd-wrap");
-var splitHeroHeading = new _splitType.default("h1", {
-  types: "lines",
-  lineClass: "split-line"
-});
-var splitHeroParagraph = new _splitType.default(".home-header_content-wrap p", {
-  lineClass: "split-line"
-});
-var heroBtns = document.querySelectorAll(".home-header_content-wrap .button-group a");
-_gsap.default.set("h1, .home-header_content-wrap p", {
-  autoAlpha: 1
-});
-var heroTl = _gsap.default.timeline();
-heroTl.to(splitHeroHeading.lines, {
-  y: "0%",
-  autoAlpha: 1,
-  duration: 0.6,
-  ease: "circ.out",
-  stagger: {
-    each: 0.055
-  }
-}, 0).to(splitHeroParagraph.lines, {
-  y: "0%",
-  autoAlpha: 1,
-  duration: 0.55,
-  ease: "circ.out",
-  stagger: {
-    each: 0.02
-  }
-}, "<50%").to(heroBtns, {
-  y: "0%",
-  autoAlpha: 1,
-  duration: 0.55,
-  ease: "circ.out",
-  stagger: {
-    each: 0.035
-  }
-}, "<15%").to(".navbar_logo-link", {
-  y: "0%",
-  autoAlpha: 1,
-  duration: 0.55,
-  ease: "circ.out"
-}, "<15%").to(navLinks, {
-  y: "0%",
-  autoAlpha: 1,
-  duration: 0.55,
-  ease: "circ.out",
-  stagger: {
-    each: 0.035,
-    from: "start"
-  }
-}, "<10%").to(".navbar_button-wrapper", {
-  y: "0%",
-  autoAlpha: 1,
-  duration: 0.55,
-  ease: "circ.out"
-}, "<35%");
-//Section Highlights
-var highlights1 = _gsap.default.utils.toArray(".highlights-cms-item:first-child div, .highlights-cms-item:first-child h3, .highlights-cms-item:first-child a");
-var highlights2 = _gsap.default.utils.toArray(".highlights-cms-item:last-child div, .highlights-cms-item:last-child h3, .highlights-cms-item:last-child a");
-_ScrollTrigger.default.create({
-  trigger: ".section_highlights-dark",
-  start: "top 70%",
-  end: "top 50%",
-  invalidateOnRefresh: true,
-  onEnter: function onEnter() {
-    var tl = _gsap.default.timeline();
-    tl.to(".section_highlights-dark h2", {
-      y: "0%",
-      autoAlpha: 1,
-      duration: 0.6,
-      ease: "circ.out"
-    }).to(".highlights_divider", {
-      height: "100%",
-      duration: 0.6,
-      ease: "circ.out"
-    }, "<10%").to(highlights1, {
-      y: "0%",
-      autoAlpha: 1,
-      duration: 0.6,
-      ease: "circ.out",
-      stagger: {
-        each: 0.055
-      }
-    }, "<30%").to(highlights2, {
-      y: "0%",
-      autoAlpha: 1,
-      duration: 0.6,
-      ease: "circ.out",
-      stagger: {
-        each: 0.055
-      }
-    }, "<10%");
-  }
-});
-///////Testimonial slider
-var swiperPagination = document.querySelector(".swiper-pagination");
-var swiperParent = document.querySelector(".swiper");
-swiperParent.appendChild(swiperPagination);
-var swiper = new Swiper(".swiper", {
-  spaceBetween: 30,
-  slidesPerView: 1,
-  loop: true,
-  speed: 1000,
-  draggable: true,
-  autoplay: {
-    delay: 4500,
-    disableOnInteraction: false
-  },
-  pagination: {
-    el: ".swiper-pagination",
-    clickable: true
-  }
-});
-swiper.autoplay.stop();
-_ScrollTrigger.default.create({
-  trigger: ".section_testimonial",
-  start: "top 50%",
-  end: "top 40%",
-  invalidateOnRefresh: true,
-  onEnter: function onEnter() {
-    _gsap.default.to(".testimonial_bg-headshot-small, .testimonial_bg-headshot-medium", {
-      opacity: 1,
-      scale: 1,
-      duration: 0.6,
-      ease: "circ.out",
-      stagger: {
-        each: 0.1,
-        from: "random"
-      }
-    });
-    swiper.autoplay.start();
-  }
-});
-///////Stats
-(0, _gradientText.default)(".stats-mission_number.gradient-text");
-var split = new _splitType.default(".stats-mission_number:not(.gradient-text)", {
-  types: "chars",
-  charClass: "char"
-});
-var statsContainers = document.querySelectorAll(".stats-mission_component > div");
-statsContainers.forEach(function (item, i) {
-  var num = item.querySelectorAll(".stats-mission_number .char");
-  var descr = item.querySelector(".stats-mission_item .bg-gradient-text-clip") || item.querySelector(".stats-mission_item p");
-  var tl = _gsap.default.timeline({
-    delay: i * 0.05,
-    ease: "circ.out",
-    scrollTrigger: {
-      trigger: ".stats-mission_component",
-      start: "top 50%",
-      end: "top 40%",
-      invalidateOnRefresh: true
-    }
-  });
-  tl.to(item, {
-    autoAlpha: 1,
-    y: "0%",
-    stagger: {
-      each: 0.015
-    }
-  }).to(num, {
-    y: "0%",
-    autoAlpha: 1,
-    stagger: {
-      each: 0.03
-    }
-  }, "<25%").to(descr, {
-    y: "0%",
-    autoAlpha: 1
-  }, "<20%");
-});
-/////////2col section
-var split2 = new _splitType.default("[data-animate='section-h'],[data-animate='section-p']", {
-  types: "lines",
-  lineClass: "split-line"
-});
-_ScrollTrigger.default.create({
-  trigger: ".section_layout-2-col",
-  start: "top 60%",
-  end: "top 50%",
-  invalidateOnRefresh: true,
-  onEnter: function onEnter() {
-    var tl = _gsap.default.timeline();
-    _gsap.default.set(".section_layout-2-col [data-animate='section-h'], .section_layout-2-col [data-animate='section-p']", {
-      autoAlpha: 1,
-      duration: 0
-    });
-    tl.to(".section_layout-2-col [data-animate='section-h'] .split-line", {
-      y: "0%",
-      autoAlpha: 1,
-      duration: 0.6,
-      ease: "circ.out",
-      stagger: {
-        each: 0.055
-      }
-    }).to(".section_layout-2-col [data-animate='section-p'] .split-line", {
-      y: "0%",
-      autoAlpha: 1,
-      duration: 0.55,
-      ease: "circ.out",
-      stagger: {
-        each: 0.02
-      }
-    }, "<50%").to(".section_layout-2-col [data-animate='section-a']", {
-      y: "0%",
-      autoAlpha: 1,
-      duration: 0.55,
-      ease: "circ.out"
-    }, "<15%").to(".layout-2-col_image", {
-      height: "100%",
-      duration: 0.8,
-      ease: "circ.out"
-    }, 0);
-  }
-});
-
-//////////News
-_ScrollTrigger.default.create({
-  trigger: ".section_news",
-  start: "top 60%",
-  end: "top 50%",
-  invalidateOnRefresh: true,
-  onEnter: function onEnter() {
-    var tl = _gsap.default.timeline();
-    tl.to(".section_news h2", {
-      y: "0%",
-      autoAlpha: 1,
-      duration: 0.6,
-      ease: "circ.out"
-    }).to(".section_news .news_button-row", {
-      y: "0%",
-      autoAlpha: 1,
-      duration: 0.55,
-      ease: "circ.out"
-    }, "<60%").to(".news_item", {
-      y: "0%",
-      autoAlpha: 1,
-      duration: 0.6,
-      ease: "circ.out",
-      stagger: {
-        each: 0.055
-      }
-    }, "<20%");
-  }
-});
-
-/////Sponsors
-var sponsorsSections = document.querySelectorAll(".sponsors_component");
-sponsorsSections.forEach(function (section) {
-  var heading = section.querySelector("h2");
-  var paragraph = section.querySelector("p");
-  var buttonWrap = section.querySelector(".button-group");
-  var logos = section.querySelectorAll(".sponsors_wrapper");
-  var splitH = new _splitType.default(heading, {
+  //Hero
+  var navLinks = _gsap.default.utils.toArray(".navbar_link:not(.is-dropdown), .navbar_dd-wrap");
+  var splitHeroHeading = new _splitType.default("h1", {
     types: "lines",
     lineClass: "split-line"
   });
-  var splitP = new _splitType.default(paragraph, {
-    type: "lines",
+  var splitHeroParagraph = new _splitType.default(".home-header_content-wrap p", {
     lineClass: "split-line"
   });
+  var heroBtns = document.querySelectorAll(".home-header_content-wrap .button-group a");
+  _gsap.default.set("h1, .home-header_content-wrap p", {
+    autoAlpha: 1
+  });
+  var heroTl = _gsap.default.timeline();
+  heroTl.to(splitHeroHeading.lines, {
+    y: "0%",
+    autoAlpha: 1,
+    duration: 0.6,
+    ease: "circ.out",
+    stagger: {
+      each: 0.055
+    }
+  }, 0).to(splitHeroParagraph.lines, {
+    y: "0%",
+    autoAlpha: 1,
+    duration: 0.55,
+    ease: "circ.out",
+    stagger: {
+      each: 0.02
+    }
+  }, "<50%").to(heroBtns, {
+    y: "0%",
+    autoAlpha: 1,
+    duration: 0.55,
+    ease: "circ.out",
+    stagger: {
+      each: 0.035
+    }
+  }, "<15%").to(".navbar_logo-link", {
+    y: "0%",
+    autoAlpha: 1,
+    duration: 0.55,
+    ease: "circ.out"
+  }, "<15%").to(navLinks, {
+    y: "0%",
+    autoAlpha: 1,
+    duration: 0.55,
+    ease: "circ.out",
+    stagger: {
+      each: 0.035,
+      from: "start"
+    }
+  }, "<10%").to(".navbar_button-wrapper", {
+    y: "0%",
+    autoAlpha: 1,
+    duration: 0.55,
+    ease: "circ.out"
+  }, "<35%");
+  //Section Highlights
+  var highlights1 = _gsap.default.utils.toArray(".highlights-cms-item:first-child div, .highlights-cms-item:first-child h3, .highlights-cms-item:first-child a");
+  var highlights2 = _gsap.default.utils.toArray(".highlights-cms-item:last-child div, .highlights-cms-item:last-child h3, .highlights-cms-item:last-child a");
   _ScrollTrigger.default.create({
-    trigger: section,
-    start: "top 60%",
+    trigger: ".section_highlights-dark",
+    start: "top 70%",
     end: "top 50%",
     invalidateOnRefresh: true,
     onEnter: function onEnter() {
       var tl = _gsap.default.timeline();
-      tl.to(splitH.lines, {
+      tl.to(".section_highlights-dark h2", {
+        y: "0%",
+        autoAlpha: 1,
+        duration: 0.6,
+        ease: "circ.out"
+      }).to(".highlights_divider", {
+        height: "100%",
+        duration: 0.6,
+        ease: "circ.out"
+      }, "<10%").to(highlights1, {
         y: "0%",
         autoAlpha: 1,
         duration: 0.6,
@@ -10194,7 +10003,118 @@ sponsorsSections.forEach(function (section) {
         stagger: {
           each: 0.055
         }
-      }).to(splitP.lines, {
+      }, "<30%").to(highlights2, {
+        y: "0%",
+        autoAlpha: 1,
+        duration: 0.6,
+        ease: "circ.out",
+        stagger: {
+          each: 0.055
+        }
+      }, "<10%");
+    }
+  });
+  ///////Testimonial slider
+  var swiperPagination = document.querySelector(".swiper-pagination");
+  var swiperParent = document.querySelector(".swiper");
+  swiperParent.appendChild(swiperPagination);
+  var swiper = new Swiper(".swiper", {
+    spaceBetween: 30,
+    slidesPerView: 1,
+    loop: true,
+    speed: 1000,
+    draggable: true,
+    autoplay: {
+      delay: 4500,
+      disableOnInteraction: false
+    },
+    pagination: {
+      el: ".swiper-pagination",
+      clickable: true
+    }
+  });
+  swiper.autoplay.stop();
+  _ScrollTrigger.default.create({
+    trigger: ".section_testimonial",
+    start: "top 50%",
+    end: "top 40%",
+    invalidateOnRefresh: true,
+    onEnter: function onEnter() {
+      _gsap.default.to(".testimonial_bg-headshot-small, .testimonial_bg-headshot-medium", {
+        opacity: 1,
+        scale: 1,
+        duration: 0.6,
+        ease: "circ.out",
+        stagger: {
+          each: 0.1,
+          from: "random"
+        }
+      });
+      swiper.autoplay.start();
+    }
+  });
+  ///////Stats
+  (0, _gradientText.default)(".stats-mission_number.gradient-text");
+  var split = new _splitType.default(".stats-mission_number:not(.gradient-text)", {
+    types: "chars",
+    charClass: "char"
+  });
+  var statsContainers = document.querySelectorAll(".stats-mission_component > div");
+  statsContainers.forEach(function (item, i) {
+    var num = item.querySelectorAll(".stats-mission_number .char");
+    var descr = item.querySelector(".stats-mission_item .bg-gradient-text-clip") || item.querySelector(".stats-mission_item p");
+    var tl = _gsap.default.timeline({
+      delay: i * 0.05,
+      ease: "circ.out",
+      scrollTrigger: {
+        trigger: ".stats-mission_component",
+        start: "top 50%",
+        end: "top 40%",
+        invalidateOnRefresh: true
+      }
+    });
+    tl.to(item, {
+      autoAlpha: 1,
+      y: "0%",
+      stagger: {
+        each: 0.015
+      }
+    }).to(num, {
+      y: "0%",
+      autoAlpha: 1,
+      stagger: {
+        each: 0.03
+      }
+    }, "<25%").to(descr, {
+      y: "0%",
+      autoAlpha: 1
+    }, "<20%");
+  });
+  /////////2col section
+  var split2 = new _splitType.default("[data-animate='section-h'],[data-animate='section-p']", {
+    types: "lines",
+    lineClass: "split-line"
+  });
+  _ScrollTrigger.default.create({
+    trigger: ".section_layout-2-col",
+    start: "top 60%",
+    end: "top 50%",
+    invalidateOnRefresh: true,
+    onEnter: function onEnter() {
+      var tl = _gsap.default.timeline();
+      _gsap.default.set(".section_layout-2-col [data-animate='section-h'], .section_layout-2-col [data-animate='section-p']", {
+        autoAlpha: 1,
+        duration: 0
+      });
+      tl.to(".section_layout-2-col [data-animate='section-h'] .split-line", {
+        y: "0%",
+        autoAlpha: 1,
+        duration: 0.6,
+        ease: "circ.out",
+        stagger: {
+          each: 0.055
+        }
+      }).to(".section_layout-2-col [data-animate='section-p'] .split-line", {
         y: "0%",
         autoAlpha: 1,
         duration: 0.55,
@@ -10202,59 +10122,143 @@ sponsorsSections.forEach(function (section) {
         stagger: {
           each: 0.02
         }
-      }, "<55%").to(buttonWrap, {
+      }, "<50%").to(".section_layout-2-col [data-animate='section-a']", {
         y: "0%",
         autoAlpha: 1,
         duration: 0.55,
         ease: "circ.out"
-      }, "<25%").to(logos, {
-        autoAlpha: 1,
+      }, "<15%").to(".layout-2-col_image", {
+        height: "100%",
         duration: 0.8,
+        ease: "circ.out"
+      }, 0);
+    }
+  });
+
+  //////////News
+  _ScrollTrigger.default.create({
+    trigger: ".section_news",
+    start: "top 60%",
+    end: "top 50%",
+    invalidateOnRefresh: true,
+    onEnter: function onEnter() {
+      var tl = _gsap.default.timeline();
+      tl.to(".section_news h2", {
+        y: "0%",
+        autoAlpha: 1,
+        duration: 0.6,
+        ease: "circ.out"
+      }).to(".section_news .news_button-row", {
+        y: "0%",
+        autoAlpha: 1,
+        duration: 0.55,
+        ease: "circ.out"
+      }, "<60%").to(".news_item", {
+        y: "0%",
+        autoAlpha: 1,
+        duration: 0.6,
         ease: "circ.out",
         stagger: {
-          each: 0.05,
-          from: "start"
+          each: 0.055
         }
       }, "<20%");
     }
   });
-});
 
-///////Pre footer CTA section
-_ScrollTrigger.default.create({
-  trigger: ".section_cta",
-  start: "top 60%",
-  end: "top 50%",
-  invalidateOnRefresh: true,
-  onEnter: function onEnter() {
-    var tl = _gsap.default.timeline();
-    _gsap.default.set(".section_cta [data-animate='section-h'], .section_cta [data-animate='section-p']", {
-      autoAlpha: 1,
-      duration: 0
+  /////Sponsors
+  var sponsorsSections = document.querySelectorAll(".sponsors_component");
+  sponsorsSections.forEach(function (section) {
+    var heading = section.querySelector("h2");
+    var paragraph = section.querySelector("p");
+    var buttonWrap = section.querySelector(".button-group");
+    var logos = section.querySelectorAll(".sponsors_wrapper");
+    var splitH = new _splitType.default(heading, {
+      types: "lines",
+      lineClass: "split-line"
     });
-    tl.to(".section_cta [data-animate='section-h'] .split-line", {
-      y: "0%",
-      autoAlpha: 1,
-      duration: 0.6,
-      ease: "circ.out",
-      stagger: {
-        each: 0.055
+    var splitP = new _splitType.default(paragraph, {
+      type: "lines",
+      lineClass: "split-line"
+    });
+    _ScrollTrigger.default.create({
+      trigger: section,
+      start: "top 60%",
+      end: "top 50%",
+      invalidateOnRefresh: true,
+      onEnter: function onEnter() {
+        var tl = _gsap.default.timeline();
+        tl.to(splitH.lines, {
+          y: "0%",
+          autoAlpha: 1,
+          duration: 0.6,
+          ease: "circ.out",
+          stagger: {
+            each: 0.055
+          }
+        }).to(splitP.lines, {
+          y: "0%",
+          autoAlpha: 1,
+          duration: 0.55,
+          ease: "circ.out",
+          stagger: {
+            each: 0.02
+          }
+        }, "<55%").to(buttonWrap, {
+          y: "0%",
+          autoAlpha: 1,
+          duration: 0.55,
+          ease: "circ.out"
+        }, "<25%").to(logos, {
+          autoAlpha: 1,
+          duration: 0.8,
+          ease: "circ.out",
+          stagger: {
+            each: 0.05,
+            from: "start"
+          }
+        }, "<20%");
       }
-    }).to(".section_cta [data-animate='section-p'] .split-line", {
-      y: "0%",
-      autoAlpha: 1,
-      duration: 0.55,
-      ease: "circ.out",
-      stagger: {
-        each: 0.02
-      }
-    }, "<50%").to(".section_cta [data-animate='section-a']", {
-      y: "0%",
-      autoAlpha: 1,
-      duration: 0.55,
-      ease: "circ.out"
-    }, "<15%");
-  }
+    });
+  });
+
+  ///////Pre footer CTA section
+  _ScrollTrigger.default.create({
+    trigger: ".section_cta",
+    start: "top 60%",
+    end: "top 50%",
+    invalidateOnRefresh: true,
+    onEnter: function onEnter() {
+      var tl = _gsap.default.timeline();
+      _gsap.default.set(".section_cta [data-animate='section-h'], .section_cta [data-animate='section-p']", {
+        autoAlpha: 1,
+        duration: 0
+      });
+      tl.to(".section_cta [data-animate='section-h'] .split-line", {
+        y: "0%",
+        autoAlpha: 1,
+        duration: 0.6,
+        ease: "circ.out",
+        stagger: {
+          each: 0.055
+        }
+      }).to(".section_cta [data-animate='section-p'] .split-line", {
+        y: "0%",
+        autoAlpha: 1,
+        duration: 0.55,
+        ease: "circ.out",
+        stagger: {
+          each: 0.02
+        }
+      }, "<50%").to(".section_cta [data-animate='section-a']", {
+        y: "0%",
+        autoAlpha: 1,
+        duration: 0.55,
+        ease: "circ.out"
+      }, "<15%");
+    }
+  });
+}).catch(function () {
+  console.log("Font failed to load");
 });
 },{"gsap":"../node_modules/gsap/index.js","split-type":"../node_modules/split-type/dist/index.js","gsap/ScrollTrigger":"../node_modules/gsap/ScrollTrigger.js","../utils/gradientText":"utils/gradientText.js","../utils/imagesParallax":"utils/imagesParallax.js","../utils/dotsPattern":"utils/dotsPattern.js","../utils/gradientButton":"utils/gradientButton.js","../utils/gradientBg":"utils/gradientBg.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
