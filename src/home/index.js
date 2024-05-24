@@ -195,9 +195,7 @@ document.fonts
       //spin the number in the slide
       gsap.to(
         swiper.slides[swiper.activeIndex].querySelector(".text-is-quote"),
-        {
-          color: "red",
-        }
+        {}
       );
 
       //scale the slide down on exit
