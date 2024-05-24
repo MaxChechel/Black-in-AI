@@ -189,7 +189,7 @@ document.fonts
     });
     swiper.autoplay.stop();
     swiper.on("slideChange", function () {
-      currentSlide.textContent = swiper.activeIndex + 1;
+      let currentSlide = swiper.activeIndex;
       //scale the slide up
       gsap.to(swiper.slides[swiper.activeIndex], { scale: 1, opacity: 1 });
       //spin the number in the slide
