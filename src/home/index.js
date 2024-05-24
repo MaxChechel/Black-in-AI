@@ -189,6 +189,13 @@ document.fonts
     });
     swiper.autoplay.stop();
     let swiperChanged = false;
+
+    // Set initial state for all slides except the first one
+    swiper.slides.forEach((slide, index) => {
+      if (index !== swiper.activeIndex) {
+        gsap.set(slide, { scale: 0.8, opacity: 0.3 });
+      }
+    });
     swiper.on("slideChange", function () {
       swiperChanged = true;
       let currentSlide = swiper.activeIndex;
