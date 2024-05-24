@@ -9788,7 +9788,7 @@ function dotsPattern() {
         _gsap.default.to(circles, {
           opacity: 1,
           stagger: {
-            amount: 0.0025,
+            each: 0.0015,
             from: "random"
           }
         });
@@ -9918,21 +9918,25 @@ document.fonts.load('1em "Tt Hoves Pro Trial Variable"').then(function () {
   (0, _gradientButton.default)();
   (0, _gradientBg.default)();
 
-  //Hero
-  var navLinks = _gsap.default.utils.toArray(".navbar_link:not(.is-dropdown), .navbar_dd-wrap");
-  var splitHeroHeading = new _splitType.default("h1", {
+  //Split lines
+  var splitLines = new _splitType.default("h1, .home-header_content-wrap p, [data-animate='section-h'],[data-animate='section-p'],.sponsors_component h2, .sponsors_component p, .section_bai-programs .bai-programs_head-wrap p", {
     types: "lines",
     lineClass: "split-line"
   });
-  var splitHeroParagraph = new _splitType.default(".home-header_content-wrap p", {
-    lineClass: "split-line"
+  var splitChars = new _splitType.default(".stats-mission_number:not(.gradient-text)", {
+    types: "chars",
+    charClass: "char"
   });
+
+  //Hero
+  var navLinks = _gsap.default.utils.toArray(".navbar_link:not(.is-dropdown), .navbar_dd-wrap");
   var heroBtns = document.querySelectorAll(".home-header_content-wrap .button-group a");
   _gsap.default.set("h1, .home-header_content-wrap p", {
     autoAlpha: 1
   });
   var heroTl = _gsap.default.timeline();
-  heroTl.to(splitHeroHeading.lines, {
+  heroTl.to(".home-header_content-wrap h1 .split-line", {
+    delay: 0.3,
     y: "0%",
     autoAlpha: 1,
     duration: 0.6,
@@ -9940,7 +9944,7 @@ document.fonts.load('1em "Tt Hoves Pro Trial Variable"').then(function () {
     stagger: {
       each: 0.055
     }
-  }, 0).to(splitHeroParagraph.lines, {
+  }, 0).to(".home-header_content-wrap p .split-line", {
     y: "0%",
     autoAlpha: 1,
     duration: 0.55,
@@ -10055,10 +10059,6 @@ document.fonts.load('1em "Tt Hoves Pro Trial Variable"').then(function () {
   });
   ///////Stats
   (0, _gradientText.default)(".stats-mission_number.gradient-text");
-  var split = new _splitType.default(".stats-mission_number:not(.gradient-text)", {
-    types: "chars",
-    charClass: "char"
-  });
   var statsContainers = document.querySelectorAll(".stats-mission_component > div");
   statsContainers.forEach(function (item, i) {
     var num = item.querySelectorAll(".stats-mission_number .char");
@@ -10067,8 +10067,8 @@ document.fonts.load('1em "Tt Hoves Pro Trial Variable"').then(function () {
       delay: i * 0.05,
       ease: "circ.out",
       scrollTrigger: {
-        trigger: ".stats-mission_component",
-        start: "top 50%",
+        trigger: item,
+        start: "top 70%",
         end: "top 40%",
         invalidateOnRefresh: true
       }
@@ -10091,10 +10091,7 @@ document.fonts.load('1em "Tt Hoves Pro Trial Variable"').then(function () {
     }, "<20%");
   });
   /////////2col section
-  var split2 = new _splitType.default("[data-animate='section-h'],[data-animate='section-p']", {
-    types: "lines",
-    lineClass: "split-line"
-  });
+
   _ScrollTrigger.default.create({
     trigger: ".section_layout-2-col",
     start: "top 60%",
@@ -10135,6 +10132,39 @@ document.fonts.load('1em "Tt Hoves Pro Trial Variable"').then(function () {
     }
   });
 
+  /////Work
+  _ScrollTrigger.default.create({
+    trigger: ".section_bai-programs",
+    start: "top 60%",
+    end: "top 50%",
+    invalidateOnRefresh: true,
+    onEnter: function onEnter() {
+      var tl = _gsap.default.timeline();
+      tl.to(".section_bai-programs h2", {
+        y: "0%",
+        autoAlpha: 1,
+        duration: 0.6,
+        ease: "circ.out"
+      }).to(".section_bai-programs .bai-programs_head-wrap p .split-line", {
+        y: "0%",
+        autoAlpha: 1,
+        duration: 0.55,
+        ease: "circ.out",
+        stagger: {
+          each: 0.02
+        }
+      }, "<50%").to(".work_cms-item", {
+        autoAlpha: 1,
+        marginTop: 0,
+        duration: 0.6,
+        ease: "circ.out",
+        stagger: {
+          each: 0.055
+        }
+      }, "<20%");
+    }
+  });
+
   //////////News
   _ScrollTrigger.default.create({
     trigger: ".section_news",
@@ -10161,25 +10191,57 @@ document.fonts.load('1em "Tt Hoves Pro Trial Variable"').then(function () {
         stagger: {
           each: 0.055
         }
-      }, "<20%");
+      }, "<30%");
+    }
+  });
+
+  //Section Events
+  var events1 = _gsap.default.utils.toArray(".events-cms-item:first-child .upcoming-event_image, .events-cms-item:first-child .upcoming-event_copy-wrapper > div, .events-cms-item:first-child h3, .events-cms-item:first-child a");
+  var events2 = _gsap.default.utils.toArray(".events-cms-item:last-child .upcoming-event_image, .events-cms-item:first-child .upcoming-event_copy-wrapper > div, .events-cms-item:last-child h3, .events-cms-item:last-child a");
+  _ScrollTrigger.default.create({
+    trigger: ".section_upcoming-events-dark",
+    start: "top 70%",
+    end: "top 50%",
+    invalidateOnRefresh: true,
+    onEnter: function onEnter() {
+      var tl = _gsap.default.timeline();
+      tl.to(".section_upcoming-events-dark h2", {
+        y: "0%",
+        autoAlpha: 1,
+        duration: 0.6,
+        ease: "circ.out"
+      }).to(".upcoming-events_content-wrap-header a", {
+        y: "0%",
+        autoAlpha: 1,
+        duration: 0.6,
+        ease: "circ.out"
+      }, "<10%").to(events1, {
+        y: "0%",
+        autoAlpha: 1,
+        duration: 0.6,
+        ease: "circ.out",
+        stagger: {
+          each: 0.055
+        }
+      }, "<30%").to(events2, {
+        y: "0%",
+        autoAlpha: 1,
+        duration: 0.6,
+        ease: "circ.out",
+        stagger: {
+          each: 0.055
+        }
+      }, "<10%");
     }
   });
 
   /////Sponsors
   var sponsorsSections = document.querySelectorAll(".sponsors_component");
   sponsorsSections.forEach(function (section) {
-    var heading = section.querySelector("h2");
-    var paragraph = section.querySelector("p");
+    var heading = section.querySelector("h2 .split-line");
+    var paragraph = section.querySelector("p .split-line");
     var buttonWrap = section.querySelector(".button-group");
     var logos = section.querySelectorAll(".sponsors_wrapper");
-    var splitH = new _splitType.default(heading, {
-      types: "lines",
-      lineClass: "split-line"
-    });
-    var splitP = new _splitType.default(paragraph, {
-      type: "lines",
-      lineClass: "split-line"
-    });
     _ScrollTrigger.default.create({
       trigger: section,
       start: "top 60%",
@@ -10187,7 +10249,7 @@ document.fonts.load('1em "Tt Hoves Pro Trial Variable"').then(function () {
       invalidateOnRefresh: true,
       onEnter: function onEnter() {
         var tl = _gsap.default.timeline();
-        tl.to(splitH.lines, {
+        tl.to(heading, {
           y: "0%",
           autoAlpha: 1,
           duration: 0.6,
@@ -10195,7 +10257,7 @@ document.fonts.load('1em "Tt Hoves Pro Trial Variable"').then(function () {
           stagger: {
             each: 0.055
           }
-        }).to(splitP.lines, {
+        }).to(paragraph, {
           y: "0%",
           autoAlpha: 1,
           duration: 0.55,
@@ -10213,10 +10275,10 @@ document.fonts.load('1em "Tt Hoves Pro Trial Variable"').then(function () {
           duration: 0.8,
           ease: "circ.out",
           stagger: {
-            each: 0.05,
-            from: "start"
+            each: 0.025,
+            from: "random"
           }
-        }, "<20%");
+        }, "<0%");
       }
     });
   });
@@ -10224,7 +10286,7 @@ document.fonts.load('1em "Tt Hoves Pro Trial Variable"').then(function () {
   ///////Pre footer CTA section
   _ScrollTrigger.default.create({
     trigger: ".section_cta",
-    start: "top 60%",
+    start: "top 55%",
     end: "top 50%",
     invalidateOnRefresh: true,
     onEnter: function onEnter() {

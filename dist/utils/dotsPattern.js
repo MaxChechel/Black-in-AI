@@ -8416,7 +8416,7 @@ function dotsPattern() {
         _gsap.default.to(circles, {
           opacity: 1,
           stagger: {
-            amount: 0.0025,
+            each: 0.0015,
             from: "random"
           }
         });

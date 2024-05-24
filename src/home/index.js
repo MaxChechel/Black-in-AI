@@ -17,18 +17,27 @@ document.fonts
     gradientButton();
     gradientBg();
 
+    //Split lines
+    const splitLines = new SplitType(
+      "h1, .home-header_content-wrap p, [data-animate='section-h'],[data-animate='section-p'],.sponsors_component h2, .sponsors_component p, .section_bai-programs .bai-programs_head-wrap p",
+      {
+        types: "lines",
+        lineClass: "split-line",
+      }
+    );
+    const splitChars = new SplitType(
+      ".stats-mission_number:not(.gradient-text)",
+      {
+        types: "chars",
+        charClass: "char",
+      }
+    );
+
     //Hero
     const navLinks = gsap.utils.toArray(
       ".navbar_link:not(.is-dropdown), .navbar_dd-wrap"
     );
 
-    const splitHeroHeading = new SplitType("h1", {
-      types: "lines",
-      lineClass: "split-line",
-    });
-    const splitHeroParagraph = new SplitType(".home-header_content-wrap p", {
-      lineClass: "split-line",
-    });
     const heroBtns = document.querySelectorAll(
       ".home-header_content-wrap .button-group a"
     );
@@ -41,8 +50,9 @@ document.fonts
 
     heroTl
       .to(
-        splitHeroHeading.lines,
+        ".home-header_content-wrap h1 .split-line",
         {
+          delay: 0.3,
           y: "0%",
           autoAlpha: 1,
           duration: 0.6,
@@ -52,7 +62,7 @@ document.fonts
         0
       )
       .to(
-        splitHeroParagraph.lines,
+        ".home-header_content-wrap p .split-line",
         {
           y: "0%",
           autoAlpha: 1,
@@ -199,11 +209,6 @@ document.fonts
     ///////Stats
     gradientText(".stats-mission_number.gradient-text");
 
-    const split = new SplitType(".stats-mission_number:not(.gradient-text)", {
-      types: "chars",
-      charClass: "char",
-    });
-
     const statsContainers = document.querySelectorAll(
       ".stats-mission_component > div"
     );
@@ -218,8 +223,8 @@ document.fonts
         delay: i * 0.05,
         ease: "circ.out",
         scrollTrigger: {
-          trigger: ".stats-mission_component",
-          start: "top 50%",
+          trigger: item,
+          start: "top 70%",
           end: "top 40%",
           invalidateOnRefresh: true,
         },
@@ -248,13 +253,7 @@ document.fonts
         );
     });
     /////////2col section
-    const split2 = new SplitType(
-      "[data-animate='section-h'],[data-animate='section-p']",
-      {
-        types: "lines",
-        lineClass: "split-line",
-      }
-    );
+
     ScrollTrigger.create({
       trigger: ".section_layout-2-col",
       start: "top 60%",
@@ -309,6 +308,46 @@ document.fonts
       },
     });
 
+    /////Work
+    ScrollTrigger.create({
+      trigger: ".section_bai-programs",
+      start: "top 60%",
+      end: "top 50%",
+      invalidateOnRefresh: true,
+
+      onEnter: () => {
+        const tl = gsap.timeline();
+        tl.to(".section_bai-programs h2", {
+          y: "0%",
+          autoAlpha: 1,
+          duration: 0.6,
+          ease: "circ.out",
+        })
+          .to(
+            ".section_bai-programs .bai-programs_head-wrap p .split-line",
+            {
+              y: "0%",
+              autoAlpha: 1,
+              duration: 0.55,
+              ease: "circ.out",
+              stagger: { each: 0.02 },
+            },
+            "<50%"
+          )
+          .to(
+            ".work_cms-item",
+            {
+              autoAlpha: 1,
+              marginTop: 0,
+              duration: 0.6,
+              ease: "circ.out",
+              stagger: { each: 0.055 },
+            },
+            "<20%"
+          );
+      },
+    });
+
     //////////News
     ScrollTrigger.create({
       trigger: ".section_news",
@@ -342,7 +381,62 @@ document.fonts
               ease: "circ.out",
               stagger: { each: 0.055 },
             },
-            "<20%"
+            "<30%"
+          );
+      },
+    });
+
+    //Section Events
+    const events1 = gsap.utils.toArray(
+      ".events-cms-item:first-child .upcoming-event_image, .events-cms-item:first-child .upcoming-event_copy-wrapper > div, .events-cms-item:first-child h3, .events-cms-item:first-child a"
+    );
+    const events2 = gsap.utils.toArray(
+      ".events-cms-item:last-child .upcoming-event_image, .events-cms-item:first-child .upcoming-event_copy-wrapper > div, .events-cms-item:last-child h3, .events-cms-item:last-child a"
+    );
+    ScrollTrigger.create({
+      trigger: ".section_upcoming-events-dark",
+      start: "top 70%",
+      end: "top 50%",
+      invalidateOnRefresh: true,
+      onEnter: () => {
+        const tl = gsap.timeline();
+        tl.to(".section_upcoming-events-dark h2", {
+          y: "0%",
+          autoAlpha: 1,
+          duration: 0.6,
+          ease: "circ.out",
+        })
+          .to(
+            ".upcoming-events_content-wrap-header a",
+            {
+              y: "0%",
+              autoAlpha: 1,
+              duration: 0.6,
+              ease: "circ.out",
+            },
+            "<10%"
+          )
+          .to(
+            events1,
+            {
+              y: "0%",
+              autoAlpha: 1,
+              duration: 0.6,
+              ease: "circ.out",
+              stagger: { each: 0.055 },
+            },
+            "<30%"
+          )
+          .to(
+            events2,
+            {
+              y: "0%",
+              autoAlpha: 1,
+              duration: 0.6,
+              ease: "circ.out",
+              stagger: { each: 0.055 },
+            },
+            "<10%"
           );
       },
     });
@@ -350,18 +444,11 @@ document.fonts
     /////Sponsors
     const sponsorsSections = document.querySelectorAll(".sponsors_component");
     sponsorsSections.forEach((section) => {
-      const heading = section.querySelector("h2");
-      const paragraph = section.querySelector("p");
+      const heading = section.querySelector("h2 .split-line");
+      const paragraph = section.querySelector("p .split-line");
       const buttonWrap = section.querySelector(".button-group");
       const logos = section.querySelectorAll(".sponsors_wrapper");
-      const splitH = new SplitType(heading, {
-        types: "lines",
-        lineClass: "split-line",
-      });
-      const splitP = new SplitType(paragraph, {
-        type: "lines",
-        lineClass: "split-line",
-      });
+
       ScrollTrigger.create({
         trigger: section,
         start: "top 60%",
@@ -369,7 +456,7 @@ document.fonts
         invalidateOnRefresh: true,
         onEnter: () => {
           const tl = gsap.timeline();
-          tl.to(splitH.lines, {
+          tl.to(heading, {
             y: "0%",
             autoAlpha: 1,
             duration: 0.6,
@@ -377,7 +464,7 @@ document.fonts
             stagger: { each: 0.055 },
           })
             .to(
-              splitP.lines,
+              paragraph,
               {
                 y: "0%",
                 autoAlpha: 1,
@@ -403,9 +490,9 @@ document.fonts
                 autoAlpha: 1,
                 duration: 0.8,
                 ease: "circ.out",
-                stagger: { each: 0.05, from: "start" },
+                stagger: { each: 0.025, from: "random" },
               },
-              "<20%"
+              "<0%"
             );
         },
       });
@@ -414,7 +501,7 @@ document.fonts
     ///////Pre footer CTA section
     ScrollTrigger.create({
       trigger: ".section_cta",
-      start: "top 60%",
+      start: "top 55%",
       end: "top 50%",
       invalidateOnRefresh: true,
       onEnter: () => {
