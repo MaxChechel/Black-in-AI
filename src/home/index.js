@@ -188,9 +188,9 @@ document.fonts
       },
     });
     swiper.autoplay.stop();
-    console.log(swiper.slides[swiper.previousIndex]);
-    console.log(swiper.slides[swiper.activeIndex]);
+    let swiperChanged = false;
     swiper.on("slideChange", function () {
+      swiperChanged = true;
       let currentSlide = swiper.activeIndex;
       //scale the slide up
       gsap.to(swiper.slides[swiper.activeIndex], { scale: 1, opacity: 1 });
@@ -201,8 +201,10 @@ document.fonts
       );
 
       //scale the slide down on exit
-      let prev = swiper.slides[swiper.previousIndex];
-      gsap.to(prev, { opacity: 0.3, scale: 0.8 });
+      if (swiperChanged === true) {
+        let prev = swiper.slides[swiper.previousIndex];
+        gsap.to(prev, { opacity: 0.3, scale: 0.8 });
+      }
     });
     ScrollTrigger.create({
       trigger: ".section_testimonial",
