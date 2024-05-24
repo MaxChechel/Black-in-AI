@@ -167,6 +167,7 @@ document.fonts
           );
       },
     });
+
     ///////Testimonial slider
     const swiperPagination = document.querySelector(".swiper-pagination");
     const swiperParent = document.querySelector(".swiper");
@@ -187,6 +188,22 @@ document.fonts
       },
     });
     swiper.autoplay.stop();
+    swiper.on("slideChange", function () {
+      currentSlide.textContent = swiper.activeIndex + 1;
+      //scale the slide up
+      gsap.to(swiper.slides[swiper.activeIndex], { scale: 1, opacity: 1 });
+      //spin the number in the slide
+      gsap.to(
+        swiper.slides[swiper.activeIndex].querySelector(".text-is-quote"),
+        {
+          color: "red",
+        }
+      );
+
+      //scale the slide down on exit
+      let prev = swiper.slides[swiper.previousIndex];
+      gsap.to(prev, { opacity: 0.3, scale: 0.8 });
+    });
     ScrollTrigger.create({
       trigger: ".section_testimonial",
       start: "top 50%",
