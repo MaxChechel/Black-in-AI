@@ -300,7 +300,7 @@ document.fonts
             ".layout-2-col_image",
             {
               height: "100%",
-              duration: 0.8,
+              duration: 1.4,
               ease: "circ.out",
             },
             0
