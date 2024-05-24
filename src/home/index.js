@@ -197,20 +197,20 @@ document.fonts
       }
     });
     swiper.on("slideChange", function () {
-      swiperChanged = true;
-      let currentSlide = swiper.activeIndex;
-      //scale the slide up
-      gsap.to(swiper.slides[swiper.activeIndex], { scale: 1, opacity: 1 });
-      //spin the number in the slide
-      gsap.to(
-        swiper.slides[swiper.activeIndex].querySelector(".text-is-quote"),
-        {}
-      );
+      let currentSlide = swiper.slides[swiper.activeIndex];
+      let prevSlide = swiper.slides[swiper.previousIndex];
 
-      //scale the slide down on exit
-      if (swiperChanged === true) {
-        let prev = swiper.slides[swiper.previousIndex];
-        gsap.to(prev, { opacity: 0.3, scale: 0.8 });
+      // Scale up and increase opacity of current slide
+      gsap.to(currentSlide, { scale: 1, opacity: 1 });
+
+      // Apply animation to the specific element in the current slide (example)
+      gsap.to(currentSlide.querySelector(".text-is-quote"), {
+        // Add your animation properties here
+      });
+
+      // Scale down and decrease opacity of previous slide
+      if (swiperChanged) {
+        gsap.to(prevSlide, { opacity: 0.3, scale: 0.8 });
       }
     });
     ScrollTrigger.create({
