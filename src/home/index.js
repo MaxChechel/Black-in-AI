@@ -7,6 +7,7 @@ import imagesParallax from "../utils/imagesParallax";
 import dotsPattern from "../utils/dotsPattern";
 import gradientButton from "../utils/gradientButton";
 import gradientBg from "../utils/gradientBg";
+import testimonialSlider from "../utils/testimonialsSlider";
 gsap.registerPlugin(ScrollTrigger);
 
 document.fonts
@@ -19,7 +20,7 @@ document.fonts
 
     //Split lines
     const splitLines = new SplitType(
-      "h1, .home-header_content-wrap p, [data-animate='section-h'],[data-animate='section-p'],.sponsors_component h2, .sponsors_component p, .section_bai-programs .bai-programs_head-wrap p, .stats-mission_content-right p",
+      "h1, .home-header_content-wrap p, [data-animate='section-h'],[data-animate='section-p'],.sponsors_component h2, .sponsors_component p, .section_bai-programs .bai-programs_head-wrap p, .stats-mission_content-right p, .text-is-quote",
       {
         types: "lines",
         lineClass: "split-line",
@@ -169,69 +170,7 @@ document.fonts
     });
 
     ///////Testimonial slider
-    const swiperPagination = document.querySelector(".swiper-pagination");
-    const swiperParent = document.querySelector(".swiper");
-    swiperParent.appendChild(swiperPagination);
-    const swiper = new Swiper(".swiper", {
-      spaceBetween: 30,
-      slidesPerView: 1,
-      loop: true,
-      speed: 1000,
-      draggable: true,
-      autoplay: {
-        delay: 4500,
-        disableOnInteraction: false,
-      },
-      pagination: {
-        el: ".swiper-pagination",
-        clickable: true,
-      },
-    });
-    swiper.autoplay.stop();
-    let swiperChanged = false;
-
-    // Set initial state for all slides except the first one
-    swiper.slides.forEach((slide, index) => {
-      if (index !== 0) {
-        gsap.set(slide, { scale: 0.8, opacity: 0.3 });
-      }
-    });
-    swiper.on("slideChange", function () {
-      let currentSlide = swiper.slides[swiper.activeIndex];
-      let prevSlide = swiper.slides[swiper.previousIndex];
-
-      // Scale up and increase opacity of current slide
-      gsap.to(currentSlide, { scale: 1, opacity: 1, duration: 1 });
-
-      // Apply animation to the specific element in the current slide (example)
-      gsap.to(currentSlide.querySelector(".text-is-quote"), {
-        // Add your animation properties here
-      });
-
-      // Scale down and decrease opacity of previous slide
-      if (swiperChanged) {
-        gsap.to(prevSlide, { opacity: 0.3, scale: 0.8, duration: 1 });
-      }
-    });
-    ScrollTrigger.create({
-      trigger: ".section_testimonial",
-      start: "top 50%",
-      end: "top 40%",
-      invalidateOnRefresh: true,
-      onEnter: () => {
-        gsap.to(
-          ".testimonial_bg-headshot-small, .testimonial_bg-headshot-medium",
-          {
-            opacity: 1,
-            scale: 1,
-            duration: 0.6,
-            ease: "circ.out",
-            stagger: { each: 0.1, from: "random" },
-          }
-        );
-        swiper.autoplay.start();
-      },
-    });
+    testimonialSlider();
     ///////Stats
     gradientText(".stats-mission_number.gradient-text");
 

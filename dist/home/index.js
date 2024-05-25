@@ -9899,7 +9899,153 @@ function gradientBg() {
     duration: 0
   });
 }
-},{"gsap":"../node_modules/gsap/index.js"}],"home/index.js":[function(require,module,exports) {
+},{"gsap":"../node_modules/gsap/index.js"}],"utils/testimonialsSlider.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = testimonialSlider;
+var _gsap = _interopRequireDefault(require("gsap"));
+var _splitType = _interopRequireDefault(require("split-type"));
+var _ScrollTrigger = _interopRequireDefault(require("gsap/ScrollTrigger"));
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function testimonialSlider() {
+  var splitLines = new _splitType.default(".text-is-quote", {
+    types: "lines",
+    lineClass: "split-line"
+  });
+  var swiperPagination = document.querySelector(".swiper-pagination");
+  var swiperParent = document.querySelector(".swiper");
+  swiperParent.appendChild(swiperPagination);
+  var swiper = new Swiper(".swiper", {
+    spaceBetween: 30,
+    slidesPerView: 1,
+    loop: true,
+    speed: 1000,
+    draggable: true,
+    autoplay: {
+      delay: 4500,
+      disableOnInteraction: false
+    },
+    pagination: {
+      el: ".swiper-pagination",
+      clickable: true
+    }
+  });
+  swiper.autoplay.stop();
+  var swiperChanged = false;
+
+  // Set initial state for all slides except the first one
+  swiper.slides.forEach(function (slide, index) {
+    if (index !== swiper.realIndex) {
+      _gsap.default.set(slide, {
+        scale: 0.8,
+        opacity: 0.3
+      });
+      _gsap.default.set(slide.querySelectorAll("p"), {
+        y: "50%",
+        opacity: 0
+      });
+    }
+  });
+
+  // Ensure the first slide is at its full state on load
+  _gsap.default.set(swiper.slides[swiper.realIndex], {
+    scale: 1,
+    opacity: 1
+  });
+  _gsap.default.set(swiper.slides[swiper.realIndex].querySelectorAll(".text-is-quote .split-line"), {
+    autoAlpha: 1
+  });
+  swiper.on("slideChangeTransitionStart", function () {
+    swiperChanged = true;
+    var currentSlide = swiper.slides[swiper.activeIndex];
+    var prevSlide = swiper.slides[swiper.previousIndex];
+
+    // Create a timeline for the current slide
+    var tlCurrent = _gsap.default.timeline();
+    tlCurrent.to(currentSlide, {
+      scale: 1,
+      opacity: 1,
+      duration: 1
+    });
+    tlCurrent.to(currentSlide.querySelectorAll(".text-is-quote .split-line"), {
+      y: "0%",
+      autoAlpha: 1,
+      duration: 1,
+      ease: "circ.out",
+      stagger: {
+        each: 0.075
+      }
+    }, 0.2).to(currentSlide.querySelectorAll("p"), {
+      y: "0%",
+      autoAlpha: 1,
+      duration: 1,
+      ease: "circ.out",
+      stagger: {
+        each: 0.025
+      }
+    }, "<20%");
+
+    // Create a timeline for the previous slide
+    var tlPrev = _gsap.default.timeline();
+    tlPrev.to(prevSlide, {
+      opacity: 0.3,
+      scale: 0.8,
+      duration: 1
+    });
+    tlPrev.to(prevSlide.querySelectorAll(".text-is-quote .split-line, p"), {
+      opacity: 0,
+      duration: 0.4
+    }).to(prevSlide.querySelectorAll(".text-is-quote .split-line, p"), {
+      y: "50%",
+      duration: 0
+    });
+
+    // Apply additional animations if needed for the current slide elements
+    _gsap.default.to(currentSlide.querySelector(".text-is-quote"), {
+      // Add your animation properties here
+    });
+
+    // Scale down and decrease opacity of previous slide
+    if (swiperChanged) {
+      _gsap.default.to(prevSlide, {
+        opacity: 0.3,
+        scale: 0.8,
+        duration: 1
+      });
+    }
+  });
+  swiper.on("slideChangeTransitionEnd", function () {
+    var currentSlide = swiper.slides[swiper.activeIndex];
+
+    // Apply animation to the specific element in the current slide (example)
+    _gsap.default.to(currentSlide.querySelector(".text-is-quote"), {
+      // Add your animation properties here
+    });
+  });
+  _ScrollTrigger.default.create({
+    trigger: ".section_testimonial",
+    start: "top 50%",
+    end: "top 40%",
+    invalidateOnRefresh: true,
+    onEnter: function onEnter() {
+      _gsap.default.to(".testimonial_bg-headshot-small, .testimonial_bg-headshot-medium", {
+        opacity: 1,
+        scale: 1,
+        duration: 0.6,
+        ease: "circ.out",
+        stagger: {
+          each: 0.1,
+          from: "random"
+        }
+      });
+      swiper.autoplay.start();
+    }
+  });
+}
+},{"gsap":"../node_modules/gsap/index.js","split-type":"../node_modules/split-type/dist/index.js","gsap/ScrollTrigger":"../node_modules/gsap/ScrollTrigger.js"}],"home/index.js":[function(require,module,exports) {
 "use strict";
 
 var _gsap = _interopRequireDefault(require("gsap"));
@@ -9910,6 +10056,7 @@ var _imagesParallax = _interopRequireDefault(require("../utils/imagesParallax"))
 var _dotsPattern = _interopRequireDefault(require("../utils/dotsPattern"));
 var _gradientButton = _interopRequireDefault(require("../utils/gradientButton"));
 var _gradientBg = _interopRequireDefault(require("../utils/gradientBg"));
+var _testimonialsSlider = _interopRequireDefault(require("../utils/testimonialsSlider"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 _gsap.default.registerPlugin(_ScrollTrigger.default);
 document.fonts.load('1em "Tt Hoves Pro Trial Variable"').then(function () {
@@ -9919,7 +10066,7 @@ document.fonts.load('1em "Tt Hoves Pro Trial Variable"').then(function () {
   (0, _gradientBg.default)();
 
   //Split lines
-  var splitLines = new _splitType.default("h1, .home-header_content-wrap p, [data-animate='section-h'],[data-animate='section-p'],.sponsors_component h2, .sponsors_component p, .section_bai-programs .bai-programs_head-wrap p, .stats-mission_content-right p", {
+  var splitLines = new _splitType.default("h1, .home-header_content-wrap p, [data-animate='section-h'],[data-animate='section-p'],.sponsors_component h2, .sponsors_component p, .section_bai-programs .bai-programs_head-wrap p, .stats-mission_content-right p, .text-is-quote", {
     types: "lines",
     lineClass: "split-line"
   });
@@ -10020,80 +10167,7 @@ document.fonts.load('1em "Tt Hoves Pro Trial Variable"').then(function () {
   });
 
   ///////Testimonial slider
-  var swiperPagination = document.querySelector(".swiper-pagination");
-  var swiperParent = document.querySelector(".swiper");
-  swiperParent.appendChild(swiperPagination);
-  var swiper = new Swiper(".swiper", {
-    spaceBetween: 30,
-    slidesPerView: 1,
-    loop: true,
-    speed: 1000,
-    draggable: true,
-    autoplay: {
-      delay: 4500,
-      disableOnInteraction: false
-    },
-    pagination: {
-      el: ".swiper-pagination",
-      clickable: true
-    }
-  });
-  swiper.autoplay.stop();
-  var swiperChanged = false;
-
-  // Set initial state for all slides except the first one
-  swiper.slides.forEach(function (slide, index) {
-    if (index !== 0) {
-      _gsap.default.set(slide, {
-        scale: 0.8,
-        opacity: 0.3
-      });
-    }
-  });
-  swiper.on("slideChange", function () {
-    var currentSlide = swiper.slides[swiper.activeIndex];
-    var prevSlide = swiper.slides[swiper.previousIndex];
-
-    // Scale up and increase opacity of current slide
-    _gsap.default.to(currentSlide, {
-      scale: 1,
-      opacity: 1,
-      duration: 1
-    });
-
-    // Apply animation to the specific element in the current slide (example)
-    _gsap.default.to(currentSlide.querySelector(".text-is-quote"), {
-      // Add your animation properties here
-    });
-
-    // Scale down and decrease opacity of previous slide
-    if (swiperChanged) {
-      _gsap.default.to(prevSlide, {
-        opacity: 0.3,
-        scale: 0.8,
-        duration: 1
-      });
-    }
-  });
-  _ScrollTrigger.default.create({
-    trigger: ".section_testimonial",
-    start: "top 50%",
-    end: "top 40%",
-    invalidateOnRefresh: true,
-    onEnter: function onEnter() {
-      _gsap.default.to(".testimonial_bg-headshot-small, .testimonial_bg-headshot-medium", {
-        opacity: 1,
-        scale: 1,
-        duration: 0.6,
-        ease: "circ.out",
-        stagger: {
-          each: 0.1,
-          from: "random"
-        }
-      });
-      swiper.autoplay.start();
-    }
-  });
+  (0, _testimonialsSlider.default)();
   ///////Stats
   (0, _gradientText.default)(".stats-mission_number.gradient-text");
   var statsContainers = document.querySelectorAll(".stats-mission_component > div");
@@ -10405,7 +10479,7 @@ document.fonts.load('1em "Tt Hoves Pro Trial Variable"').then(function () {
 }).catch(function () {
   console.log("Font failed to load");
 });
-},{"gsap":"../node_modules/gsap/index.js","split-type":"../node_modules/split-type/dist/index.js","gsap/ScrollTrigger":"../node_modules/gsap/ScrollTrigger.js","../utils/gradientText":"utils/gradientText.js","../utils/imagesParallax":"utils/imagesParallax.js","../utils/dotsPattern":"utils/dotsPattern.js","../utils/gradientButton":"utils/gradientButton.js","../utils/gradientBg":"utils/gradientBg.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"gsap":"../node_modules/gsap/index.js","split-type":"../node_modules/split-type/dist/index.js","gsap/ScrollTrigger":"../node_modules/gsap/ScrollTrigger.js","../utils/gradientText":"utils/gradientText.js","../utils/imagesParallax":"utils/imagesParallax.js","../utils/dotsPattern":"utils/dotsPattern.js","../utils/gradientButton":"utils/gradientButton.js","../utils/gradientBg":"utils/gradientBg.js","../utils/testimonialsSlider":"utils/testimonialsSlider.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -10430,7 +10504,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "127.0.0.1" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56486" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54192" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];
