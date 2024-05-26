@@ -9,9 +9,9 @@ export default function testimonialSlider() {
   });
 
   const swiperPagination = document.querySelector(".swiper-pagination");
-  const swiperParent = document.querySelector(".swiper");
+  const swiperParent = document.querySelector(".swiper.testimonial-slider");
   swiperParent.appendChild(swiperPagination);
-  const swiper = new Swiper(".swiper", {
+  const swiper = new Swiper(".swiper.testimonial-slider", {
     spaceBetween: 30,
     slidesPerView: 1,
     loop: true,

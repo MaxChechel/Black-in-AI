@@ -9746,7 +9746,7 @@ var _ScrollTrigger = _interopRequireDefault(require("gsap/ScrollTrigger"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 _gsap.default.registerPlugin(_ScrollTrigger.default);
 function imagesParallax() {
-  _gsap.default.utils.toArray("[data-animate='img-container']").forEach(function (container) {
+  _gsap.default.utils.toArray("[data-animate='img-parallax']").forEach(function (container) {
     var img = container.querySelector("img");
     var tl = _gsap.default.timeline({
       scrollTrigger: {
@@ -9916,9 +9916,9 @@ function testimonialSlider() {
     lineClass: "split-line"
   });
   var swiperPagination = document.querySelector(".swiper-pagination");
-  var swiperParent = document.querySelector(".swiper");
+  var swiperParent = document.querySelector(".swiper.testimonial-slider");
   swiperParent.appendChild(swiperPagination);
-  var swiper = new Swiper(".swiper", {
+  var swiper = new Swiper(".swiper.testimonial-slider", {
     spaceBetween: 30,
     slidesPerView: 1,
     loop: true,
@@ -10066,7 +10066,7 @@ document.fonts.load('1em "Tt Hoves Pro Trial Variable"').then(function () {
   (0, _gradientBg.default)();
 
   //Split lines
-  var splitLines = new _splitType.default("h1, .home-header_content-wrap p, [data-animate='section-h'],[data-animate='section-p'],.sponsors_component h2, .sponsors_component p, .section_bai-programs .bai-programs_head-wrap p, .stats-mission_content-right p, .text-is-quote", {
+  var splitLines = new _splitType.default("h1, .home-header_content-wrap p, [data-animate] h2, [data-animate] p,.sponsors_component h2, .sponsors_component p, .section_bai-programs .bai-programs_head-wrap p, .stats-mission_content-right p, .text-is-quote", {
     types: "lines",
     lineClass: "split-line"
   });
@@ -10250,17 +10250,17 @@ document.fonts.load('1em "Tt Hoves Pro Trial Variable"').then(function () {
   /////////2col section
 
   _ScrollTrigger.default.create({
-    trigger: ".section_layout-2-col",
+    trigger: "[data-animate='section-2-col']",
     start: "top 60%",
     end: "top 50%",
     invalidateOnRefresh: true,
     onEnter: function onEnter() {
       var tl = _gsap.default.timeline();
-      _gsap.default.set(".section_layout-2-col [data-animate='section-h'], .section_layout-2-col [data-animate='section-p']", {
+      _gsap.default.set("[data-animate='section-2-col'] h2, [data-animate='section-2-col'] p", {
         autoAlpha: 1,
         duration: 0
       });
-      tl.to(".section_layout-2-col [data-animate='section-h'] .split-line", {
+      tl.to("[data-animate='section-2-col'] h2 .split-line", {
         y: "0%",
         autoAlpha: 1,
         duration: 0.6,
@@ -10268,7 +10268,7 @@ document.fonts.load('1em "Tt Hoves Pro Trial Variable"').then(function () {
         stagger: {
           each: 0.055
         }
-      }).to(".section_layout-2-col [data-animate='section-p'] .split-line", {
+      }).to("[data-animate='section-2-col'] p .split-line", {
         y: "0%",
         autoAlpha: 1,
         duration: 0.55,
@@ -10276,12 +10276,12 @@ document.fonts.load('1em "Tt Hoves Pro Trial Variable"').then(function () {
         stagger: {
           each: 0.02
         }
-      }, "<50%").to(".section_layout-2-col [data-animate='section-a']", {
+      }, "<50%").to("[data-animate='section-2-col'] a", {
         y: "0%",
         autoAlpha: 1,
         duration: 0.55,
         ease: "circ.out"
-      }, "<15%").to(".layout-2-col_image", {
+      }, "<15%").to("[data-animate='section-2-col'] img", {
         height: "100%",
         duration: 1.4,
         ease: "circ.out"
@@ -10442,17 +10442,17 @@ document.fonts.load('1em "Tt Hoves Pro Trial Variable"').then(function () {
 
   ///////Pre footer CTA section
   _ScrollTrigger.default.create({
-    trigger: ".section_cta",
+    trigger: "[data-animate='section-cta-centered']",
     start: "top 55%",
     end: "top 50%",
     invalidateOnRefresh: true,
     onEnter: function onEnter() {
       var tl = _gsap.default.timeline();
-      _gsap.default.set(".section_cta [data-animate='section-h'], .section_cta [data-animate='section-p']", {
+      _gsap.default.set("[data-animate='section-cta-centered'] h2, [data-animate='section-cta-centered'] p", {
         autoAlpha: 1,
         duration: 0
       });
-      tl.to(".section_cta [data-animate='section-h'] .split-line", {
+      tl.to("[data-animate='section-cta-centered'] h2 .split-line", {
         y: "0%",
         autoAlpha: 1,
         duration: 0.6,
@@ -10460,7 +10460,7 @@ document.fonts.load('1em "Tt Hoves Pro Trial Variable"').then(function () {
         stagger: {
           each: 0.055
         }
-      }).to(".section_cta [data-animate='section-p'] .split-line", {
+      }).to("[data-animate='section-cta-centered'] p .split-line", {
         y: "0%",
         autoAlpha: 1,
         duration: 0.55,
@@ -10468,7 +10468,7 @@ document.fonts.load('1em "Tt Hoves Pro Trial Variable"').then(function () {
         stagger: {
           each: 0.02
         }
-      }, "<50%").to(".section_cta [data-animate='section-a']", {
+      }, "<50%").to("[data-animate='section-cta-centered'] a", {
         y: "0%",
         autoAlpha: 1,
         duration: 0.55,
@@ -10502,9 +10502,9 @@ module.bundle.Module = Module;
 var checkedAssets, assetsToAccept;
 var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
-  var hostname = "127.0.0.1" || location.hostname;
+  var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54192" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49651" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];

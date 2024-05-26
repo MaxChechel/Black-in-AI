@@ -8404,7 +8404,7 @@ var _ScrollTrigger = _interopRequireDefault(require("gsap/ScrollTrigger"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 _gsap.default.registerPlugin(_ScrollTrigger.default);
 function imagesParallax() {
-  _gsap.default.utils.toArray("[data-animate='img-container']").forEach(function (container) {
+  _gsap.default.utils.toArray("[data-animate='img-parallax']").forEach(function (container) {
     var img = container.querySelector("img");
     var tl = _gsap.default.timeline({
       scrollTrigger: {
@@ -8445,9 +8445,9 @@ module.bundle.Module = Module;
 var checkedAssets, assetsToAccept;
 var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
-  var hostname = "127.0.0.1" || location.hostname;
+  var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54192" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49651" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];

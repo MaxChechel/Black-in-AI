@@ -20,7 +20,7 @@ document.fonts
 
     //Split lines
     const splitLines = new SplitType(
-      "h1, .home-header_content-wrap p, [data-animate='section-h'],[data-animate='section-p'],.sponsors_component h2, .sponsors_component p, .section_bai-programs .bai-programs_head-wrap p, .stats-mission_content-right p, .text-is-quote",
+      "h1, .home-header_content-wrap p, [data-animate] h2, [data-animate] p,.sponsors_component h2, .sponsors_component p, .section_bai-programs .bai-programs_head-wrap p, .stats-mission_content-right p, .text-is-quote",
       {
         types: "lines",
         lineClass: "split-line",
@@ -278,20 +278,20 @@ document.fonts
     /////////2col section
 
     ScrollTrigger.create({
-      trigger: ".section_layout-2-col",
+      trigger: "[data-animate='section-2-col']",
       start: "top 60%",
       end: "top 50%",
       invalidateOnRefresh: true,
       onEnter: () => {
         const tl = gsap.timeline();
         gsap.set(
-          ".section_layout-2-col [data-animate='section-h'], .section_layout-2-col [data-animate='section-p']",
+          "[data-animate='section-2-col'] h2, [data-animate='section-2-col'] p",
           {
             autoAlpha: 1,
             duration: 0,
           }
         );
-        tl.to(".section_layout-2-col [data-animate='section-h'] .split-line", {
+        tl.to("[data-animate='section-2-col'] h2 .split-line", {
           y: "0%",
           autoAlpha: 1,
           duration: 0.6,
@@ -299,7 +299,7 @@ document.fonts
           stagger: { each: 0.055 },
         })
           .to(
-            ".section_layout-2-col [data-animate='section-p'] .split-line",
+            "[data-animate='section-2-col'] p .split-line",
             {
               y: "0%",
               autoAlpha: 1,
@@ -310,7 +310,7 @@ document.fonts
             "<50%"
           )
           .to(
-            ".section_layout-2-col [data-animate='section-a']",
+            "[data-animate='section-2-col'] a",
             {
               y: "0%",
               autoAlpha: 1,
@@ -320,7 +320,7 @@ document.fonts
             "<15%"
           )
           .to(
-            ".layout-2-col_image",
+            "[data-animate='section-2-col'] img",
             {
               height: "100%",
               duration: 1.4,
@@ -523,20 +523,20 @@ document.fonts
 
     ///////Pre footer CTA section
     ScrollTrigger.create({
-      trigger: ".section_cta",
+      trigger: "[data-animate='section-cta-centered']",
       start: "top 55%",
       end: "top 50%",
       invalidateOnRefresh: true,
       onEnter: () => {
         const tl = gsap.timeline();
         gsap.set(
-          ".section_cta [data-animate='section-h'], .section_cta [data-animate='section-p']",
+          "[data-animate='section-cta-centered'] h2, [data-animate='section-cta-centered'] p",
           {
             autoAlpha: 1,
             duration: 0,
           }
         );
-        tl.to(".section_cta [data-animate='section-h'] .split-line", {
+        tl.to("[data-animate='section-cta-centered'] h2 .split-line", {
           y: "0%",
           autoAlpha: 1,
           duration: 0.6,
@@ -544,7 +544,7 @@ document.fonts
           stagger: { each: 0.055 },
         })
           .to(
-            ".section_cta [data-animate='section-p'] .split-line",
+            "[data-animate='section-cta-centered'] p .split-line",
             {
               y: "0%",
               autoAlpha: 1,
@@ -555,7 +555,7 @@ document.fonts
             "<50%"
           )
           .to(
-            ".section_cta [data-animate='section-a']",
+            "[data-animate='section-cta-centered'] a",
             {
               y: "0%",
               autoAlpha: 1,

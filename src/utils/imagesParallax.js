@@ -4,7 +4,7 @@ import ScrollTrigger from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
 
 export default function imagesParallax() {
-  gsap.utils.toArray("[data-animate='img-container']").forEach((container) => {
+  gsap.utils.toArray("[data-animate='img-parallax']").forEach((container) => {
     const img = container.querySelector("img");
 
     const tl = gsap.timeline({
