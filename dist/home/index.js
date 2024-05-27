@@ -10077,7 +10077,6 @@ document.fonts.load('1em "Tt Hoves Pro Trial Variable"').then(function () {
 
   //Hero
   var navLinks = _gsap.default.utils.toArray(".navbar_link:not(.is-dropdown), .navbar_dd-wrap");
-  var heroBtns = document.querySelectorAll(".home-header_content-wrap .button-group a");
   _gsap.default.set("h1, .home-header_content-wrap p", {
     autoAlpha: 1
   });
@@ -10099,7 +10098,7 @@ document.fonts.load('1em "Tt Hoves Pro Trial Variable"').then(function () {
     stagger: {
       each: 0.02
     }
-  }, "<50%").to(heroBtns, {
+  }, "<50%").to(".home-header_content-wrap .button-group a", {
     y: "0%",
     autoAlpha: 1,
     duration: 0.55,

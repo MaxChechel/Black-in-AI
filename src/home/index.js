@@ -39,10 +39,6 @@ document.fonts
       ".navbar_link:not(.is-dropdown), .navbar_dd-wrap"
     );
 
-    const heroBtns = document.querySelectorAll(
-      ".home-header_content-wrap .button-group a"
-    );
-
     gsap.set("h1, .home-header_content-wrap p", {
       autoAlpha: 1,
     });
@@ -74,7 +70,7 @@ document.fonts
         "<50%"
       )
       .to(
-        heroBtns,
+        ".home-header_content-wrap .button-group a",
         {
           y: "0%",
           autoAlpha: 1,
