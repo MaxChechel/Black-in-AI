@@ -9955,7 +9955,7 @@ document.fonts.load('1em "Tt Hoves Pro Trial Variable"').then(function () {
   (0, _imagesParallax.default)();
 
   //Split lines
-  var splitLines = new _splitType.default("h1, .about-header_content-right p, [data-animate] h2, [data-animate] p", {
+  var splitLines = new _splitType.default("h1, .about-header_content-right p, [data-animate] h2, [data-animate] p, [data-animate='partnerships-2'] h3", {
     types: "lines",
     lineClass: "split-line"
   });
@@ -10049,6 +10049,76 @@ document.fonts.load('1em "Tt Hoves Pro Trial Variable"').then(function () {
       autoAlpha: 1,
       duration: 0.55
     }, "<10%");
+  });
+
+  /////Partnerships
+  _ScrollTrigger.default.create({
+    trigger: "[data-animate='partnerships-1']",
+    start: "top 60%",
+    end: "top 50%",
+    invalidateOnRefresh: true,
+    onEnter: function onEnter() {
+      var tl = _gsap.default.timeline();
+      tl.to("[data-animate='partnerships-1'] h2 .split-line", {
+        y: "0%",
+        autoAlpha: 1,
+        duration: 0.6,
+        ease: "circ.out",
+        stagger: {
+          each: 0.055
+        }
+      }).to("[data-animate='partnerships-1'] p .split-line", {
+        y: "0%",
+        autoAlpha: 1,
+        duration: 0.55,
+        ease: "circ.out",
+        stagger: {
+          each: 0.02
+        }
+      }, "<55%");
+    }
+  });
+  _ScrollTrigger.default.create({
+    trigger: "[data-animate='partnerships-2']",
+    start: "top 60%",
+    end: "top 50%",
+    invalidateOnRefresh: true,
+    onEnter: function onEnter() {
+      var tl = _gsap.default.timeline();
+      tl.to("[data-animate='partnerships-2'] h3 .split-line", {
+        y: "0%",
+        autoAlpha: 1,
+        duration: 0.6,
+        ease: "circ.out",
+        stagger: {
+          each: 0.055
+        }
+      }).to(".partnership_card", {
+        autoAlpha: 1,
+        y: "0%",
+        stagger: {
+          each: 0.015
+        }
+      }, "<20%").to(".partnership_card img", {
+        autoAlpha: 1,
+        y: "0%",
+        stagger: {
+          each: 0.015
+        }
+      }, "<20%").to("[data-animate='partnerships-2'] p .split-line", {
+        y: "0%",
+        autoAlpha: 1,
+        duration: 0.55,
+        ease: "circ.out",
+        stagger: {
+          each: 0.02
+        }
+      }, "<55%").to("[data-animate='partnerships-2'] a", {
+        y: "0%",
+        autoAlpha: 1,
+        duration: 0.55
+      }, "<10%");
+    }
   });
 
   //////Tier sponsors
