@@ -9,7 +9,7 @@ import dotsPattern from "../utils/dotsPattern";
 import testimonialSlider from "../utils/testimonialsSlider";
 import sliderCursor from "../utils/sliderCoursor";
 import imagesParallax from "../utils/imagesParallax";
-
+gsap.registerPlugin("ScrollTrigger");
 document.fonts
   .load('1em "Tt Hoves Pro Trial Variable"')
   .then(function () {

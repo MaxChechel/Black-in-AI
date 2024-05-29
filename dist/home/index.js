@@ -10309,9 +10309,9 @@ document.fonts.load('1em "Tt Hoves Pro Trial Variable"').then(function () {
         stagger: {
           each: 0.02
         }
-      }, "<50%").to(".work_cms-item", {
+      }, "<50%").to(".work_content", {
         autoAlpha: 1,
-        marginTop: 0,
+        y: "0%",
         duration: 0.6,
         ease: "circ.out",
         stagger: {

@@ -354,10 +354,10 @@ document.fonts
             "<50%"
           )
           .to(
-            ".work_cms-item",
+            ".work_content",
             {
               autoAlpha: 1,
-              marginTop: 0,
+              y: "0%",
               duration: 0.6,
               ease: "circ.out",
               stagger: { each: 0.055 },

@@ -10131,6 +10131,7 @@ var _testimonialsSlider = _interopRequireDefault(require("../utils/testimonialsS
 var _sliderCoursor = _interopRequireDefault(require("../utils/sliderCoursor"));
 var _imagesParallax = _interopRequireDefault(require("../utils/imagesParallax"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+_gsap.default.registerPlugin("ScrollTrigger");
 document.fonts.load('1em "Tt Hoves Pro Trial Variable"').then(function () {
   (0, _gradientBg.default)();
   (0, _ctaGradientBg.default)();

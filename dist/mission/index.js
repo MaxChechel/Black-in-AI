@@ -9946,6 +9946,7 @@ var _dotsPattern = _interopRequireDefault(require("../utils/dotsPattern"));
 var _imagesParallax = _interopRequireDefault(require("../utils/imagesParallax"));
 var _gradientText = _interopRequireDefault(require("../utils/gradientText"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+_gsap.default.registerPlugin("ScrollTrigger");
 document.fonts.load('1em "Tt Hoves Pro Trial Variable"').then(function () {
   (0, _gradientBg.default)();
   (0, _ctaGradientBg.default)();

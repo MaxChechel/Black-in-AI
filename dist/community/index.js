@@ -9885,6 +9885,7 @@ var _gradientBg = _interopRequireDefault(require("../utils/gradientBg"));
 var _dotsPattern = _interopRequireDefault(require("../utils/dotsPattern"));
 var _imagesParallax = _interopRequireDefault(require("../utils/imagesParallax"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+_gsap.default.registerPlugin("ScrollTrigger");
 document.fonts.load('1em "Tt Hoves Pro Trial Variable"').then(function () {
   (0, _gradientBg.default)();
   (0, _dotsPattern.default)();
@@ -9896,13 +9897,6 @@ document.fonts.load('1em "Tt Hoves Pro Trial Variable"').then(function () {
     types: "lines",
     lineClass: "split-line"
   });
-  // const splitChars = new SplitType(
-  //   ".stats-mission_number:not(.gradient-text)",
-  //   {
-  //     types: "chars",
-  //     charClass: "char",
-  //   }
-  // )
 
   //////Hero
   var navLinks = _gsap.default.utils.toArray(".navbar_link:not(.is-dropdown), .navbar_dd-wrap");

@@ -9,6 +9,7 @@ import dotsPattern from "../utils/dotsPattern";
 
 import imagesParallax from "../utils/imagesParallax";
 
+gsap.registerPlugin("ScrollTrigger");
 document.fonts
   .load('1em "Tt Hoves Pro Trial Variable"')
   .then(function () {
@@ -25,13 +26,6 @@ document.fonts
         lineClass: "split-line",
       }
     );
-    // const splitChars = new SplitType(
-    //   ".stats-mission_number:not(.gradient-text)",
-    //   {
-    //     types: "chars",
-    //     charClass: "char",
-    //   }
-    // )
 
     //////Hero
     const navLinks = gsap.utils.toArray(

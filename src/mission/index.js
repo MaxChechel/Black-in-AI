@@ -8,7 +8,7 @@ import gradientBg from "../utils/gradientBg";
 import dotsPattern from "../utils/dotsPattern";
 import imagesParallax from "../utils/imagesParallax";
 import gradientText from "../utils/gradientText";
-
+gsap.registerPlugin("ScrollTrigger");
 document.fonts
   .load('1em "Tt Hoves Pro Trial Variable"')
   .then(function () {
