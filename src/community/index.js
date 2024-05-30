@@ -136,9 +136,7 @@ document.fonts
     });
 
     //////Slider
-    const swiperWrap = document.querySelector(".swiper");
-    const swiperArrows = document.querySelector(".swiper-controls");
-    swiperWrap.append(swiperArrows);
+
     const swiper = new Swiper(".swiper", {
       spaceBetween: 64,
       slidesPerView: "auto",
