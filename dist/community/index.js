@@ -9976,6 +9976,9 @@ document.fonts.load('1em "Tt Hoves Pro Trial Variable"').then(function () {
   });
 
   //////Slider
+  var swiperWrap = document.querySelector(".swiper-wrapper");
+  var swiperArrows = document.querySelector(".swiper-controls");
+  swiperWrap.append(swiperArrows);
   var swiper = new Swiper(".swiper", {
     spaceBetween: 64,
     slidesPerView: "auto",
