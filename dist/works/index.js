@@ -9950,44 +9950,93 @@ document.fonts.load('1em "Tt Hoves Pro Trial Variable"').then(function () {
     ease: "circ.out"
   }, "<35%");
   ///////Blog header
+  if (document.querySelector("[data-animate='blog-header']")) {
+    _ScrollTrigger.default.create({
+      trigger: "[data-animate='blog-header']",
+      start: "top 60%",
+      end: "top 50%",
+      invalidateOnRefresh: true,
+      onEnter: function onEnter() {
+        var tl = _gsap.default.timeline();
+        tl.to("[data-animate='blog-header'] h2 .split-line", {
+          y: "0%",
+          autoAlpha: 1,
+          duration: 0.6,
+          ease: "circ.out",
+          stagger: {
+            each: 0.055
+          }
+        }).to("[data-animate='blog-header'] p .split-line", {
+          y: "0%",
+          autoAlpha: 1,
+          duration: 0.6,
+          ease: "circ.out",
+          stagger: {
+            each: 0.055
+          }
+        }, "<25%");
+        if (document.querySelector("[data-animate='blog-header'] .collection-header_author-wrapper")) {
+          tl.to("[data-animate='blog-header'] .collection-header_author-wrapper", {
+            y: "0%",
+            autoAlpha: 1,
+            duration: 0.6,
+            ease: "circ.out"
+          }, "<25%");
+        }
+        tl.to("[data-animate='blog-header'] .collection-header_image", {
+          opacity: 1
+        }, "<25%");
+      }
+    });
+  }
+  //////Rich text
   _ScrollTrigger.default.create({
-    trigger: "[data-animate='blog-header']",
+    trigger: ".section_collection-content .text-rich-text",
     start: "top 60%",
     end: "top 50%",
     invalidateOnRefresh: true,
     onEnter: function onEnter() {
       var tl = _gsap.default.timeline();
-      tl.to("[data-animate='blog-header'] h2 .split-line", {
+      tl.to(".section_collection-content .text-rich-text", {
         y: "0%",
         autoAlpha: 1,
         duration: 0.6,
-        ease: "circ.out",
-        stagger: {
-          each: 0.055
-        }
-      }).to("[data-animate='blog-header'] p .split-line", {
-        y: "0%",
-        autoAlpha: 1,
-        duration: 0.6,
-        ease: "circ.out",
-        stagger: {
-          each: 0.055
-        }
-      }, "<25%");
-      if (document.querySelector("[data-animate='blog-header'] .collection-header_author-wrapper")) {
-        tl.to("[data-animate='blog-header'] .collection-header_author-wrapper", {
+        ease: "circ.out"
+      });
+    }
+  });
+
+  //////////News
+  if (document.querySelector(".section_news")) {
+    _ScrollTrigger.default.create({
+      trigger: ".section_news",
+      start: "top 60%",
+      end: "top 50%",
+      invalidateOnRefresh: true,
+      onEnter: function onEnter() {
+        var tl = _gsap.default.timeline();
+        tl.to(".section_news h2", {
           y: "0%",
           autoAlpha: 1,
           duration: 0.6,
           ease: "circ.out"
-        }, "<25%");
+        }).to(".section_news .news_button-row", {
+          y: "0%",
+          autoAlpha: 1,
+          duration: 0.55,
+          ease: "circ.out"
+        }, "<60%").to(".news_item", {
+          y: "0%",
+          autoAlpha: 1,
+          duration: 0.6,
+          ease: "circ.out",
+          stagger: {
+            each: 0.055
+          }
+        }, "<30%");
       }
-      tl.to("[data-animate='blog-header'] .collection-header_image", {
-        opacity: 1
-      }, "<25%");
-    }
-  });
-
+    });
+  }
   //////Mission CTA
   _ScrollTrigger.default.create({
     trigger: "[data-animate='2-col-banner']",
