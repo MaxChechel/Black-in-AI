@@ -10146,17 +10146,10 @@ document.fonts.load('1em "Tt Hoves Pro Trial Variable"').then(function () {
     types: "lines",
     lineClass: "split-line"
   });
-  // const splitChars = new SplitType(
-  //   ".stats-mission_number:not(.gradient-text)",
-  //   {
-  //     types: "chars",
-  //     charClass: "char",
-  //   }
-  // )
 
   //////Hero
   var navLinks = _gsap.default.utils.toArray(".navbar_link:not(.is-dropdown), .navbar_dd-wrap");
-  _gsap.default.set("h1, .about-header_content-right p", {
+  _gsap.default.set("h1, .about-header_content-right p, [data-animate] h2, [data-animate] p", {
     autoAlpha: 1
   });
   var heroTl = _gsap.default.timeline();
@@ -10232,6 +10225,34 @@ document.fonts.load('1em "Tt Hoves Pro Trial Variable"').then(function () {
         duration: 0.55,
         ease: "circ.out"
       }, "<15%");
+    }
+  });
+
+  //////Story
+  _ScrollTrigger.default.create({
+    trigger: "[data-animate='story']",
+    start: "top 60%",
+    end: "top 50%",
+    invalidateOnRefresh: true,
+    onEnter: function onEnter() {
+      var tl = _gsap.default.timeline();
+      tl.to("[data-animate='story'] h2 .split-line", {
+        y: "0%",
+        autoAlpha: 1,
+        duration: 0.6,
+        ease: "circ.out",
+        stagger: {
+          each: 0.055
+        }
+      }).to("[data-animate='story'] p .split-line", {
+        y: "0%",
+        autoAlpha: 1,
+        duration: 0.55,
+        ease: "circ.out",
+        stagger: {
+          each: 0.02
+        }
+      }, "<50%");
     }
   });
 
@@ -10408,7 +10429,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57490" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50817" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];

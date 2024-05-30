@@ -32,9 +32,12 @@ document.fonts
       ".navbar_link:not(.is-dropdown), .navbar_dd-wrap"
     );
 
-    gsap.set("h1, .about-header_content-right p", {
-      autoAlpha: 1,
-    });
+    gsap.set(
+      "h1, .about-header_content-right p, [data-animate] h2, [data-animate] p",
+      {
+        autoAlpha: 1,
+      }
+    );
 
     const heroTl = gsap.timeline();
     heroTl
@@ -93,6 +96,62 @@ document.fonts
         "<35%"
       );
 
+    /////////Membership
+    ScrollTrigger.create({
+      trigger: "[data-animate='membership']",
+      start: "top 60%",
+      end: "top 50%",
+      invalidateOnRefresh: true,
+      onEnter: () => {
+        const tl = gsap.timeline();
+        tl.to("[data-animate='membership'] h2 .split-line", {
+          y: "0%",
+          autoAlpha: 1,
+          duration: 0.6,
+          ease: "circ.out",
+          stagger: { each: 0.055 },
+        })
+          .to(
+            "[data-animate='membership'] p .split-line",
+            {
+              y: "0%",
+              autoAlpha: 1,
+              duration: 0.55,
+              ease: "circ.out",
+              stagger: { each: 0.02 },
+            },
+            "<50%"
+          )
+          .to(
+            "[data-animate='membership'] a",
+            {
+              y: "0%",
+              autoAlpha: 1,
+              duration: 0.55,
+              ease: "circ.out",
+            },
+            "<15%"
+          );
+      },
+    });
+
+    //////Slider
+    const swiper = new Swiper(".swiper", {
+      spaceBetween: 64,
+      slidesPerView: "auto",
+      loop: true,
+      speed: 1000,
+      draggable: true,
+      autoplay: {
+        delay: 4500,
+        disableOnInteraction: false,
+      },
+      navigation: {
+        nextEl: ".swiper-button-next",
+        prevEl: ".swiper-button-prev",
+      },
+    });
+
     ///////Offering list
     const ofListSections = document.querySelectorAll(".section_offerings-list");
     ofListSections.forEach((section) => {
@@ -123,6 +182,50 @@ document.fonts
       });
     });
 
+    ////////Initiatives
+
+    const initiativesSections = document.querySelectorAll(
+      "[data-animate='initiatives']"
+    );
+    initiativesSections.forEach((section) => {
+      ScrollTrigger.create({
+        trigger: section,
+        start: "top 60%",
+        end: "top 50%",
+        invalidateOnRefresh: true,
+        onEnter: () => {
+          const tl = gsap.timeline();
+          tl.to(section.querySelectorAll("h2 .split-line"), {
+            y: "0%",
+            autoAlpha: 1,
+            duration: 0.6,
+            ease: "circ.out",
+          })
+            .to(
+              section.querySelectorAll("p .split-line"),
+              {
+                y: "0%",
+                autoAlpha: 1,
+                duration: 0.55,
+                ease: "circ.out",
+                stagger: { each: 0.02 },
+              },
+              "<50%"
+            )
+            .to(
+              section.querySelectorAll(".option_pill-container"),
+              {
+                y: "0%",
+                autoAlpha: 1,
+                duration: 0.6,
+                ease: "circ.out",
+                stagger: { each: 0.055 },
+              },
+              "<30%"
+            );
+        },
+      });
+    });
     ///////Section Highlights
     const highlights1 = gsap.utils.toArray(
       ".highlights-cms-item:first-child div, .highlights-cms-item:first-child h3, .highlights-cms-item:first-child a"

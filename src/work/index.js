@@ -72,6 +72,10 @@ document.fonts
         },
         "<20%"
       )
+      .to(".our-work_container.is-1 .work_cms-item", {
+        pointerEvents: "all",
+        duration: 0,
+      })
       .to(
         ".navbar_logo-link",
         {
@@ -111,7 +115,8 @@ document.fonts
       const heading = section.querySelectorAll("h2 .split-line");
       const text = section.querySelectorAll(".our-work_heading-rt .split-line");
       const cards = section.querySelectorAll(".our-work_content");
-      const imgs = section.querySelectorAll(".our-work_pfp");
+      const items = section.querySelectorAll(".work_cms-item");
+
       ScrollTrigger.create({
         trigger: section,
         start: "top 60%",
@@ -150,9 +155,77 @@ document.fonts
                 stagger: { each: 0.075 },
               },
               "<20%"
-            );
+            )
+            .to(items, {
+              pointerEvents: "all",
+              duration: 0,
+            });
+
+          if (section.querySelectorAll(".button-group")) {
+            tl.to(section.querySelectorAll(".button-group"), {
+              y: "0%",
+              autoAlpha: 1,
+              duration: 0.55,
+              ease: "circ.out",
+            });
+          }
         },
       });
+    });
+
+    //Section Events
+    const events1 = gsap.utils.toArray(
+      ".events-cms-item:first-child .upcoming-event_image, .events-cms-item:first-child .upcoming-event_copy-wrapper > div, .events-cms-item:first-child h3, .events-cms-item:first-child .highlights-link-black"
+    );
+    const events2 = gsap.utils.toArray(
+      ".events-cms-item:last-child .upcoming-event_image, .events-cms-item:first-child .upcoming-event_copy-wrapper > div, .events-cms-item:last-child h3, .events-cms-item:last-child .highlights-link-black"
+    );
+    ScrollTrigger.create({
+      trigger: ".section_upcoming-events",
+      start: "top 70%",
+      end: "top 50%",
+      invalidateOnRefresh: true,
+      onEnter: () => {
+        const tl = gsap.timeline();
+        tl.to(".section_upcoming-events h2", {
+          y: "0%",
+          autoAlpha: 1,
+          duration: 0.6,
+          ease: "circ.out",
+        })
+          .to(
+            ".upcoming-events_content-wrap-header a",
+            {
+              y: "0%",
+              autoAlpha: 1,
+              duration: 0.6,
+              ease: "circ.out",
+            },
+            "<10%"
+          )
+          .to(
+            events1,
+            {
+              y: "0%",
+              autoAlpha: 1,
+              duration: 0.6,
+              ease: "circ.out",
+              stagger: { each: 0.055 },
+            },
+            "<30%"
+          )
+          .to(
+            events2,
+            {
+              y: "0%",
+              autoAlpha: 1,
+              duration: 0.6,
+              ease: "circ.out",
+              stagger: { each: 0.055 },
+            },
+            "<10%"
+          );
+      },
     });
   })
   .catch(function () {

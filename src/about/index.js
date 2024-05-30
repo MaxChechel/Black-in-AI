@@ -29,22 +29,18 @@ document.fonts
         lineClass: "split-line",
       }
     );
-    // const splitChars = new SplitType(
-    //   ".stats-mission_number:not(.gradient-text)",
-    //   {
-    //     types: "chars",
-    //     charClass: "char",
-    //   }
-    // )
 
     //////Hero
     const navLinks = gsap.utils.toArray(
       ".navbar_link:not(.is-dropdown), .navbar_dd-wrap"
     );
 
-    gsap.set("h1, .about-header_content-right p", {
-      autoAlpha: 1,
-    });
+    gsap.set(
+      "h1, .about-header_content-right p, [data-animate] h2, [data-animate] p",
+      {
+        autoAlpha: 1,
+      }
+    );
 
     const heroTl = gsap.timeline();
     heroTl
@@ -146,6 +142,35 @@ document.fonts
             },
             "<15%"
           );
+      },
+    });
+
+    //////Story
+    ScrollTrigger.create({
+      trigger: "[data-animate='story']",
+      start: "top 60%",
+      end: "top 50%",
+      invalidateOnRefresh: true,
+      onEnter: () => {
+        const tl = gsap.timeline();
+
+        tl.to("[data-animate='story'] h2 .split-line", {
+          y: "0%",
+          autoAlpha: 1,
+          duration: 0.6,
+          ease: "circ.out",
+          stagger: { each: 0.055 },
+        }).to(
+          "[data-animate='story'] p .split-line",
+          {
+            y: "0%",
+            autoAlpha: 1,
+            duration: 0.55,
+            ease: "circ.out",
+            stagger: { each: 0.02 },
+          },
+          "<50%"
+        );
       },
     });
 

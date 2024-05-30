@@ -9900,7 +9900,7 @@ document.fonts.load('1em "Tt Hoves Pro Trial Variable"').then(function () {
 
   //////Hero
   var navLinks = _gsap.default.utils.toArray(".navbar_link:not(.is-dropdown), .navbar_dd-wrap");
-  _gsap.default.set("h1, .about-header_content-right p", {
+  _gsap.default.set("h1, .about-header_content-right p, [data-animate] h2, [data-animate] p", {
     autoAlpha: 1
   });
   var heroTl = _gsap.default.timeline();
@@ -9942,6 +9942,56 @@ document.fonts.load('1em "Tt Hoves Pro Trial Variable"').then(function () {
     ease: "circ.out"
   }, "<35%");
 
+  /////////Membership
+  _ScrollTrigger.default.create({
+    trigger: "[data-animate='membership']",
+    start: "top 60%",
+    end: "top 50%",
+    invalidateOnRefresh: true,
+    onEnter: function onEnter() {
+      var tl = _gsap.default.timeline();
+      tl.to("[data-animate='membership'] h2 .split-line", {
+        y: "0%",
+        autoAlpha: 1,
+        duration: 0.6,
+        ease: "circ.out",
+        stagger: {
+          each: 0.055
+        }
+      }).to("[data-animate='membership'] p .split-line", {
+        y: "0%",
+        autoAlpha: 1,
+        duration: 0.55,
+        ease: "circ.out",
+        stagger: {
+          each: 0.02
+        }
+      }, "<50%").to("[data-animate='membership'] a", {
+        y: "0%",
+        autoAlpha: 1,
+        duration: 0.55,
+        ease: "circ.out"
+      }, "<15%");
+    }
+  });
+
+  //////Slider
+  var swiper = new Swiper(".swiper", {
+    spaceBetween: 64,
+    slidesPerView: "auto",
+    loop: true,
+    speed: 1000,
+    draggable: true,
+    autoplay: {
+      delay: 4500,
+      disableOnInteraction: false
+    },
+    navigation: {
+      nextEl: ".swiper-button-next",
+      prevEl: ".swiper-button-prev"
+    }
+  });
+
   ///////Offering list
   var ofListSections = document.querySelectorAll(".section_offerings-list");
   ofListSections.forEach(function (section) {
@@ -9970,6 +10020,42 @@ document.fonts.load('1em "Tt Hoves Pro Trial Variable"').then(function () {
     });
   });
 
+  ////////Initiatives
+
+  var initiativesSections = document.querySelectorAll("[data-animate='initiatives']");
+  initiativesSections.forEach(function (section) {
+    _ScrollTrigger.default.create({
+      trigger: section,
+      start: "top 60%",
+      end: "top 50%",
+      invalidateOnRefresh: true,
+      onEnter: function onEnter() {
+        var tl = _gsap.default.timeline();
+        tl.to(section.querySelectorAll("h2 .split-line"), {
+          y: "0%",
+          autoAlpha: 1,
+          duration: 0.6,
+          ease: "circ.out"
+        }).to(section.querySelectorAll("p .split-line"), {
+          y: "0%",
+          autoAlpha: 1,
+          duration: 0.55,
+          ease: "circ.out",
+          stagger: {
+            each: 0.02
+          }
+        }, "<50%").to(section.querySelectorAll(".option_pill-container"), {
+          y: "0%",
+          autoAlpha: 1,
+          duration: 0.6,
+          ease: "circ.out",
+          stagger: {
+            each: 0.055
+          }
+        }, "<30%");
+      }
+    });
+  });
   ///////Section Highlights
   var highlights1 = _gsap.default.utils.toArray(".highlights-cms-item:first-child div, .highlights-cms-item:first-child h3, .highlights-cms-item:first-child a");
   var highlights2 = _gsap.default.utils.toArray(".highlights-cms-item:last-child div, .highlights-cms-item:last-child h3, .highlights-cms-item:last-child a");
@@ -10103,7 +10189,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57490" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50817" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];

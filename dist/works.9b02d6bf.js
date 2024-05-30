@@ -9774,6 +9774,40 @@ function gradientButton() {
     });
   });
 }
+},{"gsap":"../node_modules/gsap/index.js"}],"utils/ctaGradientBg.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = ctaGradientBg;
+var _gsap = _interopRequireDefault(require("gsap"));
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function ctaGradientBg() {
+  var bgGradientTl = _gsap.default.timeline({
+    repeat: -1
+  });
+  var bgColorChangeTime = 5;
+  bgGradientTl.to(".cta_bg-gradient", {
+    "--cta-bg-gradient-angle": "0deg",
+    duration: 0
+  }).to(".cta_bg-gradient", {
+    "--cta-bg-gradient-angle": "90deg",
+    duration: bgColorChangeTime
+  }).to(".cta_bg-gradient", {
+    "--cta-bg-gradient-angle": "180deg",
+    duration: bgColorChangeTime
+  }).to(".cta_bg-gradient", {
+    "--cta-bg-gradient-angle": "270deg",
+    duration: bgColorChangeTime
+  }).to(".cta_bg-gradient", {
+    "--cta-bg-gradient-angle": "360deg",
+    duration: bgColorChangeTime
+  }).to(".cta_bg-gradient", {
+    "--cta-bg-gradient-angle": "0deg",
+    duration: 0
+  });
+}
 },{"gsap":"../node_modules/gsap/index.js"}],"utils/dotsPattern.js":[function(require,module,exports) {
 "use strict";
 
@@ -9806,60 +9840,84 @@ function dotsPattern() {
     });
   });
 }
-},{"gsap":"../node_modules/gsap/index.js","gsap/ScrollTrigger":"../node_modules/gsap/ScrollTrigger.js"}],"work/index.js":[function(require,module,exports) {
+},{"gsap":"../node_modules/gsap/index.js","gsap/ScrollTrigger":"../node_modules/gsap/ScrollTrigger.js"}],"utils/imagesParallax.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = imagesParallax;
+var _gsap = _interopRequireDefault(require("gsap"));
+var _ScrollTrigger = _interopRequireDefault(require("gsap/ScrollTrigger"));
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+_gsap.default.registerPlugin(_ScrollTrigger.default);
+function imagesParallax() {
+  _gsap.default.utils.toArray("[data-animate='img-parallax']").forEach(function (container) {
+    var img = container.querySelector("img");
+    var tl = _gsap.default.timeline({
+      scrollTrigger: {
+        trigger: container,
+        scrub: true,
+        pin: false
+      }
+    });
+    tl.fromTo(img, {
+      yPercent: -10,
+      ease: "none"
+    }, {
+      yPercent: 10,
+      ease: "none"
+    });
+  });
+}
+},{"gsap":"../node_modules/gsap/index.js","gsap/ScrollTrigger":"../node_modules/gsap/ScrollTrigger.js"}],"works/index.js":[function(require,module,exports) {
 "use strict";
 
 var _gsap = _interopRequireDefault(require("gsap"));
 var _splitType = _interopRequireDefault(require("split-type"));
 var _ScrollTrigger = _interopRequireDefault(require("gsap/ScrollTrigger"));
 var _gradientButton = _interopRequireDefault(require("../utils/gradientButton"));
+var _ctaGradientBg = _interopRequireDefault(require("../utils/ctaGradientBg"));
 var _dotsPattern = _interopRequireDefault(require("../utils/dotsPattern"));
+var _imagesParallax = _interopRequireDefault(require("../utils/imagesParallax"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 _gsap.default.registerPlugin("ScrollTrigger");
 document.fonts.load('1em "Tt Hoves Pro Trial Variable"').then(function () {
+  (0, _ctaGradientBg.default)();
   (0, _dotsPattern.default)();
   (0, _gradientButton.default)();
+  (0, _imagesParallax.default)();
 
   //Split lines
-  var splitLines = new _splitType.default(" [data-animate] h2, [data-animate] .our-work_heading-rt p", {
+  var splitLines = new _splitType.default("h1, .about-header_content-right p, [data-animate] h2, [data-animate] p, .team-header_component h2, .team-header_component p, .team_row-wrap h3", {
     types: "lines",
     lineClass: "split-line"
-  });
-  _gsap.default.set(" h2,  [data-animate] .our-work_heading-rt", {
-    autoAlpha: 1
   });
 
   //////Hero
   var navLinks = _gsap.default.utils.toArray(".navbar_link:not(.is-dropdown), .navbar_dd-wrap");
+  _gsap.default.set("h1, .about-header_content-right p, [data-animate] h2, [data-animate] p", {
+    autoAlpha: 1
+  });
   var heroTl = _gsap.default.timeline();
-  heroTl.to("h1", {
+  heroTl.to("h1 .split-line", {
     delay: 0.3,
     y: "0%",
     autoAlpha: 1,
     duration: 0.6,
-    ease: "circ.out"
-  }, 0).to(".our-work_container.is-1 h2 .split-line", {
-    y: "0%",
-    autoAlpha: 1,
-    duration: 0.6,
-    ease: "circ.out"
-  }, "<20%").to(".our-work_container.is-1 .our-work_heading-rt .split-line", {
-    y: "0%",
-    autoAlpha: 1,
-    duration: 0.6,
-    ease: "circ.out"
-  }, "<50%").to(".our-work_container.is-1 .our-work_content", {
+    ease: "circ.out",
+    stagger: {
+      each: 0.055
+    }
+  }, 0).to(".about-header_content-right p .split-line", {
     y: "0%",
     autoAlpha: 1,
     duration: 0.55,
     ease: "circ.out",
     stagger: {
-      each: 0.055
+      each: 0.02
     }
-  }, "<20%").to(".our-work_container.is-1 .work_cms-item", {
-    pointerEvents: "all",
-    duration: 0
-  }).to(".navbar_logo-link", {
+  }, "<50%").to(".navbar_logo-link", {
     y: "0%",
     autoAlpha: 1,
     duration: 0.55,
@@ -9879,77 +9937,194 @@ document.fonts.load('1em "Tt Hoves Pro Trial Variable"').then(function () {
     duration: 0.55,
     ease: "circ.out"
   }, "<35%");
-  var workSections = document.querySelectorAll("[data-animate='work']:not(.our-work_container.is-1)");
-  workSections.forEach(function (section) {
-    var heading = section.querySelectorAll("h2 .split-line");
-    var text = section.querySelectorAll(".our-work_heading-rt .split-line");
-    var cards = section.querySelectorAll(".our-work_content");
-    var items = section.querySelectorAll(".work_cms-item");
+
+  //////Mission CTA
+  _ScrollTrigger.default.create({
+    trigger: "[data-animate='2-col-banner']",
+    start: "top 60%",
+    end: "top 50%",
+    invalidateOnRefresh: true,
+    onEnter: function onEnter() {
+      var tl = _gsap.default.timeline();
+      _gsap.default.set("[data-animate='2-col-banner'] h2, [data-animate='2-col-banner'] p", {
+        autoAlpha: 1,
+        duration: 0
+      });
+      tl.to("[data-animate='2-col-banner'] h2 .split-line", {
+        y: "0%",
+        autoAlpha: 1,
+        duration: 0.6,
+        ease: "circ.out",
+        stagger: {
+          each: 0.055
+        }
+      }).to("[data-animate='2-col-banner'] p .split-line", {
+        y: "0%",
+        autoAlpha: 1,
+        duration: 0.55,
+        ease: "circ.out",
+        stagger: {
+          each: 0.02
+        }
+      }, "<50%").to("[data-animate='2-col-banner'] a", {
+        y: "0%",
+        autoAlpha: 1,
+        duration: 0.55,
+        ease: "circ.out"
+      }, "<15%");
+    }
+  });
+
+  //////Story
+  _ScrollTrigger.default.create({
+    trigger: "[data-animate='story']",
+    start: "top 60%",
+    end: "top 50%",
+    invalidateOnRefresh: true,
+    onEnter: function onEnter() {
+      var tl = _gsap.default.timeline();
+      tl.to("[data-animate='story'] h2 .split-line", {
+        y: "0%",
+        autoAlpha: 1,
+        duration: 0.6,
+        ease: "circ.out",
+        stagger: {
+          each: 0.055
+        }
+      }).to("[data-animate='story'] p .split-line", {
+        y: "0%",
+        autoAlpha: 1,
+        duration: 0.55,
+        ease: "circ.out",
+        stagger: {
+          each: 0.02
+        }
+      }, "<50%");
+    }
+  });
+
+  ///////Team header
+  _ScrollTrigger.default.create({
+    trigger: ".team-header_component",
+    start: "top 60%",
+    end: "top 50%",
+    invalidateOnRefresh: true,
+    onEnter: function onEnter() {
+      var tl = _gsap.default.timeline();
+      _gsap.default.set(".team-header_component h2, .team-header_component p", {
+        autoAlpha: 1,
+        duration: 0
+      });
+      tl.to(".team-header_component h2 .split-line", {
+        y: "0%",
+        autoAlpha: 1,
+        duration: 0.6,
+        ease: "circ.out",
+        stagger: {
+          each: 0.055
+        }
+      }).to(".team-header_component p .split-line", {
+        y: "0%",
+        autoAlpha: 1,
+        duration: 0.55,
+        ease: "circ.out",
+        stagger: {
+          each: 0.02
+        }
+      }, "<50%");
+    }
+  });
+
+  ///////Team sections
+  var teamSections = document.querySelectorAll(".team_row-wrap");
+  teamSections.forEach(function (section) {
     _ScrollTrigger.default.create({
       trigger: section,
       start: "top 60%",
       end: "top 50%",
       invalidateOnRefresh: true,
       onEnter: function onEnter() {
-        var tl = _gsap.default.timeline();
-        tl.to(heading, {
-          y: "0%",
+        _gsap.default.set(section.querySelector("h3"), {
           autoAlpha: 1,
-          duration: 0.6,
-          ease: "circ.out"
-        }, "<20%").to(text, {
-          y: "0%",
-          autoAlpha: 1,
-          duration: 0.6,
-          ease: "circ.out",
-          stagger: {
-            each: 0.02
-          }
-        }, "<50%").to(cards, {
-          y: "0%",
-          autoAlpha: 1,
-          duration: 0.55,
-          ease: "circ.out",
-          stagger: {
-            each: 0.075
-          }
-        }, "<20%").to(items, {
-          pointerEvents: "all",
           duration: 0
         });
-        if (section.querySelectorAll(".button-group")) {
-          tl.to(section.querySelectorAll(".button-group"), {
-            y: "0%",
-            autoAlpha: 1,
-            duration: 0.55,
-            ease: "circ.out"
-          });
-        }
+        var tl = _gsap.default.timeline();
+        tl.to(section.querySelector("h3 .split-line"), {
+          y: "0%",
+          autoAlpha: 1,
+          duration: 0.6,
+          ease: "circ.out",
+          stagger: {
+            each: 0.055
+          }
+        }).to(section.querySelectorAll(".people_cms-item"), {
+          y: "0%",
+          autoAlpha: 1,
+          duration: 0.6,
+          ease: "circ.out",
+          stagger: {
+            each: 0.025
+          }
+        }, "<50%").to(section.querySelector(".people_divider"), {
+          width: "100%",
+          duration: 0.6,
+          ease: "circ.out"
+        });
       }
     });
   });
+  var peopleSlider = new Swiper(".swiper.people-slider", {
+    slidesPerView: 3,
+    spaceBetween: 120,
+    loop: true,
+    freeMode: true,
+    pagination: false
+  });
 
-  //Section Events
-  var events1 = _gsap.default.utils.toArray(".events-cms-item:first-child .upcoming-event_image, .events-cms-item:first-child .upcoming-event_copy-wrapper > div, .events-cms-item:first-child h3, .events-cms-item:first-child .highlights-link-black");
-  var events2 = _gsap.default.utils.toArray(".events-cms-item:last-child .upcoming-event_image, .events-cms-item:first-child .upcoming-event_copy-wrapper > div, .events-cms-item:last-child h3, .events-cms-item:last-child .highlights-link-black");
+  /////Logo garden
+
   _ScrollTrigger.default.create({
-    trigger: ".section_upcoming-events",
-    start: "top 70%",
+    trigger: "[data-animate='logo-garden']",
+    start: "top 60%",
+    end: "top 50%",
+    invalidateOnRefresh: true,
+    onEnter: function onEnter() {
+      _gsap.default.set("[data-animate='logo-garden'] h2", {
+        autoAlpha: 1,
+        duration: 0
+      });
+      var tl = _gsap.default.timeline();
+      tl.to("[data-animate='logo-garden'] h2 .split-line", {
+        y: "0%",
+        autoAlpha: 1,
+        duration: 0.6,
+        ease: "circ.out"
+      }).to("[data-animate='logo-garden'] .sponsors-dark_wrapper", {
+        autoAlpha: 1,
+        y: "0%",
+        duration: 0.8,
+        ease: "circ.out",
+        stagger: {
+          each: 0.05,
+          from: "start"
+        }
+      }, "<0%");
+    }
+  });
+
+  ///////Pre footer CTA section
+  _ScrollTrigger.default.create({
+    trigger: "[data-animate='section-cta-centered']",
+    start: "top 55%",
     end: "top 50%",
     invalidateOnRefresh: true,
     onEnter: function onEnter() {
       var tl = _gsap.default.timeline();
-      tl.to(".section_upcoming-events h2", {
-        y: "0%",
+      _gsap.default.set("[data-animate='section-cta-centered'] h2, [data-animate='section-cta-centered'] p", {
         autoAlpha: 1,
-        duration: 0.6,
-        ease: "circ.out"
-      }).to(".upcoming-events_content-wrap-header a", {
-        y: "0%",
-        autoAlpha: 1,
-        duration: 0.6,
-        ease: "circ.out"
-      }, "<10%").to(events1, {
+        duration: 0
+      });
+      tl.to("[data-animate='section-cta-centered'] h2 .split-line", {
         y: "0%",
         autoAlpha: 1,
         duration: 0.6,
@@ -9957,21 +10132,26 @@ document.fonts.load('1em "Tt Hoves Pro Trial Variable"').then(function () {
         stagger: {
           each: 0.055
         }
-      }, "<30%").to(events2, {
+      }).to("[data-animate='section-cta-centered'] p .split-line", {
         y: "0%",
         autoAlpha: 1,
-        duration: 0.6,
+        duration: 0.55,
         ease: "circ.out",
         stagger: {
-          each: 0.055
+          each: 0.02
         }
-      }, "<10%");
+      }, "<50%").to("[data-animate='section-cta-centered'] a", {
+        y: "0%",
+        autoAlpha: 1,
+        duration: 0.55,
+        ease: "circ.out"
+      }, "<15%");
     }
   });
 }).catch(function () {
   console.log("Font failed to load");
 });
-},{"gsap":"../node_modules/gsap/index.js","split-type":"../node_modules/split-type/dist/index.js","gsap/ScrollTrigger":"../node_modules/gsap/ScrollTrigger.js","../utils/gradientButton":"utils/gradientButton.js","../utils/dotsPattern":"utils/dotsPattern.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"gsap":"../node_modules/gsap/index.js","split-type":"../node_modules/split-type/dist/index.js","gsap/ScrollTrigger":"../node_modules/gsap/ScrollTrigger.js","../utils/gradientButton":"utils/gradientButton.js","../utils/ctaGradientBg":"utils/ctaGradientBg.js","../utils/dotsPattern":"utils/dotsPattern.js","../utils/imagesParallax":"utils/imagesParallax.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -9996,7 +10176,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50817" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57490" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];
@@ -10140,5 +10320,5 @@ function hmrAcceptRun(bundle, id) {
     return true;
   }
 }
-},{}]},{},["../node_modules/parcel-bundler/src/builtins/hmr-runtime.js","work/index.js"], null)
-//# sourceMappingURL=/work/index.js.map
+},{}]},{},["../node_modules/parcel-bundler/src/builtins/hmr-runtime.js","works/index.js"], null)
+//# sourceMappingURL=/works.9b02d6bf.js.map
