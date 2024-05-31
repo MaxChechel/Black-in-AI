@@ -248,8 +248,8 @@ document.fonts
     });
 
     const peopleSlider = new Swiper(".swiper.people-slider", {
-      slidesPerView: 3,
-      spaceBetween: 120,
+      slidesPerView: "auto",
+      spaceBetween: 64,
       loop: true,
       freeMode: true,
       pagination: false,

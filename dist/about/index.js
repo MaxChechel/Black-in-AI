@@ -10327,8 +10327,8 @@ document.fonts.load('1em "Tt Hoves Pro Trial Variable"').then(function () {
     });
   });
   var peopleSlider = new Swiper(".swiper.people-slider", {
-    slidesPerView: 3,
-    spaceBetween: 120,
+    slidesPerView: "auto",
+    spaceBetween: 64,
     loop: true,
     freeMode: true,
     pagination: false
