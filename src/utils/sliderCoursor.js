@@ -11,7 +11,7 @@ export default function sliderCursor() {
 
     function moveCursor(e) {
       gsap.to(cursor, {
-        duration: 0.5,
+        duration: 0.2,
         x: e.clientX,
         y: e.clientY,
       });
