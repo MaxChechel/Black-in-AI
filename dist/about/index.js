@@ -10284,7 +10284,7 @@ document.fonts.load('1em "Tt Hoves Pro Trial Variable"').then(function () {
         stagger: {
           each: 0.02
         }
-      }, "<50%");
+      }, "<10%");
     }
   });
 

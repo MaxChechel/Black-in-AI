@@ -201,7 +201,7 @@ document.fonts
             ease: "circ.out",
             stagger: { each: 0.02 },
           },
-          "<50%"
+          "<10%"
         );
       },
     });
