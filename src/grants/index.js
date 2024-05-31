@@ -1,8 +1,9 @@
 import gsap from "gsap";
+import ScrollTrigger from "gsap/ScrollTrigger";
 import SplitType from "split-type";
 import gradientButton from "../utils/gradientButton";
 import dotsPattern from "../utils/dotsPattern";
-
+gsap.registerPlugin("ScrollTrigger");
 document.fonts
   .load('1em "Tt Hoves Pro Trial Variable"')
   .then(function () {
