@@ -1,13 +1,11 @@
 import gsap from "gsap";
 import SplitType from "split-type";
 import gradientButton from "../utils/gradientButton";
-import ctaGradientBg from "../utils/ctaGradientBg";
 import dotsPattern from "../utils/dotsPattern";
 
 document.fonts
   .load('1em "Tt Hoves Pro Trial Variable"')
   .then(function () {
-    ctaGradientBg();
     dotsPattern();
     gradientButton();
 

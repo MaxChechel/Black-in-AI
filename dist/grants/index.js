@@ -6874,40 +6874,6 @@ function gradientButton() {
     });
   });
 }
-},{"gsap":"../node_modules/gsap/index.js"}],"utils/ctaGradientBg.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = ctaGradientBg;
-var _gsap = _interopRequireDefault(require("gsap"));
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-function ctaGradientBg() {
-  var bgGradientTl = _gsap.default.timeline({
-    repeat: -1
-  });
-  var bgColorChangeTime = 5;
-  bgGradientTl.to(".cta_bg-gradient", {
-    "--cta-bg-gradient-angle": "0deg",
-    duration: 0
-  }).to(".cta_bg-gradient", {
-    "--cta-bg-gradient-angle": "90deg",
-    duration: bgColorChangeTime
-  }).to(".cta_bg-gradient", {
-    "--cta-bg-gradient-angle": "180deg",
-    duration: bgColorChangeTime
-  }).to(".cta_bg-gradient", {
-    "--cta-bg-gradient-angle": "270deg",
-    duration: bgColorChangeTime
-  }).to(".cta_bg-gradient", {
-    "--cta-bg-gradient-angle": "360deg",
-    duration: bgColorChangeTime
-  }).to(".cta_bg-gradient", {
-    "--cta-bg-gradient-angle": "0deg",
-    duration: 0
-  });
-}
 },{"gsap":"../node_modules/gsap/index.js"}],"../node_modules/gsap/Observer.js":[function(require,module,exports) {
 "use strict";
 
@@ -9846,11 +9812,9 @@ function dotsPattern() {
 var _gsap = _interopRequireDefault(require("gsap"));
 var _splitType = _interopRequireDefault(require("split-type"));
 var _gradientButton = _interopRequireDefault(require("../utils/gradientButton"));
-var _ctaGradientBg = _interopRequireDefault(require("../utils/ctaGradientBg"));
 var _dotsPattern = _interopRequireDefault(require("../utils/dotsPattern"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 document.fonts.load('1em "Tt Hoves Pro Trial Variable"').then(function () {
-  (0, _ctaGradientBg.default)();
   (0, _dotsPattern.default)();
   (0, _gradientButton.default)();
 
@@ -9948,7 +9912,7 @@ document.fonts.load('1em "Tt Hoves Pro Trial Variable"').then(function () {
 }).catch(function () {
   console.log("Font failed to load");
 });
-},{"gsap":"../node_modules/gsap/index.js","split-type":"../node_modules/split-type/dist/index.js","../utils/gradientButton":"utils/gradientButton.js","../utils/ctaGradientBg":"utils/ctaGradientBg.js","../utils/dotsPattern":"utils/dotsPattern.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"gsap":"../node_modules/gsap/index.js","split-type":"../node_modules/split-type/dist/index.js","../utils/gradientButton":"utils/gradientButton.js","../utils/dotsPattern":"utils/dotsPattern.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
