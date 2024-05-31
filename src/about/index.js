@@ -256,7 +256,6 @@ document.fonts
     });
 
     /////Logo garden
-
     ScrollTrigger.create({
       trigger: "[data-animate='logo-garden']",
       start: "top 60%",

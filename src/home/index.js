@@ -507,6 +507,7 @@ document.fonts
               logos,
               {
                 autoAlpha: 1,
+                y: "0%",
                 duration: 0.8,
                 ease: "circ.out",
                 stagger: { each: 0.025, from: "random" },

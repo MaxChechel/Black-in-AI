@@ -10428,6 +10428,7 @@ document.fonts.load('1em "Tt Hoves Pro Trial Variable"').then(function () {
           ease: "circ.out"
         }, "<25%").to(logos, {
           autoAlpha: 1,
+          y: "0%",
           duration: 0.8,
           ease: "circ.out",
           stagger: {

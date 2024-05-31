@@ -10335,7 +10335,6 @@ document.fonts.load('1em "Tt Hoves Pro Trial Variable"').then(function () {
   });
 
   /////Logo garden
-
   _ScrollTrigger.default.create({
     trigger: "[data-animate='logo-garden']",
     start: "top 60%",
