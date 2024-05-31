@@ -1,5 +1,5 @@
 import gsap from "gsap";
-
+import SplitType from "split-type";
 import gradientButton from "../utils/gradientButton";
 import ctaGradientBg from "../utils/ctaGradientBg";
 import dotsPattern from "../utils/dotsPattern";
@@ -10,6 +10,12 @@ document.fonts
     ctaGradientBg();
     dotsPattern();
     gradientButton();
+
+    //Split lines
+    const splitLines = new SplitType("[data-animate] h2, [data-animate] p", {
+      types: "lines",
+      lineClass: "split-line",
+    });
 
     //////Hero
     const navLinks = gsap.utils.toArray(
