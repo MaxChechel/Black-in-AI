@@ -8591,6 +8591,36 @@ document.fonts.load('1em "Tt Hoves Pro Trial Variable"').then(function () {
     duration: 0.55,
     ease: "circ.out"
   }, "<35%");
+
+  /////Logo garden
+  ScrollTrigger.create({
+    trigger: "[data-animate='logo-garden']",
+    start: "top 60%",
+    end: "top 50%",
+    invalidateOnRefresh: true,
+    onEnter: function onEnter() {
+      _gsap.default.set("[data-animate='logo-garden'] h2", {
+        autoAlpha: 1,
+        duration: 0
+      });
+      var tl = _gsap.default.timeline();
+      tl.to("[data-animate='logo-garden'] h2 .split-line", {
+        y: "0%",
+        autoAlpha: 1,
+        duration: 0.6,
+        ease: "circ.out"
+      }).to("[data-animate='logo-garden'] .sponsors-dark_wrapper", {
+        autoAlpha: 1,
+        y: "0%",
+        duration: 0.8,
+        ease: "circ.out",
+        stagger: {
+          each: 0.05,
+          from: "start"
+        }
+      }, "<0%");
+    }
+  });
 }).catch(function () {
   console.log("Font failed to load");
 });
