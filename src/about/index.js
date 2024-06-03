@@ -245,14 +245,15 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  const peopleSlider = new Swiper(".swiper.people-slider", {
-    slidesPerView: "auto",
-    spaceBetween: 64,
-    loop: true,
-    freeMode: true,
-    pagination: false,
-  });
-
+  if (document.querySelector(".section_people-slider")) {
+    const peopleSlider = new Swiper(".swiper.people-slider", {
+      slidesPerView: "auto",
+      spaceBetween: 64,
+      loop: true,
+      freeMode: true,
+      pagination: false,
+    });
+  }
   /////Logo garden
   ScrollTrigger.create({
     trigger: "[data-animate='logo-garden']",
