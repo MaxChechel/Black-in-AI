@@ -39,21 +39,23 @@ export default function sliderCursor() {
       });
     })();
     const fullSlider = document.querySelector("[data-custom-cursor]");
-    fullSlider.addEventListener("mouseenter", function () {
-      gsap.to(cursor, {
-        scale: 1,
-        opacity: 1,
-        ease: "power4out",
-        duration: 0.4,
+    if (fullSlider) {
+      fullSlider.addEventListener("mouseenter", function () {
+        gsap.to(cursor, {
+          scale: 1,
+          opacity: 1,
+          ease: "power4out",
+          duration: 0.4,
+        });
       });
-    });
-    fullSlider.addEventListener("mouseleave", function () {
-      gsap.to(cursor, {
-        scale: 0,
-        opacity: 0,
-        ease: "power4out",
-        duration: 0.3,
+      fullSlider.addEventListener("mouseleave", function () {
+        gsap.to(cursor, {
+          scale: 0,
+          opacity: 0,
+          ease: "power4out",
+          duration: 0.3,
+        });
       });
-    });
+    }
   }
 }
