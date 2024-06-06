@@ -50,6 +50,11 @@ export default function testimonialsSlider() {
       ),
       { autoAlpha: 1 }
     );
+    console.log(
+      swiper.slides[swiper.realIndex].querySelectorAll(
+        ".text-is-quote .split-line"
+      )
+    );
     swiper.on("slideChangeTransitionStart", function () {
       swiperChanged = true;
 
