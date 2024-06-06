@@ -10,6 +10,7 @@ import testimonialSlider from "../utils/testimonialsSlider";
 import sliderCursor from "../utils/sliderCoursor";
 import imagesParallax from "../utils/imagesParallax";
 gsap.registerPlugin("ScrollTrigger");
+//
 document.fonts
   .load('1em "DM Sans"')
   .then(function () {
