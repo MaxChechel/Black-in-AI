@@ -1,8 +1,9 @@
 import gsap from "gsap";
 import SplitType from "split-type";
 import ScrollTrigger from "gsap/ScrollTrigger";
-gsap.registerPlugin(ScrollTrigger);
+
 export default function testimonialsSlider() {
+  gsap.registerPlugin(ScrollTrigger);
   if (document.querySelector(".section_testimonial")) {
     const splitLines = new SplitType(".text-is-quote", {
       types: "lines",

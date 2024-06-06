@@ -1,8 +1,8 @@
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 
-gsap.registerPlugin(ScrollTrigger);
 export default function dotsPattern() {
+  gsap.registerPlugin(ScrollTrigger);
   if (document.querySelectorAll(".dots-pattern")) {
     const patterns = document.querySelectorAll(".dots-pattern");
 
