@@ -160,8 +160,6 @@ document.fonts
       },
     });
 
-    ///////Testimonial slider
-    testimonialSlider();
     ///////Stats
     gradientText(".stats-mission_number.gradient-text");
 
