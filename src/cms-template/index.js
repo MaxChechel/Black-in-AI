@@ -2,7 +2,10 @@ import gsap from "gsap";
 import SplitType from "split-type";
 import ScrollTrigger from "gsap/ScrollTrigger";
 
+import gradientButton from "../utils/gradientButton";
 import gradientBg from "../utils/gradientBg";
+import dotsPattern from "../utils/dotsPattern";
+import imagesParallax from "../utils/imagesParallax";
 
 gsap.registerPlugin("ScrollTrigger");
 
@@ -10,6 +13,9 @@ document.fonts
   .load('1em "DM Sans"')
   .then(function () {
     gradientBg();
+    dotsPattern();
+    gradientButton();
+    imagesParallax();
 
     //Split lines
     const splitLines = new SplitType(

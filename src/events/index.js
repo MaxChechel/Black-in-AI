@@ -1,11 +1,15 @@
 import gsap from "gsap";
 
+import gradientButton from "../utils/gradientButton";
 import ctaGradientBg from "../utils/ctaGradientBg";
+import dotsPattern from "../utils/dotsPattern";
 
 document.fonts
   .load('1em "DM Sans"')
   .then(function () {
     ctaGradientBg();
+    dotsPattern();
+    gradientButton();
 
     //////Hero
     const navLinks = gsap.utils.toArray(

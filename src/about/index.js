@@ -2,19 +2,24 @@ import gsap from "gsap";
 import SplitType from "split-type";
 import ScrollTrigger from "gsap/ScrollTrigger";
 
+import gradientButton from "../utils/gradientButton";
 import ctaGradientBg from "../utils/ctaGradientBg";
 import gradientBg from "../utils/gradientBg";
-
+import dotsPattern from "../utils/dotsPattern";
+import testimonialSlider from "../utils/testimonialsSlider";
 import sliderCursor from "../utils/sliderCoursor";
-
+import imagesParallax from "../utils/imagesParallax";
 gsap.registerPlugin("ScrollTrigger");
 document.fonts
   .load('1em "DM Sans"')
   .then(function () {
     gradientBg();
     ctaGradientBg();
-
+    dotsPattern();
+    testimonialSlider();
     sliderCursor();
+    gradientButton();
+    imagesParallax();
 
     //Split lines
     const splitLines = new SplitType(

@@ -2,13 +2,21 @@ import gsap from "gsap";
 import SplitType from "split-type";
 import ScrollTrigger from "gsap/ScrollTrigger";
 
+import gradientButton from "../utils/gradientButton";
+
 import gradientBg from "../utils/gradientBg";
+import dotsPattern from "../utils/dotsPattern";
+
+import imagesParallax from "../utils/imagesParallax";
 
 gsap.registerPlugin("ScrollTrigger");
 document.fonts
   .load('1em "DM Sans"')
   .then(function () {
     gradientBg();
+    dotsPattern();
+    gradientButton();
+    imagesParallax();
 
     //Split lines
     const splitLines = new SplitType(
@@ -128,23 +136,23 @@ document.fonts
     });
 
     //////Slider
-    if (document.querySelector(".swiper.team-slider")) {
-      const swiper = new Swiper(".swiper.team-slider", {
-        spaceBetween: 64,
-        slidesPerView: "auto",
-        loop: true,
-        speed: 1000,
-        draggable: true,
-        autoplay: {
-          delay: 4500,
-          disableOnInteraction: false,
-        },
-        navigation: {
-          nextEl: ".swiper-button-next",
-          prevEl: ".swiper-button-prev",
-        },
-      });
-    }
+
+    const swiper = new Swiper(".swiper", {
+      spaceBetween: 64,
+      slidesPerView: "auto",
+      loop: true,
+      speed: 1000,
+      draggable: true,
+      autoplay: {
+        delay: 4500,
+        disableOnInteraction: false,
+      },
+      navigation: {
+        nextEl: ".swiper-button-next",
+        prevEl: ".swiper-button-prev",
+      },
+    });
+
     ///////Offering list
     const ofListSections = document.querySelectorAll(".section_offerings-list");
     ofListSections.forEach((section) => {
