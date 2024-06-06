@@ -2,7 +2,7 @@ import gsap from "gsap";
 import SplitType from "split-type";
 import ScrollTrigger from "gsap/ScrollTrigger";
 
-export default function testimonialSlider() {
+if (document.querySelector(".section_testimonial")) {
   const splitLines = new SplitType(".text-is-quote", {
     types: "lines",
     lineClass: "split-line",
