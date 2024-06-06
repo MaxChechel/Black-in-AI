@@ -3,19 +3,14 @@ import SplitType from "split-type";
 import ScrollTrigger from "gsap/ScrollTrigger";
 
 import gradientText from "../utils/gradientText";
-import imagesParallax from "../utils/imagesParallax";
-import dotsPattern from "../utils/dotsPattern";
-import gradientButton from "../utils/gradientButton";
+
 import gradientBg from "../utils/gradientBg";
-import testimonialSlider from "../utils/testimonialsSlider";
+
 gsap.registerPlugin(ScrollTrigger);
 
 document.fonts
   .load('1em "DM Sans"')
   .then(function () {
-    imagesParallax();
-    dotsPattern();
-    gradientButton();
     gradientBg();
 
     //Split lines

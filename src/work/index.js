@@ -1,15 +1,11 @@
 import gsap from "gsap";
 import SplitType from "split-type";
 import ScrollTrigger from "gsap/ScrollTrigger";
-import gradientButton from "../utils/gradientButton";
-import dotsPattern from "../utils/dotsPattern";
+
 gsap.registerPlugin("ScrollTrigger");
 document.fonts
   .load('1em "DM Sans"')
   .then(function () {
-    dotsPattern();
-    gradientButton();
-
     //Split lines
     const splitLines = new SplitType(
       " [data-animate] h2, [data-animate] .our-work_heading-rt p",
