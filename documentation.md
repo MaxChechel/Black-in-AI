@@ -1,5 +1,7 @@
 # Black in AI custom code doc
 
+We're using GSAP for animations on this website.
+
 ## Scripts
 
 Code is bundled and serving to the each page through JSDelivr free CDN from Github repository from /dist.
