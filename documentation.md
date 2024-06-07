@@ -4,15 +4,11 @@ We're using GSAP for animations on this website.
 
 ## Scripts
 
-Code is bundled and serving to the each page through JSDelivr free CDN from Github repository from /dist.
-Repository:
+Dependencies scripts connected in global site settings.
+Functions that used on all pages pasted into global site settings.
+Code located on the each page.
+Repository for refference:
 https://github.com/MaxChechel/Black-in-AI
-
-## Structure
-
-We're usign ES6 modules. Utils functions placed in /utils and calling in each file where they needed.
-Let's say if you want to add testimonial slider to the page you simply need to import testimonialsSlider.js into your file
-and then call that function.
 
 ## Initial styles for elements
 
@@ -31,4 +27,4 @@ To avoid bugs we using font load detection for "DM Sans". Code running after fon
 ## Sliders
 
 All sliders in the project built with Swiper JS. CSS styles for customization located inside Global Styles CSS symbol.
-Script and default CSS loaded in a project global settings.
+Default CSS loaded in a project global settings.

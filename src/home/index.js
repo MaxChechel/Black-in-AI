@@ -18,6 +18,7 @@ document.fonts
     gradientButton();
     gradientBg();
     testimonialSlider();
+
     //Split lines
     const splitLines = new SplitType(
       "h1, .home-header_content-wrap p, [data-animate] h2, [data-animate] p,.sponsors_component h2, .sponsors_component p, .section_bai-programs .bai-programs_head-wrap p, .stats-mission_content-right p, .text-is-quote",
