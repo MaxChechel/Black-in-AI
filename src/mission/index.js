@@ -491,27 +491,14 @@ document.fonts
       end: "top 50%",
       invalidateOnRefresh: true,
       onEnter: () => {
-        gsap.set("[data-animate='logo-garden'] h2", {
-          autoAlpha: 1,
-          duration: 0,
-        });
         const tl = gsap.timeline();
-        tl.to("[data-animate='logo-garden'] h2 .split-line", {
-          y: "0%",
+        tl.to("[data-animate='logo-garden'] .sponsors_wrapper", {
           autoAlpha: 1,
-          duration: 0.6,
+          y: "0%",
+          duration: 0.8,
           ease: "circ.out",
-        }).to(
-          "[data-animate='logo-garden'] .sponsors_wrapper",
-          {
-            autoAlpha: 1,
-            y: "0%",
-            duration: 0.8,
-            ease: "circ.out",
-            stagger: { each: 0.05, from: "start" },
-          },
-          "<0%"
-        );
+          stagger: { each: 0.05, from: "start" },
+        });
       },
     });
 
