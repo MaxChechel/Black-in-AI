@@ -502,7 +502,7 @@ document.fonts
           duration: 0.6,
           ease: "circ.out",
         }).to(
-          "[data-animate='logo-garden'] .sponsors-dark_wrapper",
+          "[data-animate='logo-garden'] .sponsors_wrapper",
           {
             autoAlpha: 1,
             y: "0%",
